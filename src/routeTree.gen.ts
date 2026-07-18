@@ -9,38 +9,92 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LeaderboardRouteImport } from './routes/leaderboard'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as QuizStartRouteImport } from './routes/quiz/start'
+import { Route as QuizReviewRouteImport } from './routes/quiz/review'
+import { Route as QuizStepRouteImport } from './routes/quiz/$step'
 
+const LeaderboardRoute = LeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuizStartRoute = QuizStartRouteImport.update({
+  id: '/quiz/start',
+  path: '/quiz/start',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuizReviewRoute = QuizReviewRouteImport.update({
+  id: '/quiz/review',
+  path: '/quiz/review',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuizStepRoute = QuizStepRouteImport.update({
+  id: '/quiz/$step',
+  path: '/quiz/$step',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/leaderboard': typeof LeaderboardRoute
+  '/quiz/$step': typeof QuizStepRoute
+  '/quiz/review': typeof QuizReviewRoute
+  '/quiz/start': typeof QuizStartRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/leaderboard': typeof LeaderboardRoute
+  '/quiz/$step': typeof QuizStepRoute
+  '/quiz/review': typeof QuizReviewRoute
+  '/quiz/start': typeof QuizStartRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/leaderboard': typeof LeaderboardRoute
+  '/quiz/$step': typeof QuizStepRoute
+  '/quiz/review': typeof QuizReviewRoute
+  '/quiz/start': typeof QuizStartRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/leaderboard' | '/quiz/$step' | '/quiz/review' | '/quiz/start'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/leaderboard' | '/quiz/$step' | '/quiz/review' | '/quiz/start'
+  id:
+    | '__root__'
+    | '/'
+    | '/leaderboard'
+    | '/quiz/$step'
+    | '/quiz/review'
+    | '/quiz/start'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LeaderboardRoute: typeof LeaderboardRoute
+  QuizStepRoute: typeof QuizStepRoute
+  QuizReviewRoute: typeof QuizReviewRoute
+  QuizStartRoute: typeof QuizStartRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/leaderboard': {
+      id: '/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof LeaderboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +102,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/quiz/start': {
+      id: '/quiz/start'
+      path: '/quiz/start'
+      fullPath: '/quiz/start'
+      preLoaderRoute: typeof QuizStartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quiz/review': {
+      id: '/quiz/review'
+      path: '/quiz/review'
+      fullPath: '/quiz/review'
+      preLoaderRoute: typeof QuizReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quiz/$step': {
+      id: '/quiz/$step'
+      path: '/quiz/$step'
+      fullPath: '/quiz/$step'
+      preLoaderRoute: typeof QuizStepRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LeaderboardRoute: LeaderboardRoute,
+  QuizStepRoute: QuizStepRoute,
+  QuizReviewRoute: QuizReviewRoute,
+  QuizStartRoute: QuizStartRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
