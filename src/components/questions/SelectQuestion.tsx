@@ -3,8 +3,8 @@ import {
 	FieldContent,
 	FieldLabel,
 	FieldTitle,
-} from "#/components/ui/field";
-import { RadioGroup, RadioGroupItem } from "#/components/ui/radio-group";
+} from "#/components/shadcn/field";
+import { RadioGroup, RadioGroupItem } from "#/components/shadcn/radio-group";
 import type { SelectPublic } from "#/config/questions.config";
 import { useQuizStore } from "#/store";
 

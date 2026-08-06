@@ -3,7 +3,7 @@ import { useSortable } from "@dnd-kit/react/sortable";
 import { move } from "@dnd-kit/helpers";
 import type { OrderPublic } from "#/config/questions.config";
 import { useQuizStore } from "#/store";
-import { Card } from "#/components/ui/card";
+import { Card } from "#/components/shadcn/card";
 
 const SortableItem = ({ id, index }: { id: string; index: number }) => {
 	const { ref } = useSortable({ id, index });

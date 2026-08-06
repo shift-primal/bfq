@@ -1,4 +1,4 @@
-import { Navigation } from "#/components/questions/Navigation";
+import { Navigation } from "#/components/Navigation";
 import { QuestionRenderer } from "#/components/questions/QuestionRenderer";
 import { getQuestion } from "#/server/questions.rpc";
 import { useQuizStore } from "#/store";
@@ -18,13 +18,13 @@ function RouteComponent() {
 	const data = Route.useLoaderData();
 
 	return (
-		<div className="flex flex-col gap-6">
+		<>
 			<QuestionRenderer question={data.question} />
 			<Navigation
 				step={data.step}
 				total={data.total}
 				question={data.question}
 			/>
-		</div>
+		</>
 	);
 }
