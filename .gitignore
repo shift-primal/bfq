@@ -11,4 +11,5 @@ dist-ssr
 .vinxi
 __unconfig*
 todos.json
+PLAN.md
 src/config/questions.data.ts
