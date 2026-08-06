@@ -1,0 +1,36 @@
+import {
+	Field,
+	FieldContent,
+	FieldLabel,
+	FieldTitle,
+} from "#/components/ui/field";
+import { RadioGroup, RadioGroupItem } from "#/components/ui/radio-group";
+import type { SelectPublic } from "#/config/questions.config";
+import { useQuizStore } from "#/store";
+
+export const SelectQuestion = ({ question }: { question: SelectPublic }) => {
+	const answer = useQuizStore((s) => s.answers[question.id]);
+	const setAnswer = useQuizStore((s) => s.setAnswer);
+	const options = useQuizStore((s) => s.order[question.id]) ?? question.options;
+
+	return (
+		<div className="flex flex-col">
+			<span>{question.prompt}</span>
+			<RadioGroup
+				value={typeof answer === "string" ? answer : ""}
+				onValueChange={(value) => setAnswer(question.id, value)}
+			>
+				{options.map((o) => (
+					<FieldLabel htmlFor={o} key={o}>
+						<Field orientation="horizontal" className="cursor-pointer">
+							<FieldContent>
+								<FieldTitle>{o}</FieldTitle>
+							</FieldContent>
+							<RadioGroupItem value={o} id={o} />
+						</Field>
+					</FieldLabel>
+				))}
+			</RadioGroup>
+		</div>
+	);
+};
