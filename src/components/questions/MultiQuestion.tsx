@@ -9,11 +9,16 @@ import {
 } from "#/components/shadcn/field";
 import type { MultiPublic } from "#/config/questions.config";
 import { useQuizStore } from "#/store";
+import { useShallow } from "zustand/react/shallow";
 
 export const MultiQuestion = ({ question }: { question: MultiPublic }) => {
-	const answer = useQuizStore((s) => s.answers[question.id]);
-	const setAnswer = useQuizStore((s) => s.setAnswer);
-	const options = useQuizStore((s) => s.order[question.id]) ?? question.options;
+	const { answer, setAnswer, options } = useQuizStore(
+		useShallow((s) => ({
+			answer: s.answers[question.id],
+			setAnswer: s.setAnswer,
+			options: s.questions[question.id]?.order ?? question.options,
+		})),
+	);
 
 	const toggle = (option: string) => {
 		const current = Array.isArray(answer) ? answer : [];

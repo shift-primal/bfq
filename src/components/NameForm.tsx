@@ -1,4 +1,3 @@
-import { getShuffledOrder } from "#/server/questions.rpc";
 import { useQuizStore } from "#/store";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
@@ -7,11 +6,19 @@ import { Input } from "#/components/shadcn/input";
 
 import { Field, FieldDescription, FieldLabel } from "#/components/shadcn/field";
 import { toast } from "sonner";
+import { useShallow } from "zustand/react/shallow";
+import { getShuffledOrder } from "#/server/questions.rpc";
 
 export const NameForm = () => {
-	const [name, setName] = useState(() => useQuizStore.getState().name);
-	const storeName = useQuizStore((s) => s.setName);
-	const setOrder = useQuizStore((s) => s.setOrder);
+	const [nameState, setNameState] = useState(
+		() => useQuizStore.getState().name,
+	);
+	const { setName, setQuestions } = useQuizStore(
+		useShallow((s) => ({
+			setName: s.setName,
+			setQuestions: s.setQuestions,
+		})),
+	);
 	const navigate = useNavigate();
 
 	return (
@@ -19,14 +26,17 @@ export const NameForm = () => {
 			onSubmit={async (e) => {
 				e.preventDefault();
 
-				if (name.trim() === "") {
+				if (nameState.trim() === "") {
 					toast.error("Du må fylle ut navnet ditt");
 					return;
 				}
 
-				storeName(name);
-				const order = await getShuffledOrder();
-				setOrder(order);
+				setName(nameState);
+
+				const questions = await getShuffledOrder();
+
+				setQuestions(questions);
+
 				navigate({ to: "/quiz/$step", params: { step: "1" } });
 			}}
 		>
@@ -36,8 +46,8 @@ export const NameForm = () => {
 					id="input-name"
 					type="text"
 					placeholder="Kasper..."
-					value={name}
-					onChange={(e) => setName(e.target.value)}
+					value={nameState}
+					onChange={(e) => setNameState(e.target.value)}
 				/>
 				<FieldDescription>
 					Navnet ditt vil bli offentlig vist sammen med din score

@@ -10,9 +10,9 @@ import {
 const QuizLayout = () => {
 	const { pathname } = useLocation();
 	const { step: stepParam } = useParams({ strict: false });
-	const order = useQuizStore((s) => s.order);
+	const options = useQuizStore((s) => s.questions);
 
-	const total = Object.keys(order).length + 1;
+	const total = Object.keys(options).length + 1;
 	const step =
 		pathname === "/quiz/start"
 			? 0

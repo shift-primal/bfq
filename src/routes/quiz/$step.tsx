@@ -4,17 +4,7 @@ import { getQuestion } from "#/server/questions.rpc";
 import { useQuizStore } from "#/store";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/quiz/$step")({
-	beforeLoad: () => {
-		if (typeof window !== "undefined" && !useQuizStore.getState().name) {
-			throw redirect({ to: "/quiz/start" });
-		}
-	},
-	loader: ({ params }) => getQuestion({ data: Number(params.step) }),
-	component: RouteComponent,
-});
-
-function RouteComponent() {
+const QuestionStep = () => {
 	const data = Route.useLoaderData();
 
 	return (
@@ -27,4 +17,14 @@ function RouteComponent() {
 			/>
 		</>
 	);
-}
+};
+
+export const Route = createFileRoute("/quiz/$step")({
+	beforeLoad: () => {
+		if (typeof window !== "undefined" && !useQuizStore.getState().name) {
+			throw redirect({ to: "/quiz/start" });
+		}
+	},
+	loader: ({ params }) => getQuestion({ data: Number(params.step) }),
+	component: QuestionStep,
+});

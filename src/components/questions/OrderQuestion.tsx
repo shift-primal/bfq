@@ -4,6 +4,7 @@ import { move } from "@dnd-kit/helpers";
 import type { OrderPublic } from "#/config/questions.config";
 import { useQuizStore } from "#/store";
 import { Card } from "#/components/shadcn/card";
+import { useShallow } from "zustand/react/shallow";
 
 const SortableItem = ({ id, index }: { id: string; index: number }) => {
 	const { ref } = useSortable({ id, index });
@@ -16,10 +17,14 @@ const SortableItem = ({ id, index }: { id: string; index: number }) => {
 };
 
 export const OrderQuestion = ({ question }: { question: OrderPublic }) => {
-	const answer = useQuizStore((s) => s.answers[question.id]);
-	const setAnswer = useQuizStore((s) => s.setAnswer);
+	const { answer, setAnswer, shuffled } = useQuizStore(
+		useShallow((s) => ({
+			answer: s.answers[question.id],
+			setAnswer: s.setAnswer,
+			shuffled: s.questions[question.id]?.order ?? [],
+		})),
+	);
 
-	const shuffled = useQuizStore((s) => s.order[question.id]) ?? [];
 	const order = Array.isArray(answer) ? answer : shuffled;
 
 	return (

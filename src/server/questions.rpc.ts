@@ -2,6 +2,7 @@ import { toPublic } from "#/lib/questions.utils";
 import { questions } from "#/config/questions.data";
 import { createServerFn } from "@tanstack/react-start";
 import { shuffleArray } from "#/lib/utils";
+import type { ShuffledQuestion } from "#/store";
 
 export const getQuestion = createServerFn()
 	.validator((step: number) => step)
@@ -12,9 +13,15 @@ export const getQuestion = createServerFn()
 	});
 
 export const getShuffledOrder = createServerFn().handler(() => {
-	const order: Record<string, string[]> = {};
+	const result: Record<string, ShuffledQuestion> = {};
+
 	for (const q of questions) {
-		order[q.id] = shuffleArray(q.type === "order" ? q.correctOrder : q.options);
+		result[q.id] = {
+			type: q.type,
+			prompt: q.prompt,
+			order: shuffleArray(q.type === "order" ? q.correctOrder : q.options),
+		};
 	}
-	return order;
+
+	return result;
 });

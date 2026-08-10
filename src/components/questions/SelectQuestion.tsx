@@ -7,11 +7,16 @@ import {
 import { RadioGroup, RadioGroupItem } from "#/components/shadcn/radio-group";
 import type { SelectPublic } from "#/config/questions.config";
 import { useQuizStore } from "#/store";
+import { useShallow } from "zustand/react/shallow";
 
 export const SelectQuestion = ({ question }: { question: SelectPublic }) => {
-	const answer = useQuizStore((s) => s.answers[question.id]);
-	const setAnswer = useQuizStore((s) => s.setAnswer);
-	const options = useQuizStore((s) => s.order[question.id]) ?? question.options;
+	const { answer, setAnswer, options } = useQuizStore(
+		useShallow((s) => ({
+			answer: s.answers[question.id],
+			setAnswer: s.setAnswer,
+			options: s.questions[question.id]?.order ?? question.options,
+		})),
+	);
 
 	return (
 		<div className="flex flex-col">
