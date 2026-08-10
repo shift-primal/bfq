@@ -11,12 +11,18 @@ import type { MultiPublic } from "#/config/questions.config";
 import { useQuizStore } from "#/store";
 import { useShallow } from "zustand/react/shallow";
 
-export const MultiQuestion = ({ question }: { question: MultiPublic }) => {
+export const MultiQuestion = ({
+	question,
+	disabled = false,
+}: {
+	question: MultiPublic;
+	disabled?: boolean;
+}) => {
 	const { answer, setAnswer, options } = useQuizStore(
 		useShallow((s) => ({
 			answer: s.answers[question.id],
 			setAnswer: s.setAnswer,
-			options: s.questions[question.id]?.order ?? question.options,
+			options: s.questions[question.id]?.options ?? question.options,
 		})),
 	);
 
@@ -31,7 +37,7 @@ export const MultiQuestion = ({ question }: { question: MultiPublic }) => {
 	};
 
 	return (
-		<FieldSet>
+		<FieldSet disabled={disabled}>
 			<FieldLegend>{question.prompt}</FieldLegend>
 			{options.map((o) => (
 				<FieldLabel key={o} htmlFor={o}>

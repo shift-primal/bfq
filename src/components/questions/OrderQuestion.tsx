@@ -6,22 +6,36 @@ import { useQuizStore } from "#/store";
 import { Card } from "#/components/shadcn/card";
 import { useShallow } from "zustand/react/shallow";
 
-const SortableItem = ({ id, index }: { id: string; index: number }) => {
-	const { ref } = useSortable({ id, index });
+const SortableItem = ({
+	id,
+	index,
+	disabled,
+}: {
+	id: string;
+	index: number;
+	disabled: boolean;
+}) => {
+	const { ref } = useSortable({ id, index, disabled });
 
 	return (
-		<Card ref={ref} className="cursor-pointer">
+		<Card ref={ref} className={disabled ? "cursor-default" : "cursor-pointer"}>
 			{id}
 		</Card>
 	);
 };
 
-export const OrderQuestion = ({ question }: { question: OrderPublic }) => {
+export const OrderQuestion = ({
+	question,
+	disabled = false,
+}: {
+	question: OrderPublic;
+	disabled?: boolean;
+}) => {
 	const { answer, setAnswer, shuffled } = useQuizStore(
 		useShallow((s) => ({
 			answer: s.answers[question.id],
 			setAnswer: s.setAnswer,
-			shuffled: s.questions[question.id]?.order ?? [],
+			shuffled: s.questions[question.id]?.options ?? [],
 		})),
 	);
 
@@ -34,7 +48,7 @@ export const OrderQuestion = ({ question }: { question: OrderPublic }) => {
 				onDragEnd={(e) => setAnswer(question.id, move(order, e))}
 			>
 				{shuffled.map((id, index) => (
-					<SortableItem key={id} id={id} index={index} />
+					<SortableItem key={id} id={id} index={index} disabled={disabled} />
 				))}
 			</DragDropProvider>
 		</div>

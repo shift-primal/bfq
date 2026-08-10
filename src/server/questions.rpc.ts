@@ -19,7 +19,7 @@ export const getShuffledOrder = createServerFn().handler(() => {
 		result[q.id] = {
 			type: q.type,
 			prompt: q.prompt,
-			order: shuffleArray(q.type === "order" ? q.correctOrder : q.options),
+			options: shuffleArray(q.type === "order" ? q.correctOrder : q.options),
 		};
 	}
 

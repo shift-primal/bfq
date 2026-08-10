@@ -5,7 +5,7 @@ import { createJSONStorage, persist } from "zustand/middleware";
 export type ShuffledQuestion = {
 	type: PublicQuestion["type"];
 	prompt: string;
-	order: string[];
+	options: string[];
 };
 
 export type Answer = string | string[];

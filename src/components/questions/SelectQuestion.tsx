@@ -9,12 +9,18 @@ import type { SelectPublic } from "#/config/questions.config";
 import { useQuizStore } from "#/store";
 import { useShallow } from "zustand/react/shallow";
 
-export const SelectQuestion = ({ question }: { question: SelectPublic }) => {
+export const SelectQuestion = ({
+	question,
+	disabled = false,
+}: {
+	question: SelectPublic;
+	disabled?: boolean;
+}) => {
 	const { answer, setAnswer, options } = useQuizStore(
 		useShallow((s) => ({
 			answer: s.answers[question.id],
 			setAnswer: s.setAnswer,
-			options: s.questions[question.id]?.order ?? question.options,
+			options: s.questions[question.id]?.options ?? question.options,
 		})),
 	);
 
@@ -24,6 +30,7 @@ export const SelectQuestion = ({ question }: { question: SelectPublic }) => {
 			<RadioGroup
 				value={typeof answer === "string" ? answer : ""}
 				onValueChange={(value) => setAnswer(question.id, value)}
+				disabled={disabled}
 			>
 				{options.map((o) => (
 					<FieldLabel htmlFor={o} key={o}>
