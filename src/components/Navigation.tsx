@@ -51,7 +51,7 @@ export const Navigation = ({
 
 			<AlertDialog>
 				<AlertDialogTrigger asChild>
-					<Button variant="destructive" className="bg-red-400 text-white">
+					<Button variant="destructive">
 						<RefreshCcw />
 					</Button>
 				</AlertDialogTrigger>

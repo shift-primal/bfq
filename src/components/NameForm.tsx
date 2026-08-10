@@ -23,6 +23,7 @@ export const NameForm = () => {
 
 	return (
 		<form
+			className="flex flex-col gap-6"
 			onSubmit={async (e) => {
 				e.preventDefault();
 

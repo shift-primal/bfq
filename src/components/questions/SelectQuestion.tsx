@@ -2,6 +2,8 @@ import {
 	Field,
 	FieldContent,
 	FieldLabel,
+	FieldLegend,
+	FieldSet,
 	FieldTitle,
 } from "#/components/shadcn/field";
 import { RadioGroup, RadioGroupItem } from "#/components/shadcn/radio-group";
@@ -25,8 +27,8 @@ export const SelectQuestion = ({
 	);
 
 	return (
-		<div className="flex flex-col">
-			<span>{question.prompt}</span>
+		<FieldSet disabled={disabled}>
+			<FieldLegend>{question.prompt}</FieldLegend>
 			<RadioGroup
 				value={typeof answer === "string" ? answer : ""}
 				onValueChange={(value) => setAnswer(question.id, value)}
@@ -43,6 +45,6 @@ export const SelectQuestion = ({
 					</FieldLabel>
 				))}
 			</RadioGroup>
-		</div>
+		</FieldSet>
 	);
 };

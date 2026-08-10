@@ -4,6 +4,7 @@ import { move } from "@dnd-kit/helpers";
 import type { OrderPublic } from "#/config/questions.config";
 import { useQuizStore } from "#/store";
 import { Card } from "#/components/shadcn/card";
+import { FieldLegend, FieldSet } from "#/components/shadcn/field";
 import { useShallow } from "zustand/react/shallow";
 
 const SortableItem = ({
@@ -42,15 +43,17 @@ export const OrderQuestion = ({
 	const order = Array.isArray(answer) ? answer : shuffled;
 
 	return (
-		<div className="flex flex-col">
-			<span>{question.prompt}</span>
+		<FieldSet disabled={disabled}>
+			<FieldLegend>{question.prompt}</FieldLegend>
 			<DragDropProvider
 				onDragEnd={(e) => setAnswer(question.id, move(order, e))}
 			>
-				{shuffled.map((id, index) => (
-					<SortableItem key={id} id={id} index={index} disabled={disabled} />
-				))}
+				<div className="flex flex-col gap-2">
+					{shuffled.map((id, index) => (
+						<SortableItem key={id} id={id} index={index} disabled={disabled} />
+					))}
+				</div>
 			</DragDropProvider>
-		</div>
+		</FieldSet>
 	);
 };
