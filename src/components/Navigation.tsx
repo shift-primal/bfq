@@ -10,42 +10,50 @@ import {
 	AlertDialogTrigger,
 } from "#/components/shadcn/alert-dialog";
 import { Button } from "#/components/shadcn/button";
-import type { PublicQuestion } from "#/config/questions.config";
-import { isAnswered } from "#/lib/questions.utils";
 import { useQuizStore } from "#/store";
 import { useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, RefreshCcw } from "lucide-react";
-import { toast } from "sonner";
+import { useEffect } from "react";
+
+function useNavigationHotkeys(onBack: () => void, onNext: () => void) {
+	useEffect(() => {
+		const handler = (e: KeyboardEvent) => {
+			const target = e.target as HTMLElement;
+			const isTyping =
+				target.tagName === "INPUT" ||
+				target.tagName === "TEXTAREA" ||
+				target.isContentEditable;
+			if (isTyping) return;
+
+			const isDialogOpen = document.querySelector(
+				'[role="dialog"], [role="alertdialog"]',
+			);
+			if (isDialogOpen) return;
+
+			if (e.key === "ArrowLeft") onBack();
+			if (e.key === "ArrowRight") onNext();
+		};
+
+		window.addEventListener("keydown", handler);
+		return () => window.removeEventListener("keydown", handler);
+	}, [onBack, onNext]);
+}
 
 export const Navigation = ({
-	step,
-	total,
-	question,
+	onBack,
+	onNext,
 }: {
-	step: number;
-	total: number;
-	question: PublicQuestion;
+	onBack: () => void;
+	onNext: () => void;
 }) => {
-	const answer = useQuizStore((s) => s.answers[question.id]);
+	const reset = useQuizStore((s) => s.reset);
 	const navigate = useNavigate();
 
-	const goBack = () => {
-		if (step === 1) navigate({ to: "/quiz/start" });
-		else navigate({ to: "/quiz/$step", params: { step: String(step - 1) } });
-	};
-
-	const goNext = () => {
-		if (step >= total) navigate({ to: "/quiz/review" });
-		else if (!isAnswered(question.type, answer)) {
-			toast.error("Mangler svar");
-		} else navigate({ to: "/quiz/$step", params: { step: String(step + 1) } });
-	};
-
-	const reset = useQuizStore((s) => s.reset);
+	useNavigationHotkeys(onBack, onNext);
 
 	return (
 		<div className="flex justify-between">
-			<Button onClick={goBack}>
+			<Button onClick={onBack}>
 				<ArrowLeft />
 			</Button>
 
@@ -77,7 +85,7 @@ export const Navigation = ({
 				</AlertDialogContent>
 			</AlertDialog>
 
-			<Button onClick={goNext}>
+			<Button onClick={onNext}>
 				<ArrowRight />
 			</Button>
 		</div>

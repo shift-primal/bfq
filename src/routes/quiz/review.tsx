@@ -1,13 +1,19 @@
 import { useQuizStore, type Answer, type ShuffledQuestion } from "#/store";
 import { useShallow } from "zustand/react/shallow";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { isAnswered } from "#/lib/questions.utils";
 import { ReviewRenderer } from "#/components/ReviewRenderer";
+import { Navigation } from "#/components/Navigation";
+import { toast } from "sonner";
+import { submitQuiz } from "#/server/questions.rpc";
+
+export type SubmittedAnswer = Record<string, Answer>;
+type Questions = Record<string, ShuffledQuestion>;
 
 function isValidQuiz(
 	name: string,
-	answers: Record<string, Answer>,
-	questions: Record<string, ShuffledQuestion>,
+	answers: SubmittedAnswer,
+	questions: Questions,
 ) {
 	if (!name) return false;
 
@@ -26,12 +32,31 @@ const QuizReview = () => {
 			answers: s.answers,
 		})),
 	);
+	const navigate = useNavigate();
 
-	const isValid = isValidQuiz(name, answers, questions);
+	const total = Object.keys(questions).length;
+
+	const handleBack = () => {
+		navigate({ to: "/quiz/$step", params: { step: String(total) } });
+	};
+
+	const handleNext = async () => {
+		if (!isValidQuiz(name, answers, questions)) {
+			toast.error("Mangler svar på ett eller flere spørsmål");
+			return;
+		}
+
+		const result = await submitQuiz({ data: { name, answers } });
+
+		console.log(result);
+
+		// TODO: navigate({ to: "/leaderboard" });
+	};
 
 	return (
 		<>
 			<ReviewRenderer />
+			<Navigation onBack={handleBack} onNext={handleNext} />
 		</>
 	);
 };

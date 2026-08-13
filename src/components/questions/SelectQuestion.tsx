@@ -36,7 +36,10 @@ export const SelectQuestion = ({
 			>
 				{options.map((o) => (
 					<FieldLabel htmlFor={o} key={o}>
-						<Field orientation="horizontal" className="cursor-pointer">
+						<Field
+							orientation="horizontal"
+							className={disabled ? "cursor-default" : "cursor-pointer"}
+						>
 							<FieldContent>
 								<FieldTitle>{o}</FieldTitle>
 							</FieldContent>

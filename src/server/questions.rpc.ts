@@ -3,6 +3,10 @@ import { questions } from "#/config/questions.data";
 import { createServerFn } from "@tanstack/react-start";
 import { shuffleArray } from "#/lib/utils";
 import type { ShuffledQuestion } from "#/store";
+import type { SubmittedAnswer } from "#/routes/quiz/review";
+import { tallyScore } from "#/lib/scoring";
+import { db } from "#/db";
+import { submissions } from "#/db/schema";
 
 export const getQuestion = createServerFn()
 	.validator((step: number) => step)
@@ -25,3 +29,17 @@ export const getShuffledOrder = createServerFn().handler(() => {
 
 	return result;
 });
+
+export const submitQuiz = createServerFn()
+	.validator((data: { name: string; answers: SubmittedAnswer }) => data)
+	.handler(async ({ data }) => {
+		const score = tallyScore(questions, data.answers);
+		const [row] = await db
+			.insert(submissions)
+			.values({ name: data.name, score, answers: data.answers })
+			.returning();
+
+		const rank = 1; // TODO: placeholder
+
+		return { score, rank, id: row.id };
+	});

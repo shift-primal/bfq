@@ -1,8 +1,8 @@
 import { useQuizStore } from "#/store";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Button } from "#/components/shadcn/button";
 import { Input } from "#/components/shadcn/input";
+import { Navigation } from "#/components/Navigation";
 
 import { Field, FieldDescription, FieldLabel } from "#/components/shadcn/field";
 import { toast } from "sonner";
@@ -21,41 +21,47 @@ export const NameForm = () => {
 	);
 	const navigate = useNavigate();
 
+	const handleNext = async () => {
+		if (nameState.trim() === "") {
+			toast.error("Du må fylle ut navnet ditt");
+			return;
+		}
+
+		setName(nameState);
+
+		if (Object.keys(useQuizStore.getState().questions).length === 0) {
+			const questions = await getShuffledOrder();
+			setQuestions(questions);
+		}
+
+		navigate({ to: "/quiz/$step", params: { step: "1" } });
+	};
+
 	return (
-		<form
-			className="flex flex-col gap-6"
-			onSubmit={async (e) => {
-				e.preventDefault();
+		<div className="flex flex-col gap-6">
+			<form
+				className="flex flex-col gap-6"
+				onSubmit={(e) => {
+					e.preventDefault();
+					handleNext();
+				}}
+			>
+				<Field>
+					<FieldLabel htmlFor="input-name">Navn</FieldLabel>
+					<Input
+						id="input-name"
+						type="text"
+						placeholder="Kasper..."
+						value={nameState}
+						onChange={(e) => setNameState(e.target.value)}
+					/>
+					<FieldDescription>
+						Navnet ditt vil bli offentlig vist sammen med din score
+					</FieldDescription>
+				</Field>
+			</form>
 
-				if (nameState.trim() === "") {
-					toast.error("Du må fylle ut navnet ditt");
-					return;
-				}
-
-				setName(nameState);
-
-				const questions = await getShuffledOrder();
-
-				setQuestions(questions);
-
-				navigate({ to: "/quiz/$step", params: { step: "1" } });
-			}}
-		>
-			<Field>
-				<FieldLabel htmlFor="input-name">Navn</FieldLabel>
-				<Input
-					id="input-name"
-					type="text"
-					placeholder="Kasper..."
-					value={nameState}
-					onChange={(e) => setNameState(e.target.value)}
-				/>
-				<FieldDescription>
-					Navnet ditt vil bli offentlig vist sammen med din score
-				</FieldDescription>
-			</Field>
-
-			<Button type="submit">Start</Button>
-		</form>
+			<Navigation onBack={() => navigate({ to: "/" })} onNext={handleNext} />
+		</div>
 	);
 };

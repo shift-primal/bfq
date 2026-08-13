@@ -6,6 +6,7 @@ import { useQuizStore } from "#/store";
 import { Card } from "#/components/shadcn/card";
 import { FieldLegend, FieldSet } from "#/components/shadcn/field";
 import { useShallow } from "zustand/react/shallow";
+import { cn } from "#/lib/utils";
 
 const SortableItem = ({
 	id,
@@ -19,7 +20,13 @@ const SortableItem = ({
 	const { ref } = useSortable({ id, index, disabled });
 
 	return (
-		<Card ref={ref} className={disabled ? "cursor-default" : "cursor-pointer"}>
+		<Card
+			ref={ref}
+			className={cn(
+				"select-none",
+				disabled ? "cursor-default" : "cursor-pointer",
+			)}
+		>
 			{id}
 		</Card>
 	);
