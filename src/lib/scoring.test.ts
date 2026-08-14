@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { type MultiQuestion, type SelectQuestion, tallyScore } from "./scoring";
+import {
+	type MultiQuestion,
+	type OrderQuestion,
+	type SelectQuestion,
+	tallyScore,
+} from "./scoring";
 
 const selectQuestion: SelectQuestion = {
 	id: "1",
@@ -9,7 +14,7 @@ const selectQuestion: SelectQuestion = {
 	correct: "Morten",
 };
 
-describe("tallyScore", () => {
+describe("Tally (Select)", () => {
 	it("awards a point for a correct select answer", () => {
 		const score = tallyScore([selectQuestion], { "1": "Morten" });
 		expect(score).toBe(1);
@@ -42,7 +47,7 @@ const multiQuestion: MultiQuestion = {
 	correct: ["Prince", "Paramount", "Marlboro", "Camel"],
 };
 
-describe("tallyScore", () => {
+describe("Tally (Multi)", () => {
 	it("awards half a point for each correct answer, if not all are correct", () => {
 		const score = tallyScore([multiQuestion], { "1": ["Prince", "Camel"] });
 
@@ -68,6 +73,47 @@ describe("tallyScore", () => {
 	it("awards no points for no correct answers", () => {
 		const score = tallyScore([multiQuestion], {
 			"1": ["Zyn", "Marabou", "Skruf"],
+		});
+
+		expect(score).toBe(0);
+	});
+});
+
+const orderQuestion: OrderQuestion = {
+	id: "1",
+	type: "order",
+	prompt: "Sorter disse i stigende rekkefølge",
+	correctOrder: ["5", "9", "20", "45", "89", "192"],
+};
+
+describe("Tally (Order)", () => {
+	it("awards partial credit proportional to correctly-ordered pairs", () => {
+		const score = tallyScore([orderQuestion], {
+			"1": ["9", "5", "20", "45", "192", "89"],
+		});
+
+		expect(score).toBeCloseTo(5.2);
+	});
+
+	it("awards less credit the more pairs are out of order", () => {
+		const score = tallyScore([orderQuestion], {
+			"1": ["192", "89", "9", "5", "20", "45"],
+		});
+
+		expect(score).toBeCloseTo(2);
+	});
+
+	it("awards full credit for a perfectly ordered answer", () => {
+		const score = tallyScore([orderQuestion], {
+			"1": ["5", "9", "20", "45", "89", "192"],
+		});
+
+		expect(score).toBe(6);
+	});
+
+	it("awards no credit when every pair is in the wrong order", () => {
+		const score = tallyScore([orderQuestion], {
+			"1": ["192", "89", "45", "20", "9", "5"],
 		});
 
 		expect(score).toBe(0);

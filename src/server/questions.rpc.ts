@@ -30,16 +30,30 @@ export const getShuffledOrder = createServerFn().handler(() => {
 	return result;
 });
 
+// TODO: unfinished
+const getRanking = async (score: number) => {
+	const [row] = await db.select().from(submissions);
+
+	console.log(row);
+
+	return 1;
+};
+
 export const submitQuiz = createServerFn()
 	.validator((data: { name: string; answers: SubmittedAnswer }) => data)
 	.handler(async ({ data }) => {
+		console.log(data);
 		const score = tallyScore(questions, data.answers);
+
 		const [row] = await db
 			.insert(submissions)
 			.values({ name: data.name, score, answers: data.answers })
 			.returning();
 
-		const rank = 1; // TODO: placeholder
+		const rank = getRanking(score);
+
+		console.log("Row:", row);
+		console.log("Rank:", rank);
 
 		return { score, rank, id: row.id };
 	});
