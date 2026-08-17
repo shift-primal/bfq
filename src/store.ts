@@ -31,7 +31,16 @@ export const useQuizStore = create<QuizState>()(
 				set((state) => ({
 					answers: { ...state.answers, [questionId]: answer },
 				})),
-			setQuestions: (questions) => set({ questions }),
+			setQuestions: (questions) =>
+				set((state) => {
+					const seededAnswers = Object.fromEntries(
+						Object.entries(questions)
+							.filter(([_, q]) => q.type === "order")
+							.map(([id, q]) => [id, q.options]),
+					);
+
+					return { questions, answers: { ...state.answers, ...seededAnswers } };
+				}),
 			reset: () => set({ name: "", answers: {}, questions: {} }),
 		}),
 		{

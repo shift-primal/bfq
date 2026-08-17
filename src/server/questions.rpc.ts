@@ -7,6 +7,7 @@ import type { SubmittedAnswer } from "#/routes/quiz/review";
 import { tallyScore } from "#/lib/scoring";
 import { db } from "#/db";
 import { submissions } from "#/db/schema";
+import { desc } from "drizzle-orm";
 
 export const getQuestion = createServerFn()
 	.validator((step: number) => step)
@@ -30,30 +31,34 @@ export const getShuffledOrder = createServerFn().handler(() => {
 	return result;
 });
 
-// TODO: unfinished
 const getRanking = async (score: number) => {
-	const [row] = await db.select().from(submissions);
+	const allSubmissions = await db
+		.select({
+			score: submissions.score,
+		})
+		.from(submissions)
+		.orderBy(desc(submissions.score));
 
-	console.log(row);
+	const index = allSubmissions.findIndex((s) => score >= s.score);
 
-	return 1;
+	return index === -1 ? allSubmissions.length + 1 : index + 1;
 };
 
 export const submitQuiz = createServerFn()
 	.validator((data: { name: string; answers: SubmittedAnswer }) => data)
 	.handler(async ({ data }) => {
-		console.log(data);
+		console.log("submitQuiz data:", data);
+
 		const score = tallyScore(questions, data.answers);
 
-		const [row] = await db
-			.insert(submissions)
-			.values({ name: data.name, score, answers: data.answers })
-			.returning();
+		// const [row] = await db
+		// 	.insert(submissions)
+		// 	.values({ name: data.name, score, answers: data.answers })
+		// 	.returning();
 
-		const rank = getRanking(score);
+		const rank = await getRanking(score);
 
-		console.log("Row:", row);
-		console.log("Rank:", rank);
+		console.log(rank);
 
-		return { score, rank, id: row.id };
+		// return { score, rank, id: row.id };
 	});
