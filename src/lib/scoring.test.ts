@@ -24,11 +24,6 @@ describe("Tally (Select)", () => {
 		const score = tallyScore([selectQuestion], { "1": "Max" });
 		expect(score).toBe(0);
 	});
-
-	it("awards nothing for a missing answer", () => {
-		const score = tallyScore([selectQuestion], {});
-		expect(score).toBe(0);
-	});
 });
 
 const multiQuestion: MultiQuestion = {

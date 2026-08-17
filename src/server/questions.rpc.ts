@@ -4,10 +4,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { shuffleArray } from "#/lib/utils";
 import type { ShuffledQuestion } from "#/store";
 import type { SubmittedAnswer } from "#/routes/quiz/review";
-import { tallyScore } from "#/lib/scoring";
-import { db } from "#/db";
-import { submissions } from "#/db/schema";
-import { desc } from "drizzle-orm";
+import { insertSubmission } from "#/server/submission.rpc";
 
 export const getQuestion = createServerFn()
 	.validator((step: number) => step)
@@ -31,34 +28,6 @@ export const getShuffledOrder = createServerFn().handler(() => {
 	return result;
 });
 
-const getRanking = async (score: number) => {
-	const allSubmissions = await db
-		.select({
-			score: submissions.score,
-		})
-		.from(submissions)
-		.orderBy(desc(submissions.score));
-
-	const index = allSubmissions.findIndex((s) => score >= s.score);
-
-	return index === -1 ? allSubmissions.length + 1 : index + 1;
-};
-
 export const submitQuiz = createServerFn()
 	.validator((data: { name: string; answers: SubmittedAnswer }) => data)
-	.handler(async ({ data }) => {
-		console.log("submitQuiz data:", data);
-
-		const score = tallyScore(questions, data.answers);
-
-		// const [row] = await db
-		// 	.insert(submissions)
-		// 	.values({ name: data.name, score, answers: data.answers })
-		// 	.returning();
-
-		const rank = await getRanking(score);
-
-		console.log(rank);
-
-		// return { score, rank, id: row.id };
-	});
+	.handler(({ data }) => insertSubmission(data));
