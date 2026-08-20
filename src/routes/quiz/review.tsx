@@ -1,11 +1,12 @@
-import { useQuizStore, type Answer, type ShuffledQuestion } from "#/store";
-import { useShallow } from "zustand/react/shallow";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { isAnswered } from "#/lib/questions.utils";
-import { ReviewRenderer } from "#/components/ReviewRenderer";
-import { Navigation } from "#/components/Navigation";
+import { useRef } from "react";
 import { toast } from "sonner";
+import { useShallow } from "zustand/react/shallow";
+import { Navigation } from "#/components/Navigation";
+import { ReviewRenderer } from "#/components/ReviewRenderer";
+import { isAnswered } from "#/lib/questions.utils";
 import { submitQuiz } from "#/server/questions.rpc";
+import { type Answer, type ShuffledQuestion, useQuizStore } from "#/store";
 
 export type SubmittedAnswer = Record<string, Answer>;
 type Questions = Record<string, ShuffledQuestion>;
@@ -25,14 +26,18 @@ function isValidQuiz(
 }
 
 const QuizReview = () => {
-	const { name, questions, answers } = useQuizStore(
+	const { name, questions, answers, reset } = useQuizStore(
 		useShallow((s) => ({
 			name: s.name,
 			questions: s.questions,
 			answers: s.answers,
+			reset: s.reset,
 		})),
 	);
+
 	const navigate = useNavigate();
+
+	const isSubmitting = useRef(false);
 
 	const total = Object.keys(questions).length;
 
@@ -41,16 +46,23 @@ const QuizReview = () => {
 	};
 
 	const handleNext = async () => {
+		if (isSubmitting.current) return;
+
 		if (!isValidQuiz(name, answers, questions)) {
 			toast.error("Mangler svar på ett eller flere spørsmål");
 			return;
 		}
 
-		const result = await submitQuiz({ data: { name, answers } });
+		isSubmitting.current = true;
 
-		console.log(result);
-
-		// TODO: navigate({ to: "/leaderboard" });
+		try {
+			const id = await submitQuiz({ data: { name, answers } });
+			reset();
+			navigate({ to: "/leaderboard", search: { highlight: id } });
+		} catch {
+			isSubmitting.current = false;
+			toast.error("Noe gikk galt, prøv igjen");
+		}
 	};
 
 	return (
