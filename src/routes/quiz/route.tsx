@@ -17,12 +17,21 @@ const QuizLayout = () => {
 		pathname === "/quiz/start"
 			? 0
 			: stepParam !== undefined
-				? Number(stepParam) + 1
+				? Number(stepParam)
 				: total;
 
 	return (
 		<div className="flex flex-col gap-6 py-6">
-			<Progress value={(step / total) * 100} />
+			<div className="flex flex-col gap-2">
+				<Progress
+					value={(step / total) * 100}
+					aria-label="Fremgang"
+					aria-valuetext={`Steg ${step} av ${total}`}
+				/>
+				<p className="w-fit text-xs font-medium text-muted-foreground tabular-nums">
+					Steg {step} av {total}
+				</p>
+			</div>
 			<Outlet />
 		</div>
 	);
