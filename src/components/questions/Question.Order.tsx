@@ -2,6 +2,7 @@ import { move } from "@dnd-kit/helpers";
 import { DragDropProvider } from "@dnd-kit/react";
 import { useSortable } from "@dnd-kit/react/sortable";
 import { useShallow } from "zustand/react/shallow";
+import { QuestionList } from "#/components/questions/QuestionList";
 import { QuestionOption } from "#/components/questions/QuestionOption";
 import { FieldLegend, FieldSet } from "#/components/shadcn/field";
 import type { OrderPublic } from "#/config/questions.config";
@@ -51,11 +52,18 @@ export const OrderQuestion = ({
 			<DragDropProvider
 				onDragEnd={(e) => setAnswer(question.id, move(order, e))}
 			>
-				<div className="flex flex-col gap-2">
+				<QuestionList>
 					{order.map((id, index) => (
-						<SortableItem key={id} id={id} index={index} disabled={disabled} />
+						<>
+							<SortableItem
+								key={id}
+								id={id}
+								index={index}
+								disabled={disabled}
+							/>
+						</>
 					))}
-				</div>
+				</QuestionList>
 			</DragDropProvider>
 		</FieldSet>
 	);

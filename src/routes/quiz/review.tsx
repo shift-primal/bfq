@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
 import { Navigation } from "#/components/Navigation";
 import { ReviewRenderer } from "#/components/ReviewRenderer";
+import { ScrollableContent } from "#/components/ScrollableContent";
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -85,7 +86,9 @@ const QuizReview = () => {
 
 	return (
 		<>
-			<ReviewRenderer />
+			<ScrollableContent>
+				<ReviewRenderer />
+			</ScrollableContent>
 			<Navigation onBack={handleBack} onNext={handleNext} />
 
 			<AlertDialog open={confirmSubmitOpen} onOpenChange={setConfirmSubmitOpen}>

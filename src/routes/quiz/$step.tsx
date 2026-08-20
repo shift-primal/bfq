@@ -2,6 +2,7 @@ import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { Navigation } from "#/components/Navigation";
 import { QuestionRenderer } from "#/components/questions/QuestionRenderer";
+import { ScrollableContent } from "#/components/ScrollableContent";
 import { isAnswered } from "#/lib/questions.utils";
 import { getQuestion } from "#/server/questions.rpc";
 import { useQuizStore } from "#/stores/quiz-store";
@@ -28,7 +29,9 @@ const QuestionStep = () => {
 
 	return (
 		<>
-			<QuestionRenderer question={data.question} />
+			<ScrollableContent>
+				<QuestionRenderer question={data.question} />
+			</ScrollableContent>
 			<Navigation onBack={handleBack} onNext={handleNext} />
 		</>
 	);

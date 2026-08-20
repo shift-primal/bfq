@@ -1,4 +1,3 @@
-import { TanStackDevtools } from "@tanstack/react-devtools";
 import type { QueryClient } from "@tanstack/react-query";
 import {
 	createRootRouteWithContext,
@@ -7,13 +6,15 @@ import {
 	Link,
 	Scripts,
 } from "@tanstack/react-router";
-import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { PageContainer } from "#/components/PageContainer";
 import { Button } from "#/components/shadcn/button";
 import { Toaster } from "#/components/shadcn/sonner";
-import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 import appCss from "../styles.css?url";
 
+// import { TanStackDevtools } from "@tanstack/react-devtools";
+// import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+// import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
+//
 interface MyRouterContext {
 	queryClient: QueryClient;
 }
@@ -82,18 +83,18 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			<body>
 				<PageContainer>{children}</PageContainer>
 				<Toaster position="bottom-center" duration={2000} />
-				<TanStackDevtools
-					config={{
-						position: "bottom-right",
-					}}
-					plugins={[
-						{
-							name: "Tanstack Router",
-							render: <TanStackRouterDevtoolsPanel />,
-						},
-						TanStackQueryDevtools,
-					]}
-				/>
+				{/* <TanStackDevtools */}
+				{/* 	config={{ */}
+				{/* 		position: "bottom-right", */}
+				{/* 	}} */}
+				{/* 	plugins={[ */}
+				{/* 		{ */}
+				{/* 			name: "Tanstack Router", */}
+				{/* 			render: <TanStackRouterDevtoolsPanel />, */}
+				{/* 		}, */}
+				{/* 		TanStackQueryDevtools, */}
+				{/* 	]} */}
+				{/* /> */}
 				<Scripts />
 			</body>
 		</html>

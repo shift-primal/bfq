@@ -24,7 +24,7 @@ const QuizLayout = () => {
 					: 0;
 
 	return (
-		<div className="flex flex-col gap-6 py-6">
+		<div className="flex h-dvh flex-col gap-6 overflow-hidden py-6">
 			<div className="flex gap-x-4 items-center">
 				<span className="w-fit text-sm font-medium text-muted-foreground tabular-nums">
 					{step}/{total}
@@ -36,7 +36,9 @@ const QuizLayout = () => {
 				/>
 				<ResetButton />
 			</div>
-			<Outlet />
+			<div className="flex flex-1 flex-col overflow-hidden">
+				<Outlet />
+			</div>
 		</div>
 	);
 };

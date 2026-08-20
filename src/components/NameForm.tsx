@@ -3,6 +3,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
 import { Navigation } from "#/components/Navigation";
+import { ScrollableContent } from "#/components/ScrollableContent";
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -57,28 +58,30 @@ export const NameForm = () => {
 	};
 
 	return (
-		<div className="flex flex-col gap-6">
-			<form
-				className="flex flex-col gap-6"
-				onSubmit={(e) => {
-					e.preventDefault();
-					handleNext();
-				}}
-			>
-				<Field>
-					<FieldLabel htmlFor="input-name">Navn</FieldLabel>
-					<Input
-						id="input-name"
-						type="text"
-						placeholder="Kasper..."
-						value={name}
-						onChange={(e) => setName(e.target.value)}
-					/>
-					<FieldDescription>
-						Navnet ditt vil bli offentlig vist sammen med din score
-					</FieldDescription>
-				</Field>
-			</form>
+		<>
+			<ScrollableContent>
+				<form
+					className="flex flex-col gap-6"
+					onSubmit={(e) => {
+						e.preventDefault();
+						handleNext();
+					}}
+				>
+					<Field>
+						<FieldLabel htmlFor="input-name">Navn</FieldLabel>
+						<Input
+							id="input-name"
+							type="text"
+							placeholder="Kasper..."
+							value={name}
+							onChange={(e) => setName(e.target.value)}
+						/>
+						<FieldDescription>
+							Navnet ditt vil bli offentlig vist sammen med din score
+						</FieldDescription>
+					</Field>
+				</form>
+			</ScrollableContent>
 
 			<Navigation onBack={handleBack} onNext={handleNext} />
 
@@ -104,6 +107,6 @@ export const NameForm = () => {
 					</AlertDialogFooter>
 				</AlertDialogContent>
 			</AlertDialog>
-		</div>
+		</>
 	);
 };

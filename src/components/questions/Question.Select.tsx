@@ -1,5 +1,6 @@
 import { RadioGroup as RadioGroupPrimitive } from "radix-ui";
 import { useShallow } from "zustand/react/shallow";
+import { QuestionList } from "#/components/questions/QuestionList";
 import { QuestionOption } from "#/components/questions/QuestionOption";
 import { FieldLegend, FieldSet } from "#/components/shadcn/field";
 import type { SelectPublic } from "#/config/questions.config";
@@ -29,11 +30,13 @@ export const SelectQuestion = ({
 				disabled={disabled}
 				className="flex w-full flex-col gap-3"
 			>
-				{options.map((o) => (
-					<RadioGroupPrimitive.Item key={o} value={o} asChild>
-						<QuestionOption variant="select" label={o} />
-					</RadioGroupPrimitive.Item>
-				))}
+				<QuestionList>
+					{options.map((o) => (
+						<RadioGroupPrimitive.Item key={o} value={o} asChild>
+							<QuestionOption variant="select" label={o} />
+						</RadioGroupPrimitive.Item>
+					))}
+				</QuestionList>
 			</RadioGroupPrimitive.Root>
 		</FieldSet>
 	);
