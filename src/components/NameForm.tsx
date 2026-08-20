@@ -1,12 +1,12 @@
-import { useQuizStore } from "#/store";
 import { useNavigate } from "@tanstack/react-router";
-import { Input } from "#/components/shadcn/input";
+import { toast } from "sonner";
+import { useShallow } from "zustand/react/shallow";
 import { Navigation } from "#/components/Navigation";
 
 import { Field, FieldDescription, FieldLabel } from "#/components/shadcn/field";
-import { toast } from "sonner";
-import { useShallow } from "zustand/react/shallow";
+import { Input } from "#/components/shadcn/input";
 import { getShuffledOrder } from "#/server/questions.rpc";
+import { useQuizStore } from "#/store";
 
 export const NameForm = () => {
 	const { name, setName, setQuestions } = useQuizStore(

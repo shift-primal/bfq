@@ -1,11 +1,11 @@
-import { Progress } from "#/components/shadcn/progress";
-import { useQuizStore } from "#/store";
 import {
 	createFileRoute,
 	Outlet,
 	useLocation,
 	useParams,
 } from "@tanstack/react-router";
+import { Progress } from "#/components/shadcn/progress";
+import { useQuizStore } from "#/store";
 
 const QuizLayout = () => {
 	const { pathname } = useLocation();

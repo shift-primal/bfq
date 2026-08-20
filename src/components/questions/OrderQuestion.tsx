@@ -1,12 +1,12 @@
+import { move } from "@dnd-kit/helpers";
 import { DragDropProvider } from "@dnd-kit/react";
 import { useSortable } from "@dnd-kit/react/sortable";
-import { move } from "@dnd-kit/helpers";
-import type { OrderPublic } from "#/config/questions.config";
-import { useQuizStore } from "#/store";
+import { useShallow } from "zustand/react/shallow";
 import { Card } from "#/components/shadcn/card";
 import { FieldLegend, FieldSet } from "#/components/shadcn/field";
-import { useShallow } from "zustand/react/shallow";
+import type { OrderPublic } from "#/config/questions.config";
 import { cn } from "#/lib/utils";
+import { useQuizStore } from "#/store";
 
 const SortableItem = ({
 	id,

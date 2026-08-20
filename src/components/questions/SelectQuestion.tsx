@@ -1,3 +1,4 @@
+import { useShallow } from "zustand/react/shallow";
 import {
 	Field,
 	FieldContent,
@@ -9,7 +10,6 @@ import {
 import { RadioGroup, RadioGroupItem } from "#/components/shadcn/radio-group";
 import type { SelectPublic } from "#/config/questions.config";
 import { useQuizStore } from "#/store";
-import { useShallow } from "zustand/react/shallow";
 
 export const SelectQuestion = ({
 	question,

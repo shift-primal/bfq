@@ -1,10 +1,10 @@
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
+import { toast } from "sonner";
 import { Navigation } from "#/components/Navigation";
 import { QuestionRenderer } from "#/components/questions/QuestionRenderer";
 import { isAnswered } from "#/lib/questions.utils";
 import { getQuestion } from "#/server/questions.rpc";
 import { useQuizStore } from "#/store";
-import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
-import { toast } from "sonner";
 
 const QuestionStep = () => {
 	const data = Route.useLoaderData();

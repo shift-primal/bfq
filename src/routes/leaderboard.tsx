@@ -1,3 +1,5 @@
+import { createFileRoute } from "@tanstack/react-router";
+import z from "zod";
 import {
 	Table,
 	TableBody,
@@ -9,8 +11,6 @@ import {
 } from "#/components/shadcn/table";
 import { cn } from "#/lib/utils";
 import { getLeaderboard } from "#/server/leaderboard.rpc";
-import { createFileRoute } from "@tanstack/react-router";
-import z from "zod";
 
 type EntryProps = {
 	id: string;

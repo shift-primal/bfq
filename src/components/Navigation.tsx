@@ -1,3 +1,6 @@
+import { useNavigate } from "@tanstack/react-router";
+import { ArrowLeft, ArrowRight, RefreshCcw } from "lucide-react";
+import { useEffect } from "react";
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -11,9 +14,6 @@ import {
 } from "#/components/shadcn/alert-dialog";
 import { Button } from "#/components/shadcn/button";
 import { useQuizStore } from "#/store";
-import { useNavigate } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, RefreshCcw } from "lucide-react";
-import { useEffect } from "react";
 
 function useNavigationHotkeys(onBack: () => void, onNext: () => void) {
 	useEffect(() => {

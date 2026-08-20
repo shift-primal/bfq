@@ -1,10 +1,10 @@
-import { toPublic } from "#/lib/questions.utils";
-import { questions } from "#/config/questions.data";
 import { createServerFn } from "@tanstack/react-start";
+import { questions } from "#/config/questions.data";
+import { toPublic } from "#/lib/questions.utils";
 import { shuffleArray } from "#/lib/utils";
-import type { ShuffledQuestion } from "#/store";
-import type { SubmittedAnswer } from "#/routes/quiz/review";
 import { insertSubmission } from "#/server/submission.rpc";
+import { submitSchema } from "#/server/submit.schema";
+import type { ShuffledQuestion } from "#/store";
 
 export const getQuestion = createServerFn()
 	.validator((step: number) => step)
@@ -29,5 +29,5 @@ export const getShuffledOrder = createServerFn().handler(() => {
 });
 
 export const submitQuiz = createServerFn()
-	.validator((data: { name: string; answers: SubmittedAnswer }) => data)
+	.validator(submitSchema)
 	.handler(({ data }) => insertSubmission(data));

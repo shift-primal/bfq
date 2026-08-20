@@ -1,7 +1,7 @@
-import { db } from "#/db";
-import { submissions } from "#/db/schema";
 import { createServerFn } from "@tanstack/react-start";
 import { asc, desc, sql } from "drizzle-orm";
+import { db } from "#/db";
+import { submissions } from "#/db/schema";
 
 export const getLeaderboard = createServerFn().handler(async () => {
 	return await db

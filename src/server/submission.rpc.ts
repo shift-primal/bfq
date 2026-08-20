@@ -28,7 +28,7 @@ export async function insertSubmission(data: {
 	name: string;
 	answers: SubmittedAnswer;
 }) {
-	const score = tallyScore(questions, data.answers);
+	const score = Math.round(tallyScore(questions, data.answers));
 	const name = await getUniqueName(data.name.trim());
 
 	const [row] = await db

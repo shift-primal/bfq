@@ -33,13 +33,19 @@ const scoreMulti = (
 
 // Order
 
+// stupid function to make biome shut the fuck up
+function must<T>(value: T | undefined): T {
+	if (value === undefined) throw new Error("Expected value to be defined");
+	return value;
+}
+
 const getCorrectPairs = (
 	items: OrderQuestion["correctOrder"],
 	positions: Map<string, number>,
 ) =>
 	items
 		.flatMap((a, i) => items.slice(i + 1).map((b) => [a, b]))
-		.filter(([a, b]) => positions.get(a)! < positions.get(b)!).length;
+		.filter(([a, b]) => must(positions.get(a)) < must(positions.get(b))).length;
 
 const calculateScore = (cp: number, tp: number, to: number) => (cp / tp) * to;
 
@@ -72,7 +78,8 @@ function scoreAnswer(question: Question, answer: string | string[]): number {
 // Tally
 
 export function tallyScore(questions: Question[], answers: SubmittedAnswer) {
-	return Math.round(
-		questions.reduce((total, q) => total + scoreAnswer(q, answers[q.id]), 0),
+	return questions.reduce(
+		(total, q) => total + scoreAnswer(q, answers[q.id]),
+		0,
 	);
 }

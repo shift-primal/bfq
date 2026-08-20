@@ -1,3 +1,4 @@
+import { useShallow } from "zustand/react/shallow";
 import { Checkbox } from "#/components/shadcn/checkbox";
 import {
 	Field,
@@ -9,7 +10,6 @@ import {
 } from "#/components/shadcn/field";
 import type { MultiPublic } from "#/config/questions.config";
 import { useQuizStore } from "#/store";
-import { useShallow } from "zustand/react/shallow";
 
 export const MultiQuestion = ({
 	question,
