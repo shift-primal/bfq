@@ -1,13 +1,7 @@
+import { RadioGroup as RadioGroupPrimitive } from "radix-ui";
 import { useShallow } from "zustand/react/shallow";
-import {
-	Field,
-	FieldContent,
-	FieldLabel,
-	FieldLegend,
-	FieldSet,
-	FieldTitle,
-} from "#/components/shadcn/field";
-import { RadioGroup, RadioGroupItem } from "#/components/shadcn/radio-group";
+import { QuestionOption } from "#/components/questions/QuestionOption";
+import { FieldLegend, FieldSet } from "#/components/shadcn/field";
 import type { SelectPublic } from "#/config/questions.config";
 import { useQuizStore } from "#/stores/quiz-store";
 
@@ -29,25 +23,18 @@ export const SelectQuestion = ({
 	return (
 		<FieldSet disabled={disabled}>
 			<FieldLegend>{question.prompt}</FieldLegend>
-			<RadioGroup
+			<RadioGroupPrimitive.Root
 				value={typeof answer === "string" ? answer : ""}
 				onValueChange={(value) => setAnswer(question.id, value)}
 				disabled={disabled}
+				className="flex w-full flex-col gap-3"
 			>
 				{options.map((o) => (
-					<FieldLabel htmlFor={o} key={o}>
-						<Field
-							orientation="horizontal"
-							className={disabled ? "cursor-default" : "cursor-pointer"}
-						>
-							<FieldContent>
-								<FieldTitle>{o}</FieldTitle>
-							</FieldContent>
-							<RadioGroupItem value={o} id={o} />
-						</Field>
-					</FieldLabel>
+					<RadioGroupPrimitive.Item key={o} value={o} asChild>
+						<QuestionOption variant="select" label={o} />
+					</RadioGroupPrimitive.Item>
 				))}
-			</RadioGroup>
+			</RadioGroupPrimitive.Root>
 		</FieldSet>
 	);
 };

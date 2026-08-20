@@ -2,10 +2,9 @@ import { move } from "@dnd-kit/helpers";
 import { DragDropProvider } from "@dnd-kit/react";
 import { useSortable } from "@dnd-kit/react/sortable";
 import { useShallow } from "zustand/react/shallow";
-import { Card } from "#/components/shadcn/card";
+import { QuestionOption } from "#/components/questions/QuestionOption";
 import { FieldLegend, FieldSet } from "#/components/shadcn/field";
 import type { OrderPublic } from "#/config/questions.config";
-import { cn } from "#/lib/utils";
 import { useQuizStore } from "#/stores/quiz-store";
 
 const SortableItem = ({
@@ -20,15 +19,12 @@ const SortableItem = ({
 	const { ref } = useSortable({ id, index, disabled });
 
 	return (
-		<Card
+		<QuestionOption
 			ref={ref}
-			className={cn(
-				"select-none",
-				disabled ? "cursor-default" : "cursor-pointer",
-			)}
-		>
-			{id}
-		</Card>
+			variant="order"
+			label={id}
+			data-disabled={disabled || undefined}
+		/>
 	);
 };
 

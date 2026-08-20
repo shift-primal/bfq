@@ -1,13 +1,7 @@
+import { Checkbox as CheckboxPrimitive } from "radix-ui";
 import { useShallow } from "zustand/react/shallow";
-import { Checkbox } from "#/components/shadcn/checkbox";
-import {
-	Field,
-	FieldContent,
-	FieldLabel,
-	FieldLegend,
-	FieldSet,
-	FieldTitle,
-} from "#/components/shadcn/field";
+import { QuestionOption } from "#/components/questions/QuestionOption";
+import { FieldLegend, FieldSet } from "#/components/shadcn/field";
 import type { MultiPublic } from "#/config/questions.config";
 import { useQuizStore } from "#/stores/quiz-store";
 
@@ -40,18 +34,15 @@ export const MultiQuestion = ({
 		<FieldSet disabled={disabled}>
 			<FieldLegend>{question.prompt}</FieldLegend>
 			{options.map((o) => (
-				<FieldLabel key={o} htmlFor={o}>
-					<Field orientation="horizontal">
-						<FieldContent>
-							<FieldTitle>{o}</FieldTitle>
-						</FieldContent>
-						<Checkbox
-							id={o}
-							checked={Array.isArray(answer) && answer.includes(o)}
-							onCheckedChange={() => toggle(o)}
-						/>
-					</Field>
-				</FieldLabel>
+				<CheckboxPrimitive.Root
+					key={o}
+					checked={Array.isArray(answer) && answer.includes(o)}
+					onCheckedChange={() => toggle(o)}
+					disabled={disabled}
+					asChild
+				>
+					<QuestionOption variant="multi" label={o} />
+				</CheckboxPrimitive.Root>
 			))}
 		</FieldSet>
 	);
