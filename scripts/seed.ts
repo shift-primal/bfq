@@ -1,7 +1,7 @@
 import { questions } from "#/config/questions.data";
 import { shuffleArray } from "#/lib/utils";
 import { insertSubmission } from "#/server/submission.rpc";
-import type { Answer } from "#/store";
+import type { Answer } from "#/stores/quiz-store";
 
 const NAMES = [
 	"Alice",

@@ -1,22 +1,46 @@
 import { useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
 import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
 import { Navigation } from "#/components/Navigation";
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+} from "#/components/shadcn/alert-dialog";
 
 import { Field, FieldDescription, FieldLabel } from "#/components/shadcn/field";
 import { Input } from "#/components/shadcn/input";
 import { getShuffledOrder } from "#/server/questions.rpc";
-import { useQuizStore } from "#/store";
+import { useQuizStore } from "#/stores/quiz-store";
 
 export const NameForm = () => {
-	const { name, setName, setQuestions } = useQuizStore(
+	const { name, answers, setName, setQuestions, reset } = useQuizStore(
 		useShallow((s) => ({
 			name: s.name,
+			answers: s.answers,
 			setName: s.setName,
 			setQuestions: s.setQuestions,
+			reset: s.reset,
 		})),
 	);
 	const navigate = useNavigate();
+	const [confirmBackOpen, setConfirmBackOpen] = useState(false);
+
+	const hasProgress = name.trim() !== "" || Object.keys(answers).length > 0;
+
+	const handleBack = () => {
+		if (hasProgress) {
+			setConfirmBackOpen(true);
+			return;
+		}
+		navigate({ to: "/" });
+	};
 
 	const handleNext = async () => {
 		if (name.trim() === "") {
@@ -56,7 +80,30 @@ export const NameForm = () => {
 				</Field>
 			</form>
 
-			<Navigation onBack={() => navigate({ to: "/" })} onNext={handleNext} />
+			<Navigation onBack={handleBack} onNext={handleNext} />
+
+			<AlertDialog open={confirmBackOpen} onOpenChange={setConfirmBackOpen}>
+				<AlertDialogContent>
+					<AlertDialogHeader>
+						<AlertDialogTitle>Er du sikker?</AlertDialogTitle>
+						<AlertDialogDescription>
+							Hvis du går tilbake mister du det du har fylt ut
+						</AlertDialogDescription>
+					</AlertDialogHeader>
+					<AlertDialogFooter>
+						<AlertDialogCancel>Avbryt</AlertDialogCancel>
+						<AlertDialogAction
+							variant="destructive"
+							onClick={() => {
+								reset();
+								navigate({ to: "/" });
+							}}
+						>
+							Fortsett
+						</AlertDialogAction>
+					</AlertDialogFooter>
+				</AlertDialogContent>
+			</AlertDialog>
 		</div>
 	);
 };

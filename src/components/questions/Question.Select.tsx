@@ -9,7 +9,7 @@ import {
 } from "#/components/shadcn/field";
 import { RadioGroup, RadioGroupItem } from "#/components/shadcn/radio-group";
 import type { SelectPublic } from "#/config/questions.config";
-import { useQuizStore } from "#/store";
+import { useQuizStore } from "#/stores/quiz-store";
 
 export const SelectQuestion = ({
 	question,

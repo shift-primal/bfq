@@ -6,7 +6,7 @@ import { Card } from "#/components/shadcn/card";
 import { FieldLegend, FieldSet } from "#/components/shadcn/field";
 import type { OrderPublic } from "#/config/questions.config";
 import { cn } from "#/lib/utils";
-import { useQuizStore } from "#/store";
+import { useQuizStore } from "#/stores/quiz-store";
 
 const SortableItem = ({
 	id,
@@ -56,7 +56,7 @@ export const OrderQuestion = ({
 				onDragEnd={(e) => setAnswer(question.id, move(order, e))}
 			>
 				<div className="flex flex-col gap-2">
-					{shuffled.map((id, index) => (
+					{order.map((id, index) => (
 						<SortableItem key={id} id={id} index={index} disabled={disabled} />
 					))}
 				</div>

@@ -4,7 +4,7 @@ import { toPublic } from "#/lib/questions.utils";
 import { shuffleArray } from "#/lib/utils";
 import { insertSubmission } from "#/server/submission.rpc";
 import { submitSchema } from "#/server/submit.schema";
-import type { ShuffledQuestion } from "#/store";
+import type { ShuffledQuestion } from "#/stores/quiz-store";
 
 export const getQuestion = createServerFn()
 	.validator((step: number) => step)
@@ -13,6 +13,10 @@ export const getQuestion = createServerFn()
 		if (!q) throw new Error("Not found");
 		return { question: toPublic(q), step, total: questions.length };
 	});
+
+export const getQuestionCount = createServerFn().handler(
+	() => questions.length,
+);
 
 export const getShuffledOrder = createServerFn().handler(() => {
 	const result: Record<string, ShuffledQuestion> = {};

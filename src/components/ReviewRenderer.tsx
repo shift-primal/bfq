@@ -3,7 +3,7 @@ import { MultiQuestion } from "#/components/questions/Question.Multi";
 import { OrderQuestion } from "#/components/questions/Question.Order";
 import { SelectQuestion } from "#/components/questions/Question.Select";
 import type { PublicQuestion } from "#/config/questions.config";
-import { useQuizStore } from "#/store";
+import { useQuizStore } from "#/stores/quiz-store";
 
 const renderReviewQuestion = (q: PublicQuestion) => {
 	switch (q.type) {

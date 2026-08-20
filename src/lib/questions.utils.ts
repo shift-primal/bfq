@@ -1,5 +1,5 @@
 import type { PublicQuestion, Question } from "#/config/questions.config";
-import type { Answer } from "#/store";
+import type { Answer } from "#/stores/quiz-store";
 
 export function isAnswered(
 	type: PublicQuestion["type"],

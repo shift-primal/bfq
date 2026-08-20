@@ -16,7 +16,7 @@ export const questions: Question[] = [
 		correct: ["8", "9"],
 	},
 	{
-		id: "2",
+		id: "3",
 		type: "order",
 		prompt:
 			"Example question - order the numbers in ascending order (lowest to highest)",

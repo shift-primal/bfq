@@ -4,7 +4,7 @@ import { Navigation } from "#/components/Navigation";
 import { QuestionRenderer } from "#/components/questions/QuestionRenderer";
 import { isAnswered } from "#/lib/questions.utils";
 import { getQuestion } from "#/server/questions.rpc";
-import { useQuizStore } from "#/store";
+import { useQuizStore } from "#/stores/quiz-store";
 
 const QuestionStep = () => {
 	const data = Route.useLoaderData();

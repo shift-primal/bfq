@@ -4,33 +4,37 @@ import {
 	useLocation,
 	useParams,
 } from "@tanstack/react-router";
+import { ResetButton } from "#/components/ResetButton";
 import { Progress } from "#/components/shadcn/progress";
-import { useQuizStore } from "#/store";
+import { getQuestionCount } from "#/server/questions.rpc";
 
 const QuizLayout = () => {
 	const { pathname } = useLocation();
 	const { step: stepParam } = useParams({ strict: false });
-	const options = useQuizStore((s) => s.questions);
+	const questionCount = Route.useLoaderData();
 
-	const total = Object.keys(options).length + 1;
+	const total = questionCount + 1;
 	const step =
 		pathname === "/quiz/start"
 			? 0
-			: stepParam !== undefined
-				? Number(stepParam)
-				: total;
+			: pathname === "/quiz/review"
+				? total
+				: stepParam !== undefined
+					? Number(stepParam)
+					: 0;
 
 	return (
 		<div className="flex flex-col gap-6 py-6">
-			<div className="flex flex-col gap-2">
+			<div className="flex gap-x-4 items-center">
+				<span className="w-fit text-sm font-medium text-muted-foreground tabular-nums">
+					{step}/{total}
+				</span>
 				<Progress
 					value={(step / total) * 100}
 					aria-label="Fremgang"
 					aria-valuetext={`Steg ${step} av ${total}`}
 				/>
-				<p className="w-fit text-xs font-medium text-muted-foreground tabular-nums">
-					Steg {step} av {total}
-				</p>
+				<ResetButton />
 			</div>
 			<Outlet />
 		</div>
@@ -38,5 +42,6 @@ const QuizLayout = () => {
 };
 
 export const Route = createFileRoute("/quiz")({
+	loader: () => getQuestionCount(),
 	component: QuizLayout,
 });

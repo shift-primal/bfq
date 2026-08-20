@@ -10,3 +10,4 @@ UI
 Global
 
 - [ ] useEffect som clearer store på alle pages annet enn /quiz? (Med confirm på navigate vekk)
+- [ ] Navigation hotkey flytter svar

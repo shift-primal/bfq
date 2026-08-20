@@ -9,7 +9,7 @@ import {
 	FieldTitle,
 } from "#/components/shadcn/field";
 import type { MultiPublic } from "#/config/questions.config";
-import { useQuizStore } from "#/store";
+import { useQuizStore } from "#/stores/quiz-store";
 
 export const MultiQuestion = ({
 	question,
