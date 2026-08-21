@@ -6,13 +6,7 @@ import { FieldLegend, FieldSet } from "#/components/shadcn/field";
 import type { SelectPublic } from "#/config/questions.config";
 import { useQuizStore } from "#/stores/quiz-store";
 
-export const SelectQuestion = ({
-	question,
-	disabled = false,
-}: {
-	question: SelectPublic;
-	disabled?: boolean;
-}) => {
+export const SelectQuestion = ({ question }: { question: SelectPublic }) => {
 	const { answer, setAnswer, options } = useQuizStore(
 		useShallow((s) => ({
 			answer: s.answers[question.id],
@@ -22,12 +16,11 @@ export const SelectQuestion = ({
 	);
 
 	return (
-		<FieldSet disabled={disabled}>
+		<FieldSet>
 			<FieldLegend>{question.prompt}</FieldLegend>
 			<RadioGroupPrimitive.Root
 				value={typeof answer === "string" ? answer : ""}
 				onValueChange={(value) => setAnswer(question.id, value)}
-				disabled={disabled}
 				className="flex w-full flex-col gap-3"
 			>
 				<QuestionList>

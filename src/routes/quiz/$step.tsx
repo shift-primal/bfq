@@ -1,15 +1,12 @@
 import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
-import { toast } from "sonner";
 import { Navigation } from "#/components/Navigation";
 import { QuestionRenderer } from "#/components/questions/QuestionRenderer";
 import { ScrollableContent } from "#/components/ScrollableContent";
-import { isAnswered } from "#/lib/questions.utils";
 import { getQuestion } from "#/server/questions.rpc";
 import { useQuizStore } from "#/stores/quiz-store";
 
 const QuestionStep = () => {
 	const data = Route.useLoaderData();
-	const answer = useQuizStore((s) => s.answers[data.question.id]);
 	const navigate = useNavigate();
 
 	const handleBack = () => {
@@ -20,9 +17,7 @@ const QuestionStep = () => {
 
 	const handleNext = () => {
 		if (data.step >= data.total) navigate({ to: "/quiz/review" });
-		else if (!isAnswered(data.question.type, answer)) {
-			toast.error("Mangler svar");
-		} else {
+		else {
 			navigate({ to: "/quiz/$step", params: { step: String(data.step + 1) } });
 		}
 	};

@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
 import { Navigation } from "#/components/Navigation";
-import { ReviewRenderer } from "#/components/ReviewRenderer";
+import { ReviewRenderer } from "#/components/review/ReviewRenderer";
 import { ScrollableContent } from "#/components/ScrollableContent";
 import {
 	AlertDialog,

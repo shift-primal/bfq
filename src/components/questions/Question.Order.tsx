@@ -12,23 +12,11 @@ import { useQuizStore } from "#/stores/quiz-store";
 
 const EMPTY_OPTIONS: string[] = [];
 
-const SortableItem = ({
-	id,
-	index,
-	disabled,
-}: {
-	id: string;
-	index: number;
-	disabled: boolean;
-}) => {
-	const { ref } = useSortable({ id, index, disabled });
+const SortableItem = ({ id, index }: { id: string; index: number }) => {
+	const { ref } = useSortable({ id, index });
 	return (
 		<div ref={ref} className="touch-none py-1.5">
-			<QuestionOption
-				variant="order"
-				label={id}
-				data-disabled={disabled || undefined}
-			>
+			<QuestionOption variant="order" label={id}>
 				<DotsSixVerticalIcon
 					aria-hidden="true"
 					className="size-4 shrink-0 text-muted-foreground"
@@ -38,13 +26,7 @@ const SortableItem = ({
 	);
 };
 
-export const OrderQuestion = ({
-	question,
-	disabled = false,
-}: {
-	question: OrderPublic;
-	disabled?: boolean;
-}) => {
+export const OrderQuestion = ({ question }: { question: OrderPublic }) => {
 	const { answer, setAnswer, shuffled } = useQuizStore(
 		useShallow((s) => ({
 			answer: s.answers[question.id],
@@ -56,7 +38,7 @@ export const OrderQuestion = ({
 	const order = Array.isArray(answer) ? answer : shuffled;
 
 	return (
-		<FieldSet disabled={disabled}>
+		<FieldSet>
 			<FieldLegend>{question.prompt}</FieldLegend>
 			<DragDropProvider
 				sensors={[
@@ -77,7 +59,7 @@ export const OrderQuestion = ({
 			>
 				<QuestionList>
 					{order.map((id, index) => (
-						<SortableItem key={id} id={id} index={index} disabled={disabled} />
+						<SortableItem key={id} id={id} index={index} />
 					))}
 				</QuestionList>
 			</DragDropProvider>

@@ -6,13 +6,7 @@ import { FieldLegend, FieldSet } from "#/components/shadcn/field";
 import type { MultiPublic } from "#/config/questions.config";
 import { useQuizStore } from "#/stores/quiz-store";
 
-export const MultiQuestion = ({
-	question,
-	disabled = false,
-}: {
-	question: MultiPublic;
-	disabled?: boolean;
-}) => {
+export const MultiQuestion = ({ question }: { question: MultiPublic }) => {
 	const { answer, setAnswer, options } = useQuizStore(
 		useShallow((s) => ({
 			answer: s.answers[question.id],
@@ -32,7 +26,7 @@ export const MultiQuestion = ({
 	};
 
 	return (
-		<FieldSet disabled={disabled}>
+		<FieldSet>
 			<FieldLegend>{question.prompt}</FieldLegend>
 			<QuestionList>
 				{options.map((o) => (
@@ -40,7 +34,6 @@ export const MultiQuestion = ({
 						<CheckboxPrimitive.Root
 							checked={Array.isArray(answer) && answer.includes(o)}
 							onCheckedChange={() => toggle(o)}
-							disabled={disabled}
 							asChild
 						>
 							<QuestionOption variant="multi" label={o} />
