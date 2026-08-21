@@ -2,28 +2,15 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
+import { ConfirmDialog } from "#/components/ConfirmDialog";
 import { Navigation } from "#/components/Navigation";
 import { ReviewRenderer } from "#/components/review/ReviewRenderer";
 import { ScrollableContent } from "#/components/ScrollableContent";
-import {
-	AlertDialog,
-	AlertDialogAction,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
-} from "#/components/shadcn/alert-dialog";
 import { isAnswered } from "#/lib/questions.utils";
-import { submitQuiz } from "#/server/questions.rpc";
-import {
-	type Answer,
-	type ShuffledQuestion,
-	useQuizStore,
-} from "#/stores/quiz-store";
+import { submitQuiz } from "#/server/submission.rpc";
+import { useQuizStore } from "#/stores/quiz-store";
+import type { ShuffledQuestion, SubmittedAnswer } from "#/types/quiz.types";
 
-export type SubmittedAnswer = Record<string, Answer>;
 type Questions = Record<string, ShuffledQuestion>;
 
 function isValidQuiz(
@@ -91,22 +78,14 @@ const QuizReview = () => {
 			</ScrollableContent>
 			<Navigation onBack={handleBack} onNext={handleNext} />
 
-			<AlertDialog open={confirmSubmitOpen} onOpenChange={setConfirmSubmitOpen}>
-				<AlertDialogContent>
-					<AlertDialogHeader>
-						<AlertDialogTitle>Er du sikker?</AlertDialogTitle>
-						<AlertDialogDescription>
-							Du kan ikke endre svarene dine etter at du har sendt inn
-						</AlertDialogDescription>
-					</AlertDialogHeader>
-					<AlertDialogFooter>
-						<AlertDialogCancel>Avbryt</AlertDialogCancel>
-						<AlertDialogAction onClick={confirmSubmit}>
-							Send inn
-						</AlertDialogAction>
-					</AlertDialogFooter>
-				</AlertDialogContent>
-			</AlertDialog>
+			<ConfirmDialog
+				open={confirmSubmitOpen}
+				onOpenChange={setConfirmSubmitOpen}
+				title="Er du sikker?"
+				description="Du kan ikke endre svarene dine etter at du har sendt inn"
+				confirmLabel="Send inn"
+				onConfirm={confirmSubmit}
+			/>
 		</>
 	);
 };

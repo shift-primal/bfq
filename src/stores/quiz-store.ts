@@ -1,14 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import type { PublicQuestion } from "#/config/questions.config";
-
-export type ShuffledQuestion = {
-	type: PublicQuestion["type"];
-	prompt: string;
-	options: string[];
-};
-
-export type Answer = string | string[];
+import type { Answer, ShuffledQuestion } from "#/types/quiz.types";
 
 type QuizState = {
 	name: string;

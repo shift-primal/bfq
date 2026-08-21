@@ -1,4 +1,4 @@
-import type { Question } from "./questions.config";
+import type { Question } from "#/types/quiz.types";
 
 export const questions: Question[] = [
 	{

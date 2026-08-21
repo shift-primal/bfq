@@ -12,3 +12,12 @@ export type Question =
 	| (SelectPublic & { correct: string })
 	| (MultiPublic & { correct: string[] })
 	| (OrderPublic & { correctOrder: string[] });
+
+export type Answer = string | string[];
+export type SubmittedAnswer = Record<string, Answer>;
+
+export type ShuffledQuestion = {
+	type: PublicQuestion["type"];
+	prompt: string;
+	options: string[];
+};

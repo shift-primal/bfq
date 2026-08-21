@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
-	type MultiQuestion,
-	type OrderQuestion,
-	type SelectQuestion,
+	type ScoredMultiQuestion,
+	type ScoredOrderQuestion,
+	type ScoredSelectQuestion,
 	tallyScore,
 } from "./scoring";
 
-const selectQuestion: SelectQuestion = {
+const selectQuestion: ScoredSelectQuestion = {
 	id: "1",
 	type: "select",
 	prompt: "Hva heter katten min?",
@@ -26,7 +26,7 @@ describe("Tally (Select)", () => {
 	});
 });
 
-const multiQuestion: MultiQuestion = {
+const multiQuestion: ScoredMultiQuestion = {
 	id: "1",
 	type: "multi",
 	prompt: "Hvilke av disse er røyk?",
@@ -74,7 +74,7 @@ describe("Tally (Multi)", () => {
 	});
 });
 
-const orderQuestion: OrderQuestion = {
+const orderQuestion: ScoredOrderQuestion = {
 	id: "1",
 	type: "order",
 	prompt: "Sorter disse i stigende rekkefølge",

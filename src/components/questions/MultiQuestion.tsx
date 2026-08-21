@@ -1,18 +1,14 @@
 import { Checkbox as CheckboxPrimitive } from "radix-ui";
-import { useShallow } from "zustand/react/shallow";
+import { QuestionFieldSet } from "#/components/questions/QuestionFieldSet";
 import { QuestionList } from "#/components/questions/QuestionList";
 import { QuestionOption } from "#/components/questions/QuestionOption";
-import { FieldLegend, FieldSet } from "#/components/shadcn/field";
-import type { MultiPublic } from "#/config/questions.config";
-import { useQuizStore } from "#/stores/quiz-store";
+import { useQuestionAnswer } from "#/hooks/useQuestionAnswer";
+import type { MultiPublic } from "#/types/quiz.types";
 
 export const MultiQuestion = ({ question }: { question: MultiPublic }) => {
-	const { answer, setAnswer, options } = useQuizStore(
-		useShallow((s) => ({
-			answer: s.answers[question.id],
-			setAnswer: s.setAnswer,
-			options: s.questions[question.id]?.options ?? question.options,
-		})),
+	const { answer, setAnswer, options } = useQuestionAnswer(
+		question.id,
+		question.options,
 	);
 
 	const toggle = (option: string) => {
@@ -26,8 +22,7 @@ export const MultiQuestion = ({ question }: { question: MultiPublic }) => {
 	};
 
 	return (
-		<FieldSet>
-			<FieldLegend>{question.prompt}</FieldLegend>
+		<QuestionFieldSet prompt={question.prompt}>
 			<QuestionList>
 				{options.map((o) => (
 					<div key={o} className="py-1.5">
@@ -41,6 +36,6 @@ export const MultiQuestion = ({ question }: { question: MultiPublic }) => {
 					</div>
 				))}
 			</QuestionList>
-		</FieldSet>
+		</QuestionFieldSet>
 	);
 };

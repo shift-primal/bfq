@@ -3,12 +3,11 @@ import { move } from "@dnd-kit/helpers";
 import { DragDropProvider } from "@dnd-kit/react";
 import { useSortable } from "@dnd-kit/react/sortable";
 import { DotsSixVerticalIcon } from "@phosphor-icons/react";
-import { useShallow } from "zustand/react/shallow";
+import { QuestionFieldSet } from "#/components/questions/QuestionFieldSet";
 import { QuestionList } from "#/components/questions/QuestionList";
 import { QuestionOption } from "#/components/questions/QuestionOption";
-import { FieldLegend, FieldSet } from "#/components/shadcn/field";
-import type { OrderPublic } from "#/config/questions.config";
-import { useQuizStore } from "#/stores/quiz-store";
+import { useQuestionAnswer } from "#/hooks/useQuestionAnswer";
+import type { OrderPublic } from "#/types/quiz.types";
 
 const EMPTY_OPTIONS: string[] = [];
 
@@ -27,19 +26,16 @@ const SortableItem = ({ id, index }: { id: string; index: number }) => {
 };
 
 export const OrderQuestion = ({ question }: { question: OrderPublic }) => {
-	const { answer, setAnswer, shuffled } = useQuizStore(
-		useShallow((s) => ({
-			answer: s.answers[question.id],
-			setAnswer: s.setAnswer,
-			shuffled: s.questions[question.id]?.options ?? EMPTY_OPTIONS,
-		})),
-	);
+	const {
+		answer,
+		setAnswer,
+		options: shuffled,
+	} = useQuestionAnswer(question.id, EMPTY_OPTIONS);
 
 	const order = Array.isArray(answer) ? answer : shuffled;
 
 	return (
-		<FieldSet>
-			<FieldLegend>{question.prompt}</FieldLegend>
+		<QuestionFieldSet prompt={question.prompt}>
 			<DragDropProvider
 				sensors={[
 					PointerSensor.configure({
@@ -63,6 +59,6 @@ export const OrderQuestion = ({ question }: { question: OrderPublic }) => {
 					))}
 				</QuestionList>
 			</DragDropProvider>
-		</FieldSet>
+		</QuestionFieldSet>
 	);
 };

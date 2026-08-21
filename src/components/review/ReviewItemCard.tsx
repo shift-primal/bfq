@@ -8,11 +8,10 @@ import {
 	CardHeader,
 	CardTitle,
 } from "#/components/shadcn/card";
-import type { PublicQuestion } from "#/config/questions.config";
 import { formatAnswer, typeToDisplay } from "#/lib/format";
 import { isAnswered } from "#/lib/questions.utils";
 import { cn } from "#/lib/utils";
-import type { Answer } from "#/stores/quiz-store";
+import type { Answer, PublicQuestion } from "#/types/quiz.types";
 
 export type ReviewItem = PublicQuestion & { answer: Answer | undefined };
 

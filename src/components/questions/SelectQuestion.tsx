@@ -1,23 +1,18 @@
 import { RadioGroup as RadioGroupPrimitive } from "radix-ui";
-import { useShallow } from "zustand/react/shallow";
+import { QuestionFieldSet } from "#/components/questions/QuestionFieldSet";
 import { QuestionList } from "#/components/questions/QuestionList";
 import { QuestionOption } from "#/components/questions/QuestionOption";
-import { FieldLegend, FieldSet } from "#/components/shadcn/field";
-import type { SelectPublic } from "#/config/questions.config";
-import { useQuizStore } from "#/stores/quiz-store";
+import { useQuestionAnswer } from "#/hooks/useQuestionAnswer";
+import type { SelectPublic } from "#/types/quiz.types";
 
 export const SelectQuestion = ({ question }: { question: SelectPublic }) => {
-	const { answer, setAnswer, options } = useQuizStore(
-		useShallow((s) => ({
-			answer: s.answers[question.id],
-			setAnswer: s.setAnswer,
-			options: s.questions[question.id]?.options ?? question.options,
-		})),
+	const { answer, setAnswer, options } = useQuestionAnswer(
+		question.id,
+		question.options,
 	);
 
 	return (
-		<FieldSet>
-			<FieldLegend>{question.prompt}</FieldLegend>
+		<QuestionFieldSet prompt={question.prompt}>
 			<RadioGroupPrimitive.Root
 				value={typeof answer === "string" ? answer : ""}
 				onValueChange={(value) => setAnswer(question.id, value)}
@@ -33,6 +28,6 @@ export const SelectQuestion = ({ question }: { question: SelectPublic }) => {
 					))}
 				</QuestionList>
 			</RadioGroupPrimitive.Root>
-		</FieldSet>
+		</QuestionFieldSet>
 	);
 };

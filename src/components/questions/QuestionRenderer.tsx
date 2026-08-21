@@ -1,7 +1,7 @@
-import { MultiQuestion } from "#/components/questions/Question.Multi";
-import { OrderQuestion } from "#/components/questions/Question.Order";
-import { SelectQuestion } from "#/components/questions/Question.Select";
-import type { PublicQuestion } from "#/config/questions.config";
+import { MultiQuestion } from "#/components/questions/MultiQuestion";
+import { OrderQuestion } from "#/components/questions/OrderQuestion";
+import { SelectQuestion } from "#/components/questions/SelectQuestion";
+import type { PublicQuestion } from "#/types/quiz.types";
 
 const RenderQuestion = ({ question }: { question: PublicQuestion }) => {
 	switch (question.type) {

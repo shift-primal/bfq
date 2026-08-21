@@ -2,19 +2,9 @@ import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
+import { ConfirmDialog } from "#/components/ConfirmDialog";
 import { Navigation } from "#/components/Navigation";
 import { ScrollableContent } from "#/components/ScrollableContent";
-import {
-	AlertDialog,
-	AlertDialogAction,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
-} from "#/components/shadcn/alert-dialog";
-
 import { Field, FieldDescription, FieldLabel } from "#/components/shadcn/field";
 import { Input } from "#/components/shadcn/input";
 import { getShuffledOrder } from "#/server/questions.rpc";
@@ -85,28 +75,18 @@ export const NameForm = () => {
 
 			<Navigation onBack={handleBack} onNext={handleNext} />
 
-			<AlertDialog open={confirmBackOpen} onOpenChange={setConfirmBackOpen}>
-				<AlertDialogContent>
-					<AlertDialogHeader>
-						<AlertDialogTitle>Er du sikker?</AlertDialogTitle>
-						<AlertDialogDescription>
-							Hvis du går tilbake mister du det du har fylt ut
-						</AlertDialogDescription>
-					</AlertDialogHeader>
-					<AlertDialogFooter>
-						<AlertDialogCancel>Avbryt</AlertDialogCancel>
-						<AlertDialogAction
-							variant="destructive"
-							onClick={() => {
-								reset();
-								navigate({ to: "/" });
-							}}
-						>
-							Fortsett
-						</AlertDialogAction>
-					</AlertDialogFooter>
-				</AlertDialogContent>
-			</AlertDialog>
+			<ConfirmDialog
+				open={confirmBackOpen}
+				onOpenChange={setConfirmBackOpen}
+				title="Er du sikker?"
+				description="Hvis du går tilbake mister du det du har fylt ut"
+				confirmLabel="Fortsett"
+				destructive
+				onConfirm={() => {
+					reset();
+					navigate({ to: "/" });
+				}}
+			/>
 		</>
 	);
 };
