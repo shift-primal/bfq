@@ -35,7 +35,7 @@ export const OrderQuestion = ({ question }: { question: OrderPublic }) => {
 	const order = Array.isArray(answer) ? answer : shuffled;
 
 	return (
-		<QuestionFieldSet prompt={question.prompt}>
+		<QuestionFieldSet prompt={question.prompt} questionType="order">
 			<DragDropProvider
 				sensors={[
 					PointerSensor.configure({

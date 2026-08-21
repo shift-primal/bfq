@@ -16,14 +16,15 @@ export const Navigation = ({
 	useNavigationHotkey("ArrowRight", onNext);
 
 	return (
-		<div className="flex justify-between">
-			<Button onClick={onBack} aria-label="Tilbake">
-				<ArrowLeft />
-			</Button>
-
-			<Button onClick={onNext} aria-label="Neste">
-				<ArrowRight />
-			</Button>
+		<div className="flex flex-col gap-y-4">
+			<div className="flex gap-x-4">
+				<Button onClick={onBack} aria-label="Tilbake" className="grow">
+					<ArrowLeft />
+				</Button>
+				<Button onClick={onNext} aria-label="Neste" className="grow">
+					<ArrowRight />
+				</Button>
+			</div>
 
 			<Button asChild>
 				<Link to="/quiz/review">

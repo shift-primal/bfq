@@ -21,10 +21,5 @@ export const QuestionRenderer = ({
 }: {
 	question: PublicQuestion;
 }) => {
-	return (
-		<div>
-			<p>{question.type}</p>
-			<RenderQuestion question={question} />
-		</div>
-	);
+	return <RenderQuestion question={question} />;
 };

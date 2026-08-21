@@ -20,6 +20,7 @@ export const QuestionOption = ({
 			"group/option flex select-none items-center justify-between gap-2 rounded-lg border border-input bg-background px-3 py-2.5 transition-colors",
 			"hover:bg-muted/50 data-checked:border-primary/40 data-checked:bg-muted",
 			"outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30",
+			"cursor-pointer",
 			className,
 		)}
 		{...props}
@@ -29,18 +30,18 @@ export const QuestionOption = ({
 		{variant === "select" && (
 			<span
 				aria-hidden="true"
-				className="flex size-4 shrink-0 items-center justify-center rounded-full border border-input group-data-checked/option:border-primary group-data-checked/option:bg-primary"
+				className="flex size-4 shrink-0 items-center justify-center rounded-full border group-data-checked/option:border-primary group-data-checked/option:bg-primary"
 			>
-				<span className="hidden size-2 rounded-full bg-primary-foreground group-data-checked/option:block" />
+				<span className="hidden size-2 rounded-full bg-primary-foreground" />
 			</span>
 		)}
 
 		{variant === "multi" && (
 			<span
 				aria-hidden="true"
-				className="flex size-4 shrink-0 items-center justify-center rounded-lg border border-input group-data-checked/option:border-primary group-data-checked/option:bg-primary"
+				className="flex size-4 shrink-0 items-center justify-center rounded-lg border group-data-checked/option:border-primary group-data-checked/option:bg-primary"
 			>
-				<CheckIcon className="hidden size-3 text-primary-foreground group-data-checked/option:block" />
+				<CheckIcon className="hidden size-3 text-primary-foreground" />
 			</span>
 		)}
 

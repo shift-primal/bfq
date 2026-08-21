@@ -22,7 +22,7 @@ export const MultiQuestion = ({ question }: { question: MultiPublic }) => {
 	};
 
 	return (
-		<QuestionFieldSet prompt={question.prompt}>
+		<QuestionFieldSet prompt={question.prompt} questionType="multi">
 			<QuestionList>
 				{options.map((o) => (
 					<div key={o} className="py-1.5">

@@ -12,7 +12,7 @@ export const SelectQuestion = ({ question }: { question: SelectPublic }) => {
 	);
 
 	return (
-		<QuestionFieldSet prompt={question.prompt}>
+		<QuestionFieldSet prompt={question.prompt} questionType="select">
 			<RadioGroupPrimitive.Root
 				value={typeof answer === "string" ? answer : ""}
 				onValueChange={(value) => setAnswer(question.id, value)}
