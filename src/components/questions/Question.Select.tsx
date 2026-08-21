@@ -32,9 +32,11 @@ export const SelectQuestion = ({
 			>
 				<QuestionList>
 					{options.map((o) => (
-						<RadioGroupPrimitive.Item key={o} value={o} asChild>
-							<QuestionOption variant="select" label={o} />
-						</RadioGroupPrimitive.Item>
+						<div key={o} className="py-1.5">
+							<RadioGroupPrimitive.Item value={o} asChild>
+								<QuestionOption variant="select" label={o} />
+							</RadioGroupPrimitive.Item>
+						</div>
 					))}
 				</QuestionList>
 			</RadioGroupPrimitive.Root>

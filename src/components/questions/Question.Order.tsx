@@ -1,12 +1,16 @@
+import { PointerActivationConstraints, PointerSensor } from "@dnd-kit/dom";
 import { move } from "@dnd-kit/helpers";
 import { DragDropProvider } from "@dnd-kit/react";
 import { useSortable } from "@dnd-kit/react/sortable";
+import { DotsSixVerticalIcon } from "@phosphor-icons/react";
 import { useShallow } from "zustand/react/shallow";
 import { QuestionList } from "#/components/questions/QuestionList";
 import { QuestionOption } from "#/components/questions/QuestionOption";
 import { FieldLegend, FieldSet } from "#/components/shadcn/field";
 import type { OrderPublic } from "#/config/questions.config";
 import { useQuizStore } from "#/stores/quiz-store";
+
+const EMPTY_OPTIONS: string[] = [];
 
 const SortableItem = ({
 	id,
@@ -18,14 +22,19 @@ const SortableItem = ({
 	disabled: boolean;
 }) => {
 	const { ref } = useSortable({ id, index, disabled });
-
 	return (
-		<QuestionOption
-			ref={ref}
-			variant="order"
-			label={id}
-			data-disabled={disabled || undefined}
-		/>
+		<div ref={ref} className="touch-none py-1.5">
+			<QuestionOption
+				variant="order"
+				label={id}
+				data-disabled={disabled || undefined}
+			>
+				<DotsSixVerticalIcon
+					aria-hidden="true"
+					className="size-4 shrink-0 text-muted-foreground"
+				/>
+			</QuestionOption>
+		</div>
 	);
 };
 
@@ -40,7 +49,7 @@ export const OrderQuestion = ({
 		useShallow((s) => ({
 			answer: s.answers[question.id],
 			setAnswer: s.setAnswer,
-			shuffled: s.questions[question.id]?.options ?? [],
+			shuffled: s.questions[question.id]?.options ?? EMPTY_OPTIONS,
 		})),
 	);
 
@@ -50,18 +59,25 @@ export const OrderQuestion = ({
 		<FieldSet disabled={disabled}>
 			<FieldLegend>{question.prompt}</FieldLegend>
 			<DragDropProvider
+				sensors={[
+					PointerSensor.configure({
+						activationConstraints({ pointerType }) {
+							return pointerType === "touch"
+								? [
+										new PointerActivationConstraints.Delay({
+											value: 0,
+											tolerance: 5,
+										}),
+									]
+								: undefined;
+						},
+					}),
+				]}
 				onDragEnd={(e) => setAnswer(question.id, move(order, e))}
 			>
 				<QuestionList>
 					{order.map((id, index) => (
-						<>
-							<SortableItem
-								key={id}
-								id={id}
-								index={index}
-								disabled={disabled}
-							/>
-						</>
+						<SortableItem key={id} id={id} index={index} disabled={disabled} />
 					))}
 				</QuestionList>
 			</DragDropProvider>

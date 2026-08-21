@@ -36,15 +36,16 @@ export const MultiQuestion = ({
 			<FieldLegend>{question.prompt}</FieldLegend>
 			<QuestionList>
 				{options.map((o) => (
-					<CheckboxPrimitive.Root
-						key={o}
-						checked={Array.isArray(answer) && answer.includes(o)}
-						onCheckedChange={() => toggle(o)}
-						disabled={disabled}
-						asChild
-					>
-						<QuestionOption variant="multi" label={o} />
-					</CheckboxPrimitive.Root>
+					<div key={o} className="py-1.5">
+						<CheckboxPrimitive.Root
+							checked={Array.isArray(answer) && answer.includes(o)}
+							onCheckedChange={() => toggle(o)}
+							disabled={disabled}
+							asChild
+						>
+							<QuestionOption variant="multi" label={o} />
+						</CheckboxPrimitive.Root>
+					</div>
 				))}
 			</QuestionList>
 		</FieldSet>

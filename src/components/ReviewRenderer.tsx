@@ -36,7 +36,9 @@ export const ReviewRenderer = () => {
 	return (
 		<>
 			<p>hei {name}</p>
-			{fullQuestions.map(renderReviewQuestion)}
+			<div className="flex flex-col">
+				{fullQuestions.map(renderReviewQuestion)}
+			</div>
 		</>
 	);
 };
