@@ -6,9 +6,8 @@ import {
 import { useQuizStore } from "#/stores/quiz-store";
 
 export const ReviewRenderer = () => {
-	const { name, questions, answers } = useQuizStore(
+	const { questions, answers } = useQuizStore(
 		useShallow((s) => ({
-			name: s.name,
 			answers: s.answers,
 			questions: s.questions,
 		})),
@@ -47,8 +46,7 @@ export const ReviewRenderer = () => {
 
 	return (
 		<>
-			<p>hei {name}</p>
-			<div className="flex flex-col">
+			<div className="flex flex-col gap-y-4">
 				{reviewItems.map((i) => (
 					<ReviewItemCard key={i.id} item={i} />
 				))}

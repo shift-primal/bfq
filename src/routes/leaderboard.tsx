@@ -1,38 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import z from "zod";
+import { LeaderboardEntry } from "#/components/leaderboard/LeaderboardEntry";
 import {
 	Table,
 	TableBody,
 	TableCaption,
-	TableCell,
 	TableHead,
 	TableHeader,
 	TableRow,
 } from "#/components/shadcn/table";
-import { cn } from "#/lib/utils";
 import { getLeaderboard } from "#/server/leaderboard.rpc";
-
-type EntryProps = {
-	id: string;
-	name: string;
-	score: number;
-	rank: number;
-	highlighted: boolean;
-};
-
-const LeaderboardEntry = (props: EntryProps) => {
-	return (
-		<TableRow
-			className={cn(
-				props.highlighted ? "border-2 border-amber-400" : "border-0",
-			)}
-		>
-			<TableCell className="font-medium">{props.rank}</TableCell>
-			<TableCell>{props.name}</TableCell>
-			<TableCell className="text-right">{props.score}</TableCell>
-		</TableRow>
-	);
-};
 
 const Leaderboard = () => {
 	const leaderboard = Route.useLoaderData();

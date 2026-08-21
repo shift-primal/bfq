@@ -1,51 +1,26 @@
-import { useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
-import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
 import { ConfirmDialog } from "#/components/ConfirmDialog";
 import { Navigation } from "#/components/Navigation";
 import { ScrollableContent } from "#/components/ScrollableContent";
 import { Field, FieldDescription, FieldLabel } from "#/components/shadcn/field";
 import { Input } from "#/components/shadcn/input";
-import { getShuffledOrder } from "#/server/questions.rpc";
+import { useNameFormNavigation } from "#/hooks/useNameFormNavigation";
 import { useQuizStore } from "#/stores/quiz-store";
 
 export const NameForm = () => {
-	const { name, answers, setName, setQuestions, reset } = useQuizStore(
+	const { name, setName } = useQuizStore(
 		useShallow((s) => ({
 			name: s.name,
-			answers: s.answers,
 			setName: s.setName,
-			setQuestions: s.setQuestions,
-			reset: s.reset,
 		})),
 	);
-	const navigate = useNavigate();
-	const [confirmBackOpen, setConfirmBackOpen] = useState(false);
-
-	const hasProgress = name.trim() !== "" || Object.keys(answers).length > 0;
-
-	const handleBack = () => {
-		if (hasProgress) {
-			setConfirmBackOpen(true);
-			return;
-		}
-		navigate({ to: "/" });
-	};
-
-	const handleNext = async () => {
-		if (name.trim() === "") {
-			toast.error("Du må fylle ut navnet ditt");
-			return;
-		}
-
-		if (Object.keys(useQuizStore.getState().questions).length === 0) {
-			const questions = await getShuffledOrder();
-			setQuestions(questions);
-		}
-
-		navigate({ to: "/quiz/$step", params: { step: "1" } });
-	};
+	const {
+		handleBack,
+		handleNext,
+		confirmBackOpen,
+		setConfirmBackOpen,
+		confirmBack,
+	} = useNameFormNavigation();
 
 	return (
 		<>
@@ -82,10 +57,7 @@ export const NameForm = () => {
 				description="Hvis du går tilbake mister du det du har fylt ut"
 				confirmLabel="Fortsett"
 				destructive
-				onConfirm={() => {
-					reset();
-					navigate({ to: "/" });
-				}}
+				onConfirm={confirmBack}
 			/>
 		</>
 	);

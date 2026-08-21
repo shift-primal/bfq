@@ -2,6 +2,8 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import { Button } from "#/components/shadcn/button";
 import { useNavigationHotkey } from "#/hooks/useNavigationHotkey";
+import { Link } from "@tanstack/react-router";
+import { FastForwardIcon } from "@phosphor-icons/react";
 
 export const Navigation = ({
 	onBack,
@@ -21,6 +23,12 @@ export const Navigation = ({
 
 			<Button onClick={onNext} aria-label="Neste">
 				<ArrowRight />
+			</Button>
+
+			<Button asChild>
+				<Link to="/quiz/review">
+					<FastForwardIcon />
+				</Link>
 			</Button>
 		</div>
 	);
