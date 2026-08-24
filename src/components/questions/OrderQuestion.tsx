@@ -14,7 +14,7 @@ const EMPTY_OPTIONS: string[] = [];
 const SortableItem = ({ id, index }: { id: string; index: number }) => {
 	const { ref } = useSortable({ id, index });
 	return (
-		<div ref={ref} className="touch-none py-1.5">
+		<div ref={ref} className="touch-none p-1.5">
 			<QuestionOption variant="order" label={id}>
 				<DotsSixVerticalIcon
 					aria-hidden="true"

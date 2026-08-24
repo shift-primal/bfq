@@ -1,4 +1,4 @@
-import { Link, type ErrorComponentProps } from "@tanstack/react-router";
+import { type ErrorComponentProps, Link } from "@tanstack/react-router";
 import { ErrorPage } from "#/components/ErrorPage";
 import { Button } from "#/components/shadcn/button";
 

@@ -9,9 +9,20 @@ export function isAnswered(
 			return typeof answer === "string" && answer !== "";
 		case "multi":
 			return Array.isArray(answer) && answer.length > 0;
-		case "order":
+		default:
 			return true;
 	}
+}
+
+export function isOrderUntouched(
+	options: string[],
+	answer: Answer | undefined,
+): boolean {
+	if (!Array.isArray(answer)) return true;
+	return (
+		answer.length === options.length &&
+		answer.every((id, i) => id === options[i])
+	);
 }
 
 export function toPublic(q: Question): PublicQuestion {

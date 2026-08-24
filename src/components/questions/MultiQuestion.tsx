@@ -25,7 +25,7 @@ export const MultiQuestion = ({ question }: { question: MultiPublic }) => {
 		<QuestionFieldSet prompt={question.prompt} questionType="multi">
 			<QuestionList>
 				{options.map((o) => (
-					<div key={o} className="py-1.5">
+					<div key={o} className="p-1.5">
 						<CheckboxPrimitive.Root
 							checked={Array.isArray(answer) && answer.includes(o)}
 							onCheckedChange={() => toggle(o)}

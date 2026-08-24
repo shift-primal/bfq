@@ -1,9 +1,11 @@
-import { ArrowLeft, ArrowRight } from "lucide-react";
-
+import {
+	ArrowLeftIcon,
+	ArrowRightIcon,
+	FastForwardIcon,
+} from "@phosphor-icons/react";
+import { Link } from "@tanstack/react-router";
 import { Button } from "#/components/shadcn/button";
 import { useNavigationHotkey } from "#/hooks/useNavigationHotkey";
-import { Link } from "@tanstack/react-router";
-import { FastForwardIcon } from "@phosphor-icons/react";
 
 export const Navigation = ({
 	onBack,
@@ -19,10 +21,10 @@ export const Navigation = ({
 		<div className="flex flex-col gap-y-4">
 			<div className="flex gap-x-4">
 				<Button onClick={onBack} aria-label="Tilbake" className="grow">
-					<ArrowLeft />
+					<ArrowLeftIcon />
 				</Button>
 				<Button onClick={onNext} aria-label="Neste" className="grow">
-					<ArrowRight />
+					<ArrowRightIcon />
 				</Button>
 			</div>
 

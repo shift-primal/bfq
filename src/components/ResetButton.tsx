@@ -1,5 +1,5 @@
+import { ArrowCounterClockwiseIcon } from "@phosphor-icons/react";
 import { useNavigate } from "@tanstack/react-router";
-import { RefreshCcw } from "lucide-react";
 import { useState } from "react";
 import { ConfirmDialog } from "#/components/ConfirmDialog";
 import { Button } from "#/components/shadcn/button";
@@ -16,7 +16,7 @@ export const ResetButton = () => {
 			onOpenChange={setDialogOpen}
 			trigger={
 				<Button variant="destructive" aria-label="Start på nytt">
-					<RefreshCcw />
+					<ArrowCounterClockwiseIcon />
 				</Button>
 			}
 			title="Er du sikker?"

@@ -11,11 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LeaderboardRouteImport } from './routes/leaderboard'
-import { Route as QuizRouteRouteImport } from './routes/quiz/route'
 import { Route as QuizIndexRouteImport } from './routes/quiz/index'
-import { Route as QuizStepRouteImport } from './routes/quiz/$step'
-import { Route as QuizReviewRouteImport } from './routes/quiz/review'
+import { Route as QuizProgressRouteRouteImport } from './routes/quiz/_progress/route'
 import { Route as QuizStartRouteImport } from './routes/quiz/start'
+import { Route as QuizProgressStepRouteImport } from './routes/quiz/_progress/$step'
+import { Route as QuizProgressReviewRouteImport } from './routes/quiz/_progress/review'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -27,92 +27,94 @@ const LeaderboardRoute = LeaderboardRouteImport.update({
   path: '/leaderboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const QuizRouteRoute = QuizRouteRouteImport.update({
-  id: '/quiz',
+const QuizIndexRoute = QuizIndexRouteImport.update({
+  id: '/quiz/',
+  path: '/quiz/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuizProgressRouteRoute = QuizProgressRouteRouteImport.update({
+  id: '/quiz/_progress',
   path: '/quiz',
   getParentRoute: () => rootRouteImport,
 } as any)
-const QuizIndexRoute = QuizIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => QuizRouteRoute,
+const QuizStartRoute = QuizStartRouteImport.update({
+  id: '/quiz/start',
+  path: '/quiz/start',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const QuizStepRoute = QuizStepRouteImport.update({
+const QuizProgressStepRoute = QuizProgressStepRouteImport.update({
   id: '/$step',
   path: '/$step',
-  getParentRoute: () => QuizRouteRoute,
+  getParentRoute: () => QuizProgressRouteRoute,
 } as any)
-const QuizReviewRoute = QuizReviewRouteImport.update({
+const QuizProgressReviewRoute = QuizProgressReviewRouteImport.update({
   id: '/review',
   path: '/review',
-  getParentRoute: () => QuizRouteRoute,
-} as any)
-const QuizStartRoute = QuizStartRouteImport.update({
-  id: '/start',
-  path: '/start',
-  getParentRoute: () => QuizRouteRoute,
+  getParentRoute: () => QuizProgressRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/quiz': typeof QuizRouteRouteWithChildren
   '/leaderboard': typeof LeaderboardRoute
-  '/quiz/$step': typeof QuizStepRoute
-  '/quiz/review': typeof QuizReviewRoute
+  '/quiz': typeof QuizProgressRouteRouteWithChildren
   '/quiz/start': typeof QuizStartRoute
   '/quiz/': typeof QuizIndexRoute
+  '/quiz/$step': typeof QuizProgressStepRoute
+  '/quiz/review': typeof QuizProgressReviewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/leaderboard': typeof LeaderboardRoute
-  '/quiz/$step': typeof QuizStepRoute
-  '/quiz/review': typeof QuizReviewRoute
-  '/quiz/start': typeof QuizStartRoute
   '/quiz': typeof QuizIndexRoute
+  '/quiz/start': typeof QuizStartRoute
+  '/quiz/$step': typeof QuizProgressStepRoute
+  '/quiz/review': typeof QuizProgressReviewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/quiz': typeof QuizRouteRouteWithChildren
   '/leaderboard': typeof LeaderboardRoute
-  '/quiz/$step': typeof QuizStepRoute
-  '/quiz/review': typeof QuizReviewRoute
+  '/quiz/_progress': typeof QuizProgressRouteRouteWithChildren
   '/quiz/start': typeof QuizStartRoute
   '/quiz/': typeof QuizIndexRoute
+  '/quiz/_progress/$step': typeof QuizProgressStepRoute
+  '/quiz/_progress/review': typeof QuizProgressReviewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/quiz'
     | '/leaderboard'
-    | '/quiz/$step'
-    | '/quiz/review'
+    | '/quiz'
     | '/quiz/start'
     | '/quiz/'
+    | '/quiz/$step'
+    | '/quiz/review'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/leaderboard'
+    | '/quiz'
+    | '/quiz/start'
     | '/quiz/$step'
     | '/quiz/review'
-    | '/quiz/start'
-    | '/quiz'
   id:
     | '__root__'
     | '/'
-    | '/quiz'
     | '/leaderboard'
-    | '/quiz/$step'
-    | '/quiz/review'
+    | '/quiz/_progress'
     | '/quiz/start'
     | '/quiz/'
+    | '/quiz/_progress/$step'
+    | '/quiz/_progress/review'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  QuizRouteRoute: typeof QuizRouteRouteWithChildren
   LeaderboardRoute: typeof LeaderboardRoute
+  QuizProgressRouteRoute: typeof QuizProgressRouteRouteWithChildren
+  QuizStartRoute: typeof QuizStartRoute
+  QuizIndexRoute: typeof QuizIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -131,66 +133,63 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LeaderboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/quiz': {
-      id: '/quiz'
-      path: '/quiz'
-      fullPath: '/quiz'
-      preLoaderRoute: typeof QuizRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/quiz/': {
       id: '/quiz/'
-      path: '/'
+      path: '/quiz'
       fullPath: '/quiz/'
       preLoaderRoute: typeof QuizIndexRouteImport
-      parentRoute: typeof QuizRouteRoute
+      parentRoute: typeof rootRouteImport
     }
-    '/quiz/$step': {
-      id: '/quiz/$step'
-      path: '/$step'
-      fullPath: '/quiz/$step'
-      preLoaderRoute: typeof QuizStepRouteImport
-      parentRoute: typeof QuizRouteRoute
-    }
-    '/quiz/review': {
-      id: '/quiz/review'
-      path: '/review'
-      fullPath: '/quiz/review'
-      preLoaderRoute: typeof QuizReviewRouteImport
-      parentRoute: typeof QuizRouteRoute
+    '/quiz/_progress': {
+      id: '/quiz/_progress'
+      path: '/quiz'
+      fullPath: '/quiz'
+      preLoaderRoute: typeof QuizProgressRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/quiz/start': {
       id: '/quiz/start'
-      path: '/start'
+      path: '/quiz/start'
       fullPath: '/quiz/start'
       preLoaderRoute: typeof QuizStartRouteImport
-      parentRoute: typeof QuizRouteRoute
+      parentRoute: typeof rootRouteImport
+    }
+    '/quiz/_progress/$step': {
+      id: '/quiz/_progress/$step'
+      path: '/$step'
+      fullPath: '/quiz/$step'
+      preLoaderRoute: typeof QuizProgressStepRouteImport
+      parentRoute: typeof QuizProgressRouteRoute
+    }
+    '/quiz/_progress/review': {
+      id: '/quiz/_progress/review'
+      path: '/review'
+      fullPath: '/quiz/review'
+      preLoaderRoute: typeof QuizProgressReviewRouteImport
+      parentRoute: typeof QuizProgressRouteRoute
     }
   }
 }
 
-interface QuizRouteRouteChildren {
-  QuizStepRoute: typeof QuizStepRoute
-  QuizReviewRoute: typeof QuizReviewRoute
-  QuizStartRoute: typeof QuizStartRoute
-  QuizIndexRoute: typeof QuizIndexRoute
+interface QuizProgressRouteRouteChildren {
+  QuizProgressStepRoute: typeof QuizProgressStepRoute
+  QuizProgressReviewRoute: typeof QuizProgressReviewRoute
 }
 
-const QuizRouteRouteChildren: QuizRouteRouteChildren = {
-  QuizStepRoute: QuizStepRoute,
-  QuizReviewRoute: QuizReviewRoute,
-  QuizStartRoute: QuizStartRoute,
-  QuizIndexRoute: QuizIndexRoute,
+const QuizProgressRouteRouteChildren: QuizProgressRouteRouteChildren = {
+  QuizProgressStepRoute: QuizProgressStepRoute,
+  QuizProgressReviewRoute: QuizProgressReviewRoute,
 }
 
-const QuizRouteRouteWithChildren = QuizRouteRoute._addFileChildren(
-  QuizRouteRouteChildren,
-)
+const QuizProgressRouteRouteWithChildren =
+  QuizProgressRouteRoute._addFileChildren(QuizProgressRouteRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  QuizRouteRoute: QuizRouteRouteWithChildren,
   LeaderboardRoute: LeaderboardRoute,
+  QuizProgressRouteRoute: QuizProgressRouteRouteWithChildren,
+  QuizStartRoute: QuizStartRoute,
+  QuizIndexRoute: QuizIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

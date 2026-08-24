@@ -33,6 +33,6 @@ const QuizReview = () => {
 	);
 };
 
-export const Route = createFileRoute("/quiz/review")({
+export const Route = createFileRoute("/quiz/_progress/review")({
 	component: QuizReview,
 });

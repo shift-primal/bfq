@@ -17,7 +17,7 @@ const QuizLayout = () => {
 	);
 };
 
-export const Route = createFileRoute("/quiz")({
+export const Route = createFileRoute("/quiz/_progress")({
 	loader: () => getQuestionCount(),
 	component: QuizLayout,
 });

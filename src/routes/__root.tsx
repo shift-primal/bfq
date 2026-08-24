@@ -52,7 +52,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body>
 				<PageContainer>{children}</PageContainer>
-				<Toaster position="bottom-center" duration={2000} />
+				<Toaster
+					position="bottom-center"
+					duration={2000}
+					richColors={true}
+					theme={"light"}
+				/>
 				{/* <TanStackDevtools */}
 				{/* 	config={{ */}
 				{/* 		position: "bottom-right", */}

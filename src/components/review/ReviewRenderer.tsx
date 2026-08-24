@@ -3,6 +3,7 @@ import {
 	type ReviewItem,
 	ReviewItemCard,
 } from "#/components/review/ReviewItemCard";
+import { isOrderUntouched } from "#/lib/questions.utils";
 import { useQuizStore } from "#/stores/quiz-store";
 
 export const ReviewRenderer = () => {
@@ -32,25 +33,26 @@ export const ReviewRenderer = () => {
 					options: q.options,
 					answer: answer as string[] | undefined,
 				};
-			case "order":
+			case "order": {
+				const orderAnswer = answer as string[] | undefined;
 				return {
 					id,
 					type: q.type,
 					prompt: q.prompt,
-					answer: answer as string[] | undefined,
+					answer: orderAnswer,
+					potentiallyUnanswered: isOrderUntouched(q.options, orderAnswer),
 				};
+			}
 			default:
 				return q.type satisfies never;
 		}
 	});
 
 	return (
-		<>
-			<div className="flex flex-col gap-y-4">
-				{reviewItems.map((i) => (
-					<ReviewItemCard key={i.id} item={i} />
-				))}
-			</div>
-		</>
+		<div className="flex flex-col gap-y-4">
+			{reviewItems.map((i) => (
+				<ReviewItemCard key={i.id} item={i} />
+			))}
+		</div>
 	);
 };

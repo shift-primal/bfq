@@ -20,7 +20,7 @@ export const SelectQuestion = ({ question }: { question: SelectPublic }) => {
 			>
 				<QuestionList>
 					{options.map((o) => (
-						<div key={o} className="py-1.5">
+						<div key={o} className="p-1.5">
 							<RadioGroupPrimitive.Item value={o} asChild>
 								<QuestionOption variant="select" label={o} />
 							</RadioGroupPrimitive.Item>

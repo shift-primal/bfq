@@ -1,7 +1,6 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { Navigation } from "#/components/Navigation";
 import { QuestionRenderer } from "#/components/questions/QuestionRenderer";
-import { ScrollableContent } from "#/components/ScrollableContent";
 import { useStepNavigation } from "#/hooks/useStepNavigation";
 import { getQuestion } from "#/server/questions.rpc";
 import { useQuizStore } from "#/stores/quiz-store";
@@ -12,15 +11,13 @@ const QuestionStep = () => {
 
 	return (
 		<>
-			<ScrollableContent>
-				<QuestionRenderer question={data.question} />
-			</ScrollableContent>
+			<QuestionRenderer question={data.question} />
 			<Navigation onBack={handleBack} onNext={handleNext} />
 		</>
 	);
 };
 
-export const Route = createFileRoute("/quiz/$step")({
+export const Route = createFileRoute("/quiz/_progress/$step")({
 	beforeLoad: () => {
 		if (typeof window !== "undefined" && !useQuizStore.getState().name) {
 			throw redirect({ to: "/quiz/start" });
