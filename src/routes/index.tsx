@@ -1,11 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Button } from "#/components/shadcn/button";
 
 const Home = () => {
 	return (
-		<>
-			<h1>Velkommen til quiz!</h1>
-			<Link to="/quiz/start">GÅ TIL QUIZ</Link>
-		</>
+		<div className="flex flex-col items-center gap-y-4 py-16 text-center">
+			<h1 className="text-2xl font-bold">Velkommen til quiz!</h1>
+			<Button asChild>
+				<Link to="/quiz/start">Gå til quiz</Link>
+			</Button>
+		</div>
 	);
 };
 

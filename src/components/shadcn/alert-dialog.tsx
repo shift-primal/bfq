@@ -3,8 +3,8 @@
 import { AlertDialog as AlertDialogPrimitive } from "radix-ui";
 import * as React from "react";
 import { useDialogStore } from "#/stores/dialog-store";
-import { Button } from "@/components/shadcn/button";
-import { cn } from "@/lib/utils";
+import { Button } from "#/components/shadcn/button";
+import { cn } from "#/lib/utils";
 
 function AlertDialog({
 	open,

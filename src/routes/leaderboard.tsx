@@ -1,6 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import z from "zod";
 import { LeaderboardEntry } from "#/components/leaderboard/LeaderboardEntry";
+import { Button } from "#/components/shadcn/button";
 import {
 	Table,
 	TableBody,
@@ -16,25 +17,33 @@ const Leaderboard = () => {
 	const { highlight } = Route.useSearch();
 
 	return (
-		<Table>
-			<TableCaption>Leaderboard</TableCaption>
-			<TableHeader>
-				<TableRow>
-					<TableHead className="w-20">Rank</TableHead>
-					<TableHead>Name</TableHead>
-					<TableHead className="text-right">Score</TableHead>
-				</TableRow>
-			</TableHeader>
-			<TableBody>
-				{leaderboard.map((e) => (
-					<LeaderboardEntry
-						{...e}
-						key={e.id}
-						highlighted={e.id === highlight}
-					/>
-				))}
-			</TableBody>
-		</Table>
+		<div className="flex flex-col gap-y-6 py-8">
+			<h1 className="text-center text-2xl font-bold">Ledertavle</h1>
+
+			<Table>
+				<TableCaption>Poengsummene til alle deltakerne</TableCaption>
+				<TableHeader>
+					<TableRow>
+						<TableHead className="w-20">Plassering</TableHead>
+						<TableHead>Navn</TableHead>
+						<TableHead className="text-right">Poeng</TableHead>
+					</TableRow>
+				</TableHeader>
+				<TableBody>
+					{leaderboard.map((e) => (
+						<LeaderboardEntry
+							{...e}
+							key={e.id}
+							highlighted={e.id === highlight}
+						/>
+					))}
+				</TableBody>
+			</Table>
+
+			<Button asChild variant="outline" className="self-center">
+				<Link to="/">Tilbake til forsiden</Link>
+			</Button>
+		</div>
 	);
 };
 

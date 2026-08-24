@@ -11,11 +11,7 @@ export type LeaderboardEntryProps = {
 
 export const LeaderboardEntry = (props: LeaderboardEntryProps) => {
 	return (
-		<TableRow
-			className={cn(
-				props.highlighted ? "border-2 border-amber-400" : "border-0",
-			)}
-		>
+		<TableRow className={cn(props.highlighted && "border-2 border-warning")}>
 			<TableCell className="font-medium">{props.rank}</TableCell>
 			<TableCell>{props.name}</TableCell>
 			<TableCell className="text-right">{props.score}</TableCell>

@@ -16,7 +16,7 @@ export const SelectQuestion = ({ question }: { question: SelectPublic }) => {
 			<RadioGroupPrimitive.Root
 				value={typeof answer === "string" ? answer : ""}
 				onValueChange={(value) => setAnswer(question.id, value)}
-				className="flex w-full flex-col gap-3"
+				className="flex w-full flex-col gap-y-3"
 			>
 				<QuestionList>
 					{options.map((o) => (

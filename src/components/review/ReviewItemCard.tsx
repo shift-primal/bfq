@@ -28,12 +28,12 @@ export const ReviewItemCard = ({ item }: { item: ReviewItem }) => {
 		<Link to="/quiz/$step" params={{ step: item.id }}>
 			<Card
 				className={cn(
-					"rounded-lg gap-3 border border-input py-4 transition-colors bg-background",
+					"rounded-2xl gap-y-3 border border-input py-4 transition-colors bg-background",
 					"hover:bg-muted/50",
 					"cursor-pointer",
 				)}
 			>
-				<CardHeader className="">
+				<CardHeader>
 					<CardTitle>{item.prompt}</CardTitle>
 					<CardDescription>{typeToDisplay(item.type)}</CardDescription>
 					{!answered && (

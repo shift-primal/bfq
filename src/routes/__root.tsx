@@ -4,10 +4,12 @@ import {
 	HeadContent,
 	Scripts,
 } from "@tanstack/react-router";
+import { ThemeProvider } from "next-themes";
 import { ErrorBoundary } from "#/components/ErrorBoundary";
 import { NotFound } from "#/components/NotFound";
 import { PageContainer } from "#/components/PageContainer";
 import { Toaster } from "#/components/shadcn/sonner";
+import { ThemeToggle } from "#/components/ThemeToggle";
 import appCss from "../styles.css?url";
 
 // import { TanStackDevtools } from "@tanstack/react-devtools";
@@ -46,18 +48,22 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en">
+		<html lang="no" suppressHydrationWarning>
 			<head>
 				<HeadContent />
 			</head>
 			<body>
-				<PageContainer>{children}</PageContainer>
-				<Toaster
-					position="bottom-center"
-					duration={2000}
-					richColors={true}
-					theme={"light"}
-				/>
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="light"
+					enableSystem={false}
+				>
+					<div className="fixed top-4 left-4 z-50">
+						<ThemeToggle />
+					</div>
+					<PageContainer>{children}</PageContainer>
+					<Toaster position="bottom-center" duration={2000} richColors={true} />
+				</ThemeProvider>
 				{/* <TanStackDevtools */}
 				{/* 	config={{ */}
 				{/* 		position: "bottom-right", */}

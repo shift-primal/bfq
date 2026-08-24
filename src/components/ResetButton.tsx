@@ -21,8 +21,7 @@ export const ResetButton = () => {
 			}
 			title="Er du sikker?"
 			description="Hvis du restarter så mister du alle svarene dine"
-			confirmLabel="Continue"
-			cancelLabel="Cancel"
+			confirmLabel="Fortsett"
 			destructive
 			onConfirm={() => {
 				reset();

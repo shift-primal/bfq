@@ -29,7 +29,7 @@ export const Navigation = ({
 			</div>
 
 			<Button asChild>
-				<Link to="/quiz/review">
+				<Link to="/quiz/review" aria-label="Gå til oppsummering">
 					<FastForwardIcon />
 				</Link>
 			</Button>
