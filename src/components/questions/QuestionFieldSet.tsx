@@ -13,7 +13,7 @@ export const QuestionFieldSet = ({
 	questionType: PublicQuestion["type"];
 	children: ReactNode;
 }) => (
-	<FieldSet className="flex-1 overflow-hidden">
+	<FieldSet className="flex-1 overflow-y-hidden">
 		<div className="px-3">
 			<FieldLegend>{prompt}</FieldLegend>
 			<FieldTitle className="font-normal text-muted-foreground">

@@ -3,7 +3,7 @@ import { NameForm } from "#/components/NameForm";
 
 const QuizStart = () => {
 	return (
-		<div className="flex h-[calc(100dvh-var(--header-h))] flex-col overflow-hidden py-6">
+		<div className="flex h-[calc(100dvh-var(--header-h))] flex-col overflow-y-hidden py-6">
 			<NameForm />
 		</div>
 	);

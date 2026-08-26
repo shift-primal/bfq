@@ -7,7 +7,7 @@ export const ThemeToggle = () => {
 
 	return (
 		<Button
-			variant="outline"
+			variant="ghost"
 			size="icon"
 			aria-label="Bytt tema"
 			onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
