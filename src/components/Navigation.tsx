@@ -18,21 +18,40 @@ export const Navigation = ({
 	useNavigationHotkey("ArrowRight", onNext);
 
 	return (
-		<div className="flex flex-col gap-y-4">
-			<div className="flex gap-x-4">
-				<Button onClick={onBack} aria-label="Tilbake" className="grow">
+		<div className="flex flex-col gap-y-2">
+			<Button onClick={onNext} aria-label="Neste" size="lg">
+				Neste
+				<ArrowRightIcon />
+			</Button>
+
+			<div className="flex items-center justify-between">
+				<Button
+					onClick={onBack}
+					variant="ghost"
+					size="sm"
+					className="text-muted-foreground"
+					aria-label="Tilbake"
+				>
 					<ArrowLeftIcon />
+					Tilbake
 				</Button>
-				<Button onClick={onNext} aria-label="Neste" className="grow">
-					<ArrowRightIcon />
+
+				<Button
+					asChild
+					variant="ghost"
+					size="sm"
+					className="text-muted-foreground"
+				>
+					<Link
+						to="/quiz/review"
+						aria-label="Gå til oppsummering"
+						className="flex items-center"
+					>
+						Hopp til oppsummering
+						<FastForwardIcon />
+					</Link>
 				</Button>
 			</div>
-
-			<Button asChild>
-				<Link to="/quiz/review" aria-label="Gå til oppsummering">
-					<FastForwardIcon />
-				</Link>
-			</Button>
 		</div>
 	);
 };

@@ -1,5 +1,4 @@
 import { useShallow } from "zustand/react/shallow";
-import { ConfirmDialog } from "#/components/ConfirmDialog";
 import { Navigation } from "#/components/Navigation";
 import { ScrollableContent } from "#/components/ScrollableContent";
 import {
@@ -20,13 +19,7 @@ export const NameForm = () => {
 			setName: s.setName,
 		})),
 	);
-	const {
-		handleBack,
-		handleNext,
-		confirmBackOpen,
-		setConfirmBackOpen,
-		confirmBack,
-	} = useNameFormNavigation();
+	const { handleBack, handleNext } = useNameFormNavigation();
 
 	return (
 		<>
@@ -43,7 +36,10 @@ export const NameForm = () => {
 						}}
 					>
 						<Field>
-							<FieldLabel htmlFor="input-name" className="sr-only">
+							<FieldLabel
+								htmlFor="input-name"
+								className="sr-only text-transparent"
+							>
 								Navn
 							</FieldLabel>
 							<Input
@@ -62,16 +58,6 @@ export const NameForm = () => {
 			</FieldSet>
 
 			<Navigation onBack={handleBack} onNext={handleNext} />
-
-			<ConfirmDialog
-				open={confirmBackOpen}
-				onOpenChange={setConfirmBackOpen}
-				title="Er du sikker?"
-				description="Hvis du går tilbake mister du det du har fylt ut"
-				confirmLabel="Fortsett"
-				destructive
-				onConfirm={confirmBack}
-			/>
 		</>
 	);
 };

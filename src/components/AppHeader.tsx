@@ -1,0 +1,58 @@
+import { HouseIcon, ListChecksIcon, TrophyIcon } from "@phosphor-icons/react";
+import { Link, useNavigate } from "@tanstack/react-router";
+import type { ReactNode } from "react";
+import { Button } from "#/components/shadcn/button";
+import { ThemeToggle } from "#/components/ThemeToggle";
+import { useQuizResumeTarget } from "#/hooks/useQuizResumeTarget";
+
+const HeaderNavButton = ({
+	to,
+	label,
+	icon,
+}: {
+	to: "/" | "/leaderboard";
+	label: string;
+	icon: ReactNode;
+}) => {
+	const navigate = useNavigate();
+
+	return (
+		<Button
+			variant="ghost"
+			size="icon"
+			aria-label={label}
+			onClick={() => navigate({ to })}
+		>
+			{icon}
+		</Button>
+	);
+};
+
+const QuizNavButton = () => {
+	const target = useQuizResumeTarget();
+
+	return (
+		<Button variant="ghost" size="icon" aria-label="Quiz" asChild>
+			<Link {...target}>
+				<ListChecksIcon />
+			</Link>
+		</Button>
+	);
+};
+
+export const AppHeader = () => (
+	<header className="fixed inset-x-0 top-0 z-50 flex h-[var(--header-h)] justify-center border-b bg-background/80 backdrop-blur-sm">
+		<div className="flex w-full max-w-2xl items-center justify-between px-4 sm:px-6 lg:px-8">
+			<div className="flex items-center gap-x-1">
+				<HeaderNavButton to="/" label="Hjem" icon={<HouseIcon />} />
+				<QuizNavButton />
+				<HeaderNavButton
+					to="/leaderboard"
+					label="Ledertavle"
+					icon={<TrophyIcon />}
+				/>
+			</div>
+			<ThemeToggle />
+		</div>
+	</header>
+);

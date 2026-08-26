@@ -6,9 +6,11 @@ type QuizState = {
 	name: string;
 	answers: Record<string, Answer>;
 	questions: Record<string, ShuffledQuestion>;
+	currentStep: number;
 	setName: (name: string) => void;
 	setAnswer: (questionId: string, answer: Answer) => void;
 	setQuestions: (questions: Record<string, ShuffledQuestion>) => void;
+	setStep: (step: number) => void;
 	reset: () => void;
 };
 
@@ -18,6 +20,7 @@ export const useQuizStore = create<QuizState>()(
 			name: "",
 			answers: {},
 			questions: {},
+			currentStep: 1,
 			setName: (name) => set({ name }),
 			setAnswer: (questionId, answer) =>
 				set((state) => ({
@@ -33,7 +36,9 @@ export const useQuizStore = create<QuizState>()(
 
 					return { questions, answers: { ...state.answers, ...seededAnswers } };
 				}),
-			reset: () => set({ name: "", answers: {}, questions: {} }),
+			setStep: (step) => set({ currentStep: step }),
+			reset: () =>
+				set({ name: "", answers: {}, questions: {}, currentStep: 1 }),
 		}),
 		{
 			name: "quiz-progress",

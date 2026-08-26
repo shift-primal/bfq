@@ -5,11 +5,11 @@ import {
 	Scripts,
 } from "@tanstack/react-router";
 import { ThemeProvider } from "next-themes";
+import { AppHeader } from "#/components/AppHeader";
 import { ErrorBoundary } from "#/components/ErrorBoundary";
 import { NotFound } from "#/components/NotFound";
 import { PageContainer } from "#/components/PageContainer";
 import { Toaster } from "#/components/shadcn/sonner";
-import { ThemeToggle } from "#/components/ThemeToggle";
 import appCss from "../styles.css?url";
 
 // import { TanStackDevtools } from "@tanstack/react-devtools";
@@ -58,9 +58,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 					defaultTheme="light"
 					enableSystem={false}
 				>
-					<div className="fixed top-4 right-4 z-50">
-						<ThemeToggle />
-					</div>
+					<AppHeader />
 					<PageContainer>{children}</PageContainer>
 					<Toaster position="bottom-center" duration={2000} richColors={true} />
 				</ThemeProvider>

@@ -8,7 +8,7 @@ const QuizLayout = () => {
 	const { step, total } = useQuizStep(questionCount);
 
 	return (
-		<div className="flex h-dvh flex-col gap-6 overflow-hidden py-6">
+		<div className="flex h-[calc(100dvh-var(--header-h))] flex-col gap-6 overflow-hidden py-6">
 			<QuizProgressBar step={step} total={total} />
 			<div className="flex flex-1 flex-col overflow-hidden">
 				<Outlet />
