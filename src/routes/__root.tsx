@@ -58,7 +58,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 					defaultTheme="light"
 					enableSystem={false}
 				>
-					<div className="fixed top-4 left-4 z-50">
+					<div className="fixed top-4 right-4 z-50">
 						<ThemeToggle />
 					</div>
 					<PageContainer>{children}</PageContainer>

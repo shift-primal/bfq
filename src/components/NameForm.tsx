@@ -36,7 +36,7 @@ export const NameForm = () => {
 				</div>
 				<ScrollableContent>
 					<form
-						className="flex flex-col gap-y-6 px-3"
+						className="flex flex-col gap-y-6 px-3 py-1.5"
 						onSubmit={(e) => {
 							e.preventDefault();
 							handleNext();
