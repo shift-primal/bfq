@@ -40,7 +40,7 @@ export const QuestionOption = ({
 					aria-hidden="true"
 					className="flex size-4 shrink-0 items-center justify-center rounded-lg border group-data-checked/option:border-primary group-data-checked/option:bg-primary"
 				>
-					<CheckIcon className="hidden size-3 text-primary-foreground" />
+					<CheckIcon className="size-3 text-primary-foreground" />
 				</span>
 			)}
 

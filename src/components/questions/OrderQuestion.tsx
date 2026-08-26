@@ -7,20 +7,29 @@ import { QuestionFieldSet } from "#/components/questions/QuestionFieldSet";
 import { QuestionList } from "#/components/questions/QuestionList";
 import { QuestionOption } from "#/components/questions/QuestionOption";
 import { useQuestionAnswer } from "#/hooks/useQuestionAnswer";
+import { cn } from "#/lib/utils";
 import type { OrderPublic } from "#/types/quiz.types";
 
 const EMPTY_OPTIONS: string[] = [];
 
 const SortableItem = ({ id, index }: { id: string; index: number }) => {
-	const { ref } = useSortable({ id, index });
+	const { ref, isDragging } = useSortable({ id, index });
+
 	return (
 		<div ref={ref} className="touch-none p-1.5">
-			<QuestionOption variant="order" label={id}>
-				<DotsSixVerticalIcon
-					aria-hidden="true"
-					className="size-4 shrink-0 text-muted-foreground"
-				/>
-			</QuestionOption>
+			<div
+				className={cn(
+					"transition-all duration-300",
+					isDragging && "scale-110 drop-shadow-xl",
+				)}
+			>
+				<QuestionOption variant="order" label={id}>
+					<DotsSixVerticalIcon
+						aria-hidden="true"
+						className="size-4 shrink-0 text-muted-foreground"
+					/>
+				</QuestionOption>
+			</div>
 		</div>
 	);
 };

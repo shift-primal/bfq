@@ -15,7 +15,11 @@ export const ResetButton = () => {
 			open={dialogOpen}
 			onOpenChange={setDialogOpen}
 			trigger={
-				<Button variant="destructive" aria-label="Start på nytt">
+				<Button
+					variant="destructive"
+					size="icon-sm"
+					aria-label="Start på nytt"
+				>
 					<ArrowCounterClockwiseIcon />
 				</Button>
 			}

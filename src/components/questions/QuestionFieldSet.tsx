@@ -16,7 +16,9 @@ export const QuestionFieldSet = ({
 	<FieldSet className="flex-1 overflow-hidden">
 		<div className="px-3">
 			<FieldLegend>{prompt}</FieldLegend>
-			<FieldTitle>{typeToDisplay(questionType)}</FieldTitle>
+			<FieldTitle className="font-normal text-muted-foreground">
+				{typeToDisplay(questionType)}
+			</FieldTitle>
 		</div>
 		<ScrollableContent>{children}</ScrollableContent>
 	</FieldSet>

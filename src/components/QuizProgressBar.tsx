@@ -15,27 +15,27 @@ export const QuizProgressBar = ({
 	const hasName = name.length >= 1;
 
 	return (
-		<div className="flex flex-col items-center pb-2 gap-y-2">
-			<div className="flex items-center justify-between w-full">
+		<div className="flex w-full flex-col gap-y-1.5 pb-2">
+			<div className="flex items-baseline justify-between gap-x-4">
 				<span
 					className={cn(
-						"line-clamp-1 shrink-0",
+						"truncate text-sm font-medium",
 						!hasName && "text-muted-foreground",
 					)}
 				>
 					{hasName ? name : "Navn..."}
 				</span>
-				<ResetButton />
-			</div>
-			<div className="flex gap-x-4 items-center w-full">
-				<span className="w-fit text-sm font-medium text-muted-foreground tabular-nums">
+				<span className="shrink-0 text-sm text-muted-foreground tabular-nums">
 					{step}/{total}
 				</span>
+			</div>
+			<div className="flex items-center gap-x-3">
 				<Progress
 					value={(step / total) * 100}
 					aria-label="Fremgang"
 					aria-valuetext={`Steg ${step} av ${total}`}
 				/>
+				<ResetButton />
 			</div>
 		</div>
 	);
