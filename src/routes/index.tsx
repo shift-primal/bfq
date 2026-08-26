@@ -8,6 +8,9 @@ const Home = () => {
 			<Button asChild>
 				<Link to="/quiz/start">Gå til quiz</Link>
 			</Button>
+			<Button asChild variant="outline">
+				<Link to="/leaderboard">Sjekk leaderboard</Link>
+			</Button>
 		</div>
 	);
 };
