@@ -60,7 +60,14 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				>
 					<AppHeader />
 					<PageContainer>{children}</PageContainer>
-					<Toaster position="bottom-center" duration={2000} richColors={true} />
+					<Toaster
+						position="top-center"
+						duration={2500}
+						richColors
+						closeButton
+						offset={{ top: "calc(var(--header-h) + 0.75rem)" }}
+						mobileOffset={{ top: "calc(var(--header-h) + 0.75rem)" }}
+					/>
 				</ThemeProvider>
 				{/* <TanStackDevtools */}
 				{/* 	config={{ */}

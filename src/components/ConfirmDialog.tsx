@@ -1,3 +1,4 @@
+import { SpinnerIcon } from "@phosphor-icons/react";
 import type { ReactNode } from "react";
 import {
 	AlertDialog,
@@ -21,6 +22,7 @@ type ConfirmDialogProps = {
 	destructive?: boolean;
 	onConfirm: () => void;
 	trigger?: ReactNode;
+	pending?: boolean;
 };
 
 export const ConfirmDialog = ({
@@ -33,6 +35,7 @@ export const ConfirmDialog = ({
 	destructive,
 	onConfirm,
 	trigger,
+	pending = false,
 }: ConfirmDialogProps) => {
 	return (
 		<AlertDialog open={open} onOpenChange={onOpenChange}>
@@ -43,11 +46,18 @@ export const ConfirmDialog = ({
 					<AlertDialogDescription>{description}</AlertDialogDescription>
 				</AlertDialogHeader>
 				<AlertDialogFooter>
-					<AlertDialogCancel>{cancelLabel}</AlertDialogCancel>
+					<AlertDialogCancel disabled={pending}>
+						{cancelLabel}
+					</AlertDialogCancel>
 					<AlertDialogAction
 						variant={destructive ? "destructive" : "default"}
-						onClick={onConfirm}
+						disabled={pending}
+						onClick={(e) => {
+							e.preventDefault();
+							onConfirm();
+						}}
 					>
+						{pending && <SpinnerIcon className="size-4 animate-spin" />}
 						{confirmLabel}
 					</AlertDialogAction>
 				</AlertDialogFooter>

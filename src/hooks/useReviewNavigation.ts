@@ -1,5 +1,5 @@
 import { useNavigate } from "@tanstack/react-router";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
 import { isAnswered } from "#/lib/questions.utils";
@@ -35,7 +35,7 @@ export function useReviewNavigation() {
 
 	const navigate = useNavigate();
 
-	const isSubmitting = useRef(false);
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [confirmSubmitOpen, setConfirmSubmitOpen] = useState(false);
 
 	const total = Object.keys(questions).length;
@@ -46,7 +46,9 @@ export function useReviewNavigation() {
 
 	const handleNext = () => {
 		if (!isValidQuiz(name, answers, questions)) {
-			toast.error("Mangler svar på ett eller flere spørsmål");
+			toast.error("Mangler svar på ett eller flere spørsmål", {
+				id: "app-toast",
+			});
 			return;
 		}
 
@@ -54,16 +56,17 @@ export function useReviewNavigation() {
 	};
 
 	const confirmSubmit = async () => {
-		if (isSubmitting.current) return;
-		isSubmitting.current = true;
+		if (isSubmitting) return;
+		setIsSubmitting(true);
 
 		try {
 			const id = await submitQuiz({ data: { name, answers } });
 			reset();
 			navigate({ to: "/leaderboard", search: { highlight: id } });
 		} catch {
-			isSubmitting.current = false;
-			toast.error("Noe gikk galt, prøv igjen");
+			setIsSubmitting(false);
+			setConfirmSubmitOpen(false);
+			toast.error("Noe gikk galt, prøv igjen", { id: "app-toast" });
 		}
 	};
 
@@ -73,5 +76,6 @@ export function useReviewNavigation() {
 		confirmSubmitOpen,
 		setConfirmSubmitOpen,
 		confirmSubmit,
+		isSubmitting,
 	};
 }

@@ -12,6 +12,7 @@ const QuizReview = () => {
 		confirmSubmitOpen,
 		setConfirmSubmitOpen,
 		confirmSubmit,
+		isSubmitting,
 	} = useReviewNavigation();
 
 	return (
@@ -28,6 +29,7 @@ const QuizReview = () => {
 				description="Du kan ikke endre svarene dine etter at du har sendt inn"
 				confirmLabel="Send inn"
 				onConfirm={confirmSubmit}
+				pending={isSubmitting}
 			/>
 		</>
 	);

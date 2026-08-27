@@ -22,7 +22,7 @@ export function useNameFormNavigation() {
 		const result = nameSchema.safeParse(name);
 
 		if (!result.success) {
-			toast.error(result.error.issues[0].message);
+			toast.error(result.error.issues[0].message, { id: "app-toast" });
 			return;
 		}
 
