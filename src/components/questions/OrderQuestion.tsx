@@ -8,6 +8,7 @@ import { QuestionList } from "#/components/questions/QuestionList";
 import { QuestionOption } from "#/components/questions/QuestionOption";
 import { useQuestionAnswer } from "#/hooks/useQuestionAnswer";
 import { cn } from "#/lib/utils";
+import { useDragStore } from "#/stores/drag-store";
 import type { OrderPublic } from "#/types/quiz.types";
 
 const EMPTY_OPTIONS: string[] = [];
@@ -61,7 +62,11 @@ export const OrderQuestion = ({ question }: { question: OrderPublic }) => {
 						},
 					}),
 				]}
-				onDragEnd={(e) => setAnswer(question.id, move(order, e))}
+				onDragStart={() => useDragStore.getState().setDragging(true)}
+				onDragEnd={(e) => {
+					useDragStore.getState().setDragging(false);
+					setAnswer(question.id, move(order, e));
+				}}
 			>
 				<QuestionList>
 					{order.map((id, index) => (

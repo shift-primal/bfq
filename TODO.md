@@ -13,3 +13,6 @@ Global
 - [x] BUG: Navigation hotkey flytter svar
 - [x] ADD: Gå til review knapp i nav
 - [x] ADD: Warning (men ikke block) på uendret order question
+- [ ] ADD: Global loading / hydration wait
+- [ ] ADD: /quiz/completed route hvor den viser hva du svarte vs riktig svar med link til leaderboard og highlight
+- [ ] REWORK: Toast
