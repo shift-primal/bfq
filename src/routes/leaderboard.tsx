@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import z from "zod";
 import { LeaderboardEntry } from "#/components/leaderboard/LeaderboardEntry";
 import { LeaderboardPagination } from "#/components/leaderboard/LeaderboardPagination";
@@ -65,5 +65,16 @@ export const Route = createFileRoute("/leaderboard")({
 		page: search.page,
 		highlight: search.highlight,
 	}),
-	loader: async ({ deps }) => await getLeaderboard({ data: deps }),
+	loader: async ({ deps, location }) => {
+		const data = await getLeaderboard({ data: deps });
+
+		if (deps.page && deps.page > data.totalPages) {
+			throw redirect({
+				to: location.pathname,
+				search: (prev) => ({ ...prev, page: data.totalPages }),
+			});
+		}
+
+		return data;
+	},
 });

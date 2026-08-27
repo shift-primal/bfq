@@ -46,7 +46,8 @@ export const OrderQuestion = ({ question }: { question: OrderPublic }) => {
 	return (
 		<QuestionFieldSet prompt={question.prompt} questionType="order">
 			<DragDropProvider
-				sensors={[
+				sensors={(defaults) => [
+					...defaults.filter((sensor) => sensor !== PointerSensor),
 					PointerSensor.configure({
 						activationConstraints({ pointerType }) {
 							return pointerType === "touch"
