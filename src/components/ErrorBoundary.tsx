@@ -2,11 +2,11 @@ import { type ErrorComponentProps, Link } from "@tanstack/react-router";
 import { ErrorPage } from "#/components/ErrorPage";
 import { Button } from "#/components/shadcn/button";
 
-export const ErrorBoundary = ({ error, reset }: ErrorComponentProps) => {
+export const ErrorBoundary = ({ reset }: ErrorComponentProps) => {
 	return (
 		<ErrorPage
 			title="Noe gikk galt"
-			description={error.message}
+			description="Beklager! Vennligst prøv igjen."
 			actions={
 				<>
 					<Button variant="outline" onClick={reset}>
