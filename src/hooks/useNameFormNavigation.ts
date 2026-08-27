@@ -1,6 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
+import { nameSchema } from "#/lib/name.schema";
 import { getShuffledOrder } from "#/server/questions.rpc";
 import { useQuizStore } from "#/stores/quiz-store";
 
@@ -18,8 +19,10 @@ export function useNameFormNavigation() {
 	};
 
 	const handleNext = async () => {
-		if (name.trim() === "") {
-			toast.error("Du må fylle ut navnet ditt");
+		const result = nameSchema.safeParse(name);
+
+		if (!result.success) {
+			toast.error(result.error.issues[0].message);
 			return;
 		}
 

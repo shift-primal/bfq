@@ -1,16 +1,13 @@
 import { type RefinementCtx, z } from "zod";
 import { questions } from "#/config/questions.data";
+import { nameSchema } from "#/lib/name.schema";
 
 const addIssue = (ctx: RefinementCtx, id: string, message: string) =>
 	ctx.addIssue({ code: "custom", path: ["answers", id], message });
 
 export const submitSchema = z
 	.object({
-		name: z
-			.string()
-			.trim()
-			.min(3, "Name must be at least 3 characters.")
-			.max(30),
+		name: nameSchema,
 		answers: z.record(z.string(), z.union([z.string(), z.array(z.string())])),
 	})
 	.superRefine((data, ctx) => {
