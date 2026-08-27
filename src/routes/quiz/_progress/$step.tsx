@@ -24,10 +24,22 @@ const QuestionStep = () => {
 };
 
 export const Route = createFileRoute("/quiz/_progress/$step")({
-	beforeLoad: () => {
-		if (typeof window !== "undefined" && !useQuizStore.getState().name) {
-			throw redirect({ to: "/quiz/start" });
-		}
+	beforeLoad: async () => {
+		if (typeof window === "undefined") return;
+
+		let unsub: (() => void) | undefined;
+
+		const hydrated = new Promise<void>((resolve) => {
+			if (useQuizStore.persist.hasHydrated()) return resolve();
+			unsub = useQuizStore.persist.onFinishHydration(() => resolve());
+		});
+
+		const timeout = new Promise<void>((resolve) => setTimeout(resolve, 3000));
+
+		await Promise.race([hydrated, timeout]);
+		unsub?.();
+
+		if (!useQuizStore.getState().name) throw redirect({ to: "/quiz/start" });
 	},
 	loader: ({ params }) => getQuestion({ data: Number(params.step) }),
 	component: QuestionStep,
