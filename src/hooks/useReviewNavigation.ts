@@ -62,7 +62,7 @@ export function useReviewNavigation() {
 		try {
 			const id = await submitQuiz({ data: { name, answers } });
 			reset();
-			navigate({ to: "/leaderboard", search: { highlight: id } });
+			navigate({ to: "/quiz/result", search: { highlight: id } });
 		} catch {
 			setIsSubmitting(false);
 			setConfirmSubmitOpen(false);

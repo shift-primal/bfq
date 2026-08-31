@@ -1,4 +1,4 @@
-import type { Answer, PublicQuestion } from "#/types/quiz.types";
+import type { PublicQuestion } from "#/types/quiz.types";
 
 const TYPE_LABELS: Record<PublicQuestion["type"], string> = {
 	select: "Envalg",
@@ -8,11 +8,3 @@ const TYPE_LABELS: Record<PublicQuestion["type"], string> = {
 
 export const typeToDisplay = (type: PublicQuestion["type"]) =>
 	TYPE_LABELS[type];
-
-export const formatAnswer = (answer: Answer | undefined) => {
-	if (!answer || answer.length <= 0) return "Mangler svar!";
-
-	if (Array.isArray(answer)) return answer.join(", ");
-
-	return answer;
-};

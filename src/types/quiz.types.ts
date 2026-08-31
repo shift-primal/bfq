@@ -21,3 +21,21 @@ export type ShuffledQuestion = {
 	prompt: string;
 	options: string[];
 };
+
+export type ResultSelect = SelectPublic & { correct: string; answer: string };
+export type ResultMulti = MultiPublic & {
+	correct: string[];
+	answer: string[];
+};
+export type ResultOrder = OrderPublic & {
+	correctOrder: string[];
+	answer: string[];
+};
+
+export type ResultQuestion = ResultSelect | ResultMulti | ResultOrder;
+
+export type SubmissionResult = {
+	name: string;
+	score: number;
+	questions: ResultQuestion[];
+};

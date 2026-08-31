@@ -49,7 +49,9 @@ const getCorrectPairs = (
 				assertDefined(positions.get(a)) < assertDefined(positions.get(b)),
 		).length;
 
-const calculateScore = (cp: number, tp: number, to: number) => (cp / tp) * to;
+const ORDER_MAX_POINTS = 4;
+
+const calculateScore = (cp: number, tp: number) => (cp / tp) * ORDER_MAX_POINTS;
 
 const scoreOrder = (
 	question: ScoredOrderQuestion,
@@ -61,7 +63,7 @@ const scoreOrder = (
 
 	const correctPairs = getCorrectPairs(answer, positions);
 
-	return calculateScore(correctPairs, totalPairs, totalOptions);
+	return calculateScore(correctPairs, totalPairs);
 };
 
 // Score all

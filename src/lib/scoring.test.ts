@@ -78,37 +78,39 @@ const orderQuestion: ScoredOrderQuestion = {
 	id: "1",
 	type: "order",
 	prompt: "Sorter disse i stigende rekkefølge",
-	correctOrder: ["5", "9", "20", "45", "89", "192"],
+	correctOrder: ["5", "9", "20", "45", "89", "192", "200", "250", "300", "500"],
 };
 
 describe("Tally (Order)", () => {
-	it("awards partial credit proportional to correctly-ordered pairs", () => {
+	it("awards partial credit proportional to correctly-ordered pairs, capped at 4 points", () => {
 		const score = tallyScore([orderQuestion], {
-			"1": ["9", "5", "20", "45", "192", "89"],
+			"1": ["9", "5", "20", "45", "192", "89", "200", "500", "300", "250"],
 		});
 
-		expect(score).toBeCloseTo(5.2);
+		// 40 of 45 pairs correctly ordered: (40 / 45) * 4
+		expect(score).toBeCloseTo(32 / 9);
 	});
 
 	it("awards less credit the more pairs are out of order", () => {
 		const score = tallyScore([orderQuestion], {
-			"1": ["192", "89", "9", "5", "20", "45"],
+			"1": ["200", "250", "300", "500", "5", "9", "20", "45", "89", "192"],
 		});
 
-		expect(score).toBeCloseTo(2);
+		// 21 of 45 pairs correctly ordered: (21 / 45) * 4
+		expect(score).toBeCloseTo(28 / 15);
 	});
 
-	it("awards full credit for a perfectly ordered answer", () => {
+	it("awards full credit for a perfectly ordered answer, capped at 4 points", () => {
 		const score = tallyScore([orderQuestion], {
-			"1": ["5", "9", "20", "45", "89", "192"],
+			"1": ["5", "9", "20", "45", "89", "192", "200", "250", "300", "500"],
 		});
 
-		expect(score).toBe(6);
+		expect(score).toBe(4);
 	});
 
 	it("awards no credit when every pair is in the wrong order", () => {
 		const score = tallyScore([orderQuestion], {
-			"1": ["192", "89", "45", "20", "9", "5"],
+			"1": ["500", "300", "250", "200", "192", "89", "45", "20", "9", "5"],
 		});
 
 		expect(score).toBe(0);

@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as LeaderboardRouteImport } from './routes/leaderboard'
 import { Route as QuizIndexRouteImport } from './routes/quiz/index'
 import { Route as QuizProgressRouteRouteImport } from './routes/quiz/_progress/route'
+import { Route as QuizResultRouteImport } from './routes/quiz/result'
 import { Route as QuizStartRouteImport } from './routes/quiz/start'
 import { Route as QuizProgressStepRouteImport } from './routes/quiz/_progress/$step'
 import { Route as QuizProgressReviewRouteImport } from './routes/quiz/_progress/review'
@@ -37,6 +38,11 @@ const QuizProgressRouteRoute = QuizProgressRouteRouteImport.update({
   path: '/quiz',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuizResultRoute = QuizResultRouteImport.update({
+  id: '/quiz/result',
+  path: '/quiz/result',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const QuizStartRoute = QuizStartRouteImport.update({
   id: '/quiz/start',
   path: '/quiz/start',
@@ -57,6 +63,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/leaderboard': typeof LeaderboardRoute
   '/quiz': typeof QuizProgressRouteRouteWithChildren
+  '/quiz/result': typeof QuizResultRoute
   '/quiz/start': typeof QuizStartRoute
   '/quiz/': typeof QuizIndexRoute
   '/quiz/$step': typeof QuizProgressStepRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/leaderboard': typeof LeaderboardRoute
   '/quiz': typeof QuizIndexRoute
+  '/quiz/result': typeof QuizResultRoute
   '/quiz/start': typeof QuizStartRoute
   '/quiz/$step': typeof QuizProgressStepRoute
   '/quiz/review': typeof QuizProgressReviewRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/leaderboard': typeof LeaderboardRoute
   '/quiz/_progress': typeof QuizProgressRouteRouteWithChildren
+  '/quiz/result': typeof QuizResultRoute
   '/quiz/start': typeof QuizStartRoute
   '/quiz/': typeof QuizIndexRoute
   '/quiz/_progress/$step': typeof QuizProgressStepRoute
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
     | '/'
     | '/leaderboard'
     | '/quiz'
+    | '/quiz/result'
     | '/quiz/start'
     | '/quiz/'
     | '/quiz/$step'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/leaderboard'
     | '/quiz'
+    | '/quiz/result'
     | '/quiz/start'
     | '/quiz/$step'
     | '/quiz/review'
@@ -103,6 +114,7 @@ export interface FileRouteTypes {
     | '/'
     | '/leaderboard'
     | '/quiz/_progress'
+    | '/quiz/result'
     | '/quiz/start'
     | '/quiz/'
     | '/quiz/_progress/$step'
@@ -113,6 +125,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LeaderboardRoute: typeof LeaderboardRoute
   QuizProgressRouteRoute: typeof QuizProgressRouteRouteWithChildren
+  QuizResultRoute: typeof QuizResultRoute
   QuizStartRoute: typeof QuizStartRoute
   QuizIndexRoute: typeof QuizIndexRoute
 }
@@ -145,6 +158,13 @@ declare module '@tanstack/react-router' {
       path: '/quiz'
       fullPath: '/quiz'
       preLoaderRoute: typeof QuizProgressRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quiz/result': {
+      id: '/quiz/result'
+      path: '/quiz/result'
+      fullPath: '/quiz/result'
+      preLoaderRoute: typeof QuizResultRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/quiz/start': {
@@ -188,6 +208,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LeaderboardRoute: LeaderboardRoute,
   QuizProgressRouteRoute: QuizProgressRouteRouteWithChildren,
+  QuizResultRoute: QuizResultRoute,
   QuizStartRoute: QuizStartRoute,
   QuizIndexRoute: QuizIndexRoute,
 }

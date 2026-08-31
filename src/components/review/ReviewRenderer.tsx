@@ -1,10 +1,46 @@
 import { useShallow } from "zustand/react/shallow";
-import {
-	type ReviewItem,
-	ReviewItemCard,
-} from "#/components/review/ReviewItemCard";
-import { isOrderUntouched } from "#/lib/questions.utils";
+import { ReviewMultiQuestion } from "#/components/review/ReviewMultiQuestion";
+import { ReviewOrderQuestion } from "#/components/review/ReviewOrderQuestion";
+import { ReviewSelectQuestion } from "#/components/review/ReviewSelectQuestion";
 import { useQuizStore } from "#/stores/quiz-store";
+import type { Answer, ShuffledQuestion } from "#/types/quiz.types";
+
+const RenderReviewQuestion = ({
+	step,
+	question,
+	answer,
+}: {
+	step: number;
+	question: ShuffledQuestion;
+	answer: Answer | undefined;
+}) => {
+	switch (question.type) {
+		case "select":
+			return (
+				<ReviewSelectQuestion
+					step={step}
+					question={question}
+					answer={answer as string | undefined}
+				/>
+			);
+		case "multi":
+			return (
+				<ReviewMultiQuestion
+					step={step}
+					question={question}
+					answer={answer as string[] | undefined}
+				/>
+			);
+		case "order":
+			return (
+				<ReviewOrderQuestion
+					step={step}
+					question={question}
+					answer={answer as string[] | undefined}
+				/>
+			);
+	}
+};
 
 export const ReviewRenderer = () => {
 	const { questions, answers } = useQuizStore(
@@ -14,44 +50,15 @@ export const ReviewRenderer = () => {
 		})),
 	);
 
-	const reviewItems: ReviewItem[] = Object.entries(questions).map(([id, q]) => {
-		const answer = answers[id];
-		switch (q.type) {
-			case "select":
-				return {
-					id,
-					type: q.type,
-					prompt: q.prompt,
-					options: q.options,
-					answer: answer as string | undefined,
-				};
-			case "multi":
-				return {
-					id,
-					type: q.type,
-					prompt: q.prompt,
-					options: q.options,
-					answer: answer as string[] | undefined,
-				};
-			case "order": {
-				const orderAnswer = answer as string[] | undefined;
-				return {
-					id,
-					type: q.type,
-					prompt: q.prompt,
-					answer: orderAnswer,
-					potentiallyUnanswered: isOrderUntouched(q.options, orderAnswer),
-				};
-			}
-			default:
-				return q.type satisfies never;
-		}
-	});
-
 	return (
 		<div className="flex flex-col gap-y-4 p-1.5">
-			{reviewItems.map((i) => (
-				<ReviewItemCard key={i.id} item={i} />
+			{Object.entries(questions).map(([id, q], index) => (
+				<RenderReviewQuestion
+					key={id}
+					step={index + 1}
+					question={q}
+					answer={answers[id]}
+				/>
 			))}
 		</div>
 	);
