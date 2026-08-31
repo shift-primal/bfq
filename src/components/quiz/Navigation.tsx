@@ -21,7 +21,7 @@ export const Navigation = ({
 		<div className="flex flex-col gap-y-4 py-4">
 			<Button onClick={onNext} aria-label="Neste" size="lg">
 				Neste
-				<ArrowRightIcon />
+				<ArrowRightIcon aria-hidden="true" />
 			</Button>
 
 			<div className="flex items-center justify-between">
@@ -32,7 +32,7 @@ export const Navigation = ({
 					className="text-muted-foreground"
 					aria-label="Tilbake"
 				>
-					<ArrowLeftIcon />
+					<ArrowLeftIcon aria-hidden="true" />
 					Tilbake
 				</Button>
 
@@ -48,7 +48,7 @@ export const Navigation = ({
 						className="flex items-center"
 					>
 						Hopp til oppsummering
-						<FastForwardIcon />
+						<FastForwardIcon aria-hidden="true" />
 					</Link>
 				</Button>
 			</div>

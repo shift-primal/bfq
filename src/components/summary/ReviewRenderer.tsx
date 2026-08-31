@@ -33,7 +33,7 @@ export const ReviewRenderer = () => {
 				onPressedChange={() => setShowOnlyUnanswered((p) => !p)}
 				className="self-start text-muted-foreground aria-pressed:text-foreground"
 			>
-				<FunnelIcon data-icon="inline-start" />
+				<FunnelIcon aria-hidden="true" data-icon="inline-start" />
 				Kun usvarte
 			</Toggle>
 			{filteredEntries.map(([id, q], index) => (

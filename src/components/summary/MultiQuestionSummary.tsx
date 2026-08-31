@@ -28,7 +28,10 @@ export const MultiQuestionSummary = (props: MultiQuestionSummaryProps) => {
 			questionType={question.type}
 			indicator={
 				unanswered && (
-					<WarningCircleIcon size={16} className="shrink-0 text-destructive" />
+					<span className="flex shrink-0 items-center gap-1 text-destructive">
+						<WarningCircleIcon aria-hidden="true" size={16} />
+						<span className="sr-only">Ubesvart.</span>
+					</span>
 				)
 			}
 		>

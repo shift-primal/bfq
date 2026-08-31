@@ -45,7 +45,7 @@ export const LeaderboardPagination = ({
 	return (
 		<div className="flex items-center justify-center gap-x-4">
 			<PagerButton disabled={page <= 1} page={page - 1} label="Forrige side">
-				<CaretLeftIcon />
+				<CaretLeftIcon aria-hidden="true" />
 			</PagerButton>
 
 			<span className="text-sm text-muted-foreground">
@@ -57,7 +57,7 @@ export const LeaderboardPagination = ({
 				page={page + 1}
 				label="Neste side"
 			>
-				<CaretRightIcon />
+				<CaretRightIcon aria-hidden="true" />
 			</PagerButton>
 		</div>
 	);

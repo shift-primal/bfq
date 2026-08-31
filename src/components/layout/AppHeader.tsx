@@ -34,7 +34,7 @@ const QuizNavButton = () => {
 	return (
 		<Button variant="ghost" size="icon" aria-label="Quiz" asChild>
 			<Link {...target}>
-				<ListChecksIcon />
+				<ListChecksIcon aria-hidden="true" />
 			</Link>
 		</Button>
 	);
@@ -44,12 +44,16 @@ export const AppHeader = () => (
 	<header className="fixed inset-x-0 top-0 z-50 flex h-[var(--header-h)] justify-center border-b bg-background/80 backdrop-blur-sm">
 		<div className="flex w-full max-w-2xl items-center justify-between px-4 sm:px-6 lg:px-8">
 			<div className="flex items-center gap-x-1">
-				<HeaderNavButton to="/" label="Hjem" icon={<HouseIcon />} />
+				<HeaderNavButton
+					to="/"
+					label="Hjem"
+					icon={<HouseIcon aria-hidden="true" />}
+				/>
 				<QuizNavButton />
 				<HeaderNavButton
 					to="/leaderboard"
 					label="Ledertavle"
-					icon={<TrophyIcon />}
+					icon={<TrophyIcon aria-hidden="true" />}
 				/>
 			</div>
 			<ThemeToggle />

@@ -33,7 +33,7 @@ const Home = () => {
 				</Button>
 				<Button asChild variant="outline">
 					<Link to="/leaderboard">
-						<TrophyIcon />
+						<TrophyIcon aria-hidden="true" />
 						Se ledertavlen
 					</Link>
 				</Button>

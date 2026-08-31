@@ -12,9 +12,9 @@ export type LeaderboardEntryProps = {
 };
 
 const MEDALS: Record<number, ReactNode> = {
-	1: <MedalIcon weight="fill" className="text-amber-400" />,
-	2: <MedalIcon weight="fill" className="text-slate-400" />,
-	3: <MedalIcon weight="fill" className="text-amber-700" />,
+	1: <MedalIcon aria-hidden="true" weight="fill" className="text-amber-400" />,
+	2: <MedalIcon aria-hidden="true" weight="fill" className="text-slate-400" />,
+	3: <MedalIcon aria-hidden="true" weight="fill" className="text-amber-700" />,
 };
 
 export const LeaderboardEntry = (props: LeaderboardEntryProps) => {

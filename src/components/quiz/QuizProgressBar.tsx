@@ -13,9 +13,13 @@ export const QuizProgressBar = ({
 	const name = useQuizStore((s) => s.name);
 
 	const hasName = name.length >= 1;
+	const isReview = step === total;
 
 	return (
 		<div className="flex w-full flex-col gap-y-1.5 pb-2">
+			<span className="sr-only" aria-live="polite" aria-atomic="true">
+				{isReview ? "Oppsummering" : `Spørsmål ${step} av ${total - 1}`}
+			</span>
 			<div className="flex items-baseline justify-between gap-x-4">
 				<span
 					className={cn(

@@ -12,8 +12,8 @@ export const ThemeToggle = () => {
 			aria-label="Bytt tema"
 			onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
 		>
-			<SunIcon className="hidden dark:block" />
-			<MoonIcon className="dark:hidden" />
+			<SunIcon aria-hidden="true" className="hidden dark:block" />
+			<MoonIcon aria-hidden="true" className="dark:hidden" />
 		</Button>
 	);
 };

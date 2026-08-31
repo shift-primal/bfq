@@ -86,7 +86,10 @@ export const OrderQuestionSummary = (props: OrderQuestionSummaryProps) => {
 				questionType={question.type}
 				indicator={
 					untouched && (
-						<WarningIcon size={16} className="shrink-0 text-warning" />
+						<span className="flex shrink-0 items-center gap-1 text-warning">
+							<WarningIcon aria-hidden="true" size={16} />
+							<span className="sr-only">Ikke endret rekkefølge.</span>
+						</span>
 					)
 				}
 			>

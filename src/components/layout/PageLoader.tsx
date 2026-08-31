@@ -7,7 +7,10 @@ export const PageLoader = () => {
 			role="status"
 			aria-label="Laster"
 		>
-			<SpinnerIcon className="size-8 animate-spin text-muted-foreground" />
+			<SpinnerIcon
+				aria-hidden="true"
+				className="size-8 animate-spin text-muted-foreground"
+			/>
 		</div>
 	);
 };

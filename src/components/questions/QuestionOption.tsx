@@ -66,14 +66,22 @@ export const QuestionOption = ({
 				<span className="truncate text-sm font-medium">{label}</span>
 			</span>
 
+			{isCorrectAnswer && <span className="sr-only">Riktig svar.</span>}
+			{pickWasWrong && (
+				<span className="sr-only">Feil svar, du valgte dette.</span>
+			)}
+			{pickIsNeutral && <span className="sr-only">Ditt svar.</span>}
+
 			{pickWasCorrect && (
 				<CheckCircleIcon
+					aria-hidden="true"
 					weight="fill"
 					className="size-4 shrink-0 text-success"
 				/>
 			)}
 			{pickWasWrong && (
 				<XCircleIcon
+					aria-hidden="true"
 					weight="fill"
 					className="size-4 shrink-0 text-destructive"
 				/>

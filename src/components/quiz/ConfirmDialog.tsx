@@ -57,7 +57,9 @@ export const ConfirmDialog = ({
 							onConfirm();
 						}}
 					>
-						{pending && <SpinnerIcon className="size-4 animate-spin" />}
+						{pending && (
+							<SpinnerIcon aria-hidden="true" className="size-4 animate-spin" />
+						)}
 						{confirmLabel}
 					</AlertDialogAction>
 				</AlertDialogFooter>
