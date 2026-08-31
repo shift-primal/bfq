@@ -1,6 +1,7 @@
 import { Checkbox as CheckboxPrimitive } from "radix-ui";
 import { QuestionFieldSet } from "#/components/questions/QuestionFieldSet";
 import { QuestionList } from "#/components/questions/QuestionList";
+import { QuestionListItem } from "#/components/questions/QuestionListItem";
 import { QuestionOption } from "#/components/questions/QuestionOption";
 import { useQuestionAnswer } from "#/hooks/useQuestionAnswer";
 import type { MultiPublic } from "#/types/quiz.types";
@@ -38,7 +39,7 @@ export const MultiQuestion = ({ question }: { question: MultiPublic }) => {
 					const isSelected = selected.includes(o);
 
 					return (
-						<div key={o} className="p-1.5">
+						<QuestionListItem key={o}>
 							<CheckboxPrimitive.Root
 								checked={isSelected}
 								onCheckedChange={() => toggle(o)}
@@ -47,7 +48,7 @@ export const MultiQuestion = ({ question }: { question: MultiPublic }) => {
 							>
 								<QuestionOption variant="multi" label={o} />
 							</CheckboxPrimitive.Root>
-						</div>
+						</QuestionListItem>
 					);
 				})}
 			</QuestionList>

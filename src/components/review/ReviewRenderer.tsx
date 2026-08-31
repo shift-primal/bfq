@@ -1,50 +1,10 @@
 import { FunnelIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 import { useShallow } from "zustand/react/shallow";
-import { ReviewMultiQuestion } from "#/components/review/ReviewMultiQuestion";
-import { ReviewOrderQuestion } from "#/components/review/ReviewOrderQuestion";
-import { ReviewSelectQuestion } from "#/components/review/ReviewSelectQuestion";
 import { Toggle } from "#/components/shadcn/toggle";
+import { QuestionSummary } from "#/components/summary/QuestionSummary";
 import { isAnswered, isOrderUntouched } from "#/lib/questions.utils";
 import { useQuizStore } from "#/stores/quiz-store";
-import type { Answer, ShuffledQuestion } from "#/types/quiz.types";
-
-const RenderReviewQuestion = ({
-	step,
-	question,
-	answer,
-}: {
-	step: number;
-	question: ShuffledQuestion;
-	answer: Answer | undefined;
-}) => {
-	switch (question.type) {
-		case "select":
-			return (
-				<ReviewSelectQuestion
-					step={step}
-					question={question}
-					answer={answer as string | undefined}
-				/>
-			);
-		case "multi":
-			return (
-				<ReviewMultiQuestion
-					step={step}
-					question={question}
-					answer={answer as string[] | undefined}
-				/>
-			);
-		case "order":
-			return (
-				<ReviewOrderQuestion
-					step={step}
-					question={question}
-					answer={answer as string[] | undefined}
-				/>
-			);
-	}
-};
 
 export const ReviewRenderer = () => {
 	const { questions, answers } = useQuizStore(
@@ -77,8 +37,9 @@ export const ReviewRenderer = () => {
 				Kun usvarte
 			</Toggle>
 			{filteredEntries.map(([id, q], index) => (
-				<RenderReviewQuestion
+				<QuestionSummary
 					key={id}
+					mode="review"
 					step={index + 1}
 					question={q}
 					answer={answers[id]}

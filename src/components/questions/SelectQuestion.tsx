@@ -1,6 +1,7 @@
 import { RadioGroup as RadioGroupPrimitive } from "radix-ui";
 import { QuestionFieldSet } from "#/components/questions/QuestionFieldSet";
 import { QuestionList } from "#/components/questions/QuestionList";
+import { QuestionListItem } from "#/components/questions/QuestionListItem";
 import { QuestionOption } from "#/components/questions/QuestionOption";
 import { useQuestionAnswer } from "#/hooks/useQuestionAnswer";
 import type { SelectPublic } from "#/types/quiz.types";
@@ -20,11 +21,11 @@ export const SelectQuestion = ({ question }: { question: SelectPublic }) => {
 			>
 				<QuestionList>
 					{options.map((o) => (
-						<div key={o} className="p-1.5">
+						<QuestionListItem key={o}>
 							<RadioGroupPrimitive.Item value={o} asChild>
 								<QuestionOption variant="select" label={o} />
 							</RadioGroupPrimitive.Item>
-						</div>
+						</QuestionListItem>
 					))}
 				</QuestionList>
 			</RadioGroupPrimitive.Root>

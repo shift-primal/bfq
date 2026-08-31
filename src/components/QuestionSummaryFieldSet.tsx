@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { FieldLegend, FieldSet, FieldTitle } from "#/components/shadcn/field";
-import { typeToDisplay } from "#/lib/format";
+import { QuestionPromptHeader } from "#/components/questions/QuestionPromptHeader";
+import { FieldSet } from "#/components/shadcn/field";
 import type { PublicQuestion } from "#/types/quiz.types";
 
 export const QuestionSummaryFieldSet = ({
@@ -17,10 +17,11 @@ export const QuestionSummaryFieldSet = ({
 	<FieldSet className="rounded-2xl border border-border/60 bg-card/30 p-8">
 		<div className="flex items-start justify-between gap-2">
 			<div>
-				<FieldLegend variant="label">{prompt}</FieldLegend>
-				<FieldTitle className="font-normal text-muted-foreground">
-					{typeToDisplay(questionType)}
-				</FieldTitle>
+				<QuestionPromptHeader
+					prompt={prompt}
+					questionType={questionType}
+					legendVariant="label"
+				/>
 			</div>
 			{indicator}
 		</div>

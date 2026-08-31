@@ -2,6 +2,7 @@ import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import z from "zod";
 import { LeaderboardEntry } from "#/components/leaderboard/LeaderboardEntry";
 import { LeaderboardPagination } from "#/components/leaderboard/LeaderboardPagination";
+import { PageShell } from "#/components/PageShell";
 import { ScrollableContent } from "#/components/ScrollableContent";
 import { Button } from "#/components/shadcn/button";
 import {
@@ -18,10 +19,8 @@ const Leaderboard = () => {
 	const { entries, totalPages, page } = Route.useLoaderData();
 	const { highlight } = Route.useSearch();
 
-	console.log;
-
 	return (
-		<div className="flex h-[calc(100dvh-var(--header-h))] flex-col gap-y-6 py-8">
+		<PageShell>
 			<h1 className="shrink-0 text-center text-2xl font-medium">Ledertavle</h1>
 
 			<ScrollableContent>
@@ -65,7 +64,7 @@ const Leaderboard = () => {
 					<Link to="/">Tilbake til forsiden</Link>
 				</Button>
 			</div>
-		</div>
+		</PageShell>
 	);
 };
 

@@ -1,6 +1,7 @@
 import { TrophyIcon } from "@phosphor-icons/react";
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import z from "zod";
+import { PageShell } from "#/components/PageShell";
 import { ResultRenderer } from "#/components/result/ResultRenderer";
 import { ScrollableContent } from "#/components/ScrollableContent";
 import { Button } from "#/components/shadcn/button";
@@ -11,7 +12,7 @@ const QuizResult = () => {
 	const { highlight } = Route.useSearch();
 
 	return (
-		<div className="flex h-[calc(100dvh-var(--header-h))] flex-col gap-y-6 py-8">
+		<PageShell>
 			<div className="shrink-0 text-center">
 				<h1 className="text-2xl font-bold">Ferdig, {result.name}!</h1>
 				<p className="mt-1 text-muted-foreground">
@@ -31,7 +32,7 @@ const QuizResult = () => {
 					</Link>
 				</Button>
 			</div>
-		</div>
+		</PageShell>
 	);
 };
 

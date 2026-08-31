@@ -1,4 +1,5 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { PageShell } from "#/components/PageShell";
 import { QuizProgressBar } from "#/components/QuizProgressBar";
 import { useQuizStep } from "#/hooks/useQuizStep";
 import { getQuestionCount } from "#/server/questions.rpc";
@@ -8,12 +9,12 @@ const QuizLayout = () => {
 	const { step, total } = useQuizStep(questionCount);
 
 	return (
-		<div className="flex h-[calc(100dvh-var(--header-h))] flex-col gap-6 overflow-y-hidden py-6">
+		<PageShell>
 			<QuizProgressBar step={step} total={total} />
 			<div className="flex flex-1 flex-col overflow-y-hidden">
 				<Outlet />
 			</div>
-		</div>
+		</PageShell>
 	);
 };
 

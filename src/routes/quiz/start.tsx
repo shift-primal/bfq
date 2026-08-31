@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { NameForm } from "#/components/NameForm";
+import { PageShell } from "#/components/PageShell";
 
 const QuizStart = () => {
 	return (
-		<div className="flex h-[calc(100dvh-var(--header-h))] flex-col overflow-y-hidden py-6">
+		<PageShell>
 			<NameForm />
-		</div>
+		</PageShell>
 	);
 };
 

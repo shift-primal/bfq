@@ -4,10 +4,10 @@
 - [x] Max selection on multi-questions
 - [x] Randomize quiz order
 - [x] Only show unanswered on review
+- [x] Consolidate components/styles and remove unneccesary wrappers (FooRenderer etc..)
 - [ ] Support for bilder
 - [ ] SFX
 - [ ] A11Y
-- [ ] Consolidate components/styles and remove unneccesary wrappers (FooRenderer etc..)
 - [ ] Clean up / reorganize components
 
 ## CHECK LATER
