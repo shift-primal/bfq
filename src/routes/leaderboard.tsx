@@ -18,30 +18,44 @@ const Leaderboard = () => {
 	const { entries, totalPages, page } = Route.useLoaderData();
 	const { highlight } = Route.useSearch();
 
+	console.log;
+
 	return (
 		<div className="flex h-[calc(100dvh-var(--header-h))] flex-col gap-y-6 py-8">
-			<h1 className="shrink-0 text-center text-2xl font-bold">Ledertavle</h1>
+			<h1 className="shrink-0 text-center text-2xl font-medium">Ledertavle</h1>
 
 			<ScrollableContent>
-				<Table>
-					<TableCaption>Poengsummene til alle deltakerne</TableCaption>
-					<TableHeader>
-						<TableRow>
-							<TableHead className="w-20">Plassering</TableHead>
-							<TableHead>Navn</TableHead>
-							<TableHead className="text-right">Poeng</TableHead>
-						</TableRow>
-					</TableHeader>
-					<TableBody>
-						{entries.map((e) => (
-							<LeaderboardEntry
-								{...e}
-								key={e.id}
-								highlighted={e.id === highlight}
-							/>
-						))}
-					</TableBody>
-				</Table>
+				{entries.length > 1 ? (
+					<Table>
+						<TableCaption>Poengsummene til alle deltakerne</TableCaption>
+						<TableHeader>
+							<TableRow>
+								<TableHead className="w-20">Plassering</TableHead>
+								<TableHead>Navn</TableHead>
+								<TableHead className="text-right">Poeng</TableHead>
+							</TableRow>
+						</TableHeader>
+						<TableBody>
+							{entries.map((e) => (
+								<LeaderboardEntry
+									{...e}
+									key={e.id}
+									highlighted={e.id === highlight}
+								/>
+							))}
+						</TableBody>
+					</Table>
+				) : (
+					<div className="flex flex-col gap-y-4 items-center">
+						<h2 className="text-xl font-medium">Ingen resultater enda!</h2>
+						<p className="text-muted-foreground">
+							Vær den første til å havne på ledertavlen!
+						</p>
+						<Button className="mt-2" asChild>
+							<Link to="/quiz/start">Gå til quiz</Link>
+						</Button>
+					</div>
+				)}
 			</ScrollableContent>
 
 			<div className="flex shrink-0 flex-col items-center gap-y-4">

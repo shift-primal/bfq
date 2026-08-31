@@ -1,10 +1,11 @@
+- [x] /quiz/completed route hvor den viser hva du svarte vs riktig svar med link til leaderboard og highlight
 - [ ] Max selection on multi-questions
-- [ ] Message for no leaderboard
+- [x] Message for no leaderboard
 - [ ] Randomize quiz order
-- [ ] /quiz/completed route hvor den viser hva du svarte vs riktig svar med link til leaderboard og highlight
 - [ ] Support for bilder
 - [ ] SFX
 - [ ] Highlight not working on see leaderboard, navigating from /quiz/result
 - [ ] Balance scoring system
 - [ ] Navigation breaks on keyboard selection
 - [ ] A11Y
+- [ ] Consolidate components/styles (Button)
