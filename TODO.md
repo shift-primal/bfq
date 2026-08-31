@@ -2,12 +2,13 @@
 - [x] Balance scoring system
 - [x] Message for no leaderboard
 - [x] Max selection on multi-questions
-- [ ] Randomize quiz order
+- [x] Randomize quiz order
+- [x] Only show unanswered on review
 - [ ] Support for bilder
 - [ ] SFX
 - [ ] A11Y
 - [ ] Consolidate components/styles and remove unneccesary wrappers (FooRenderer etc..)
-- [ ] Only show unanswered on review
+- [ ] Clean up / reorganize components
 
 ## CHECK LATER
 

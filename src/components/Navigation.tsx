@@ -18,7 +18,7 @@ export const Navigation = ({
 	useNavigationHotkey("ArrowRight", onNext);
 
 	return (
-		<div className="flex flex-col gap-y-4">
+		<div className="flex flex-col gap-y-4 py-4">
 			<Button onClick={onNext} aria-label="Neste" size="lg">
 				Neste
 				<ArrowRightIcon />
