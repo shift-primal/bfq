@@ -14,7 +14,7 @@ export const QuestionSummaryFieldSet = ({
 	indicator?: ReactNode;
 	children: ReactNode;
 }) => (
-	<FieldSet className="rounded-2xl border border-border/60 bg-card/30 p-6 select-none">
+	<FieldSet className="rounded-2xl border border-border/60 bg-card/30 p-8">
 		<div className="flex items-start justify-between gap-2">
 			<div>
 				<FieldLegend variant="label">{prompt}</FieldLegend>

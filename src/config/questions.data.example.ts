@@ -14,6 +14,7 @@ export const questions: Question[] = [
 		prompt: "Example question — pick all numbers greater or equal to 8",
 		options: ["8", "2", "1", "9"],
 		correct: ["8", "9"],
+		maxOptions: 2, // Optional: Affects how many options the user is allowed to choose. Default is no limit
 	},
 	{
 		id: "3",

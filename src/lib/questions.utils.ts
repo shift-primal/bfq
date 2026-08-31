@@ -30,7 +30,13 @@ export function toPublic(q: Question): PublicQuestion {
 		case "select":
 			return { id: q.id, type: q.type, prompt: q.prompt, options: q.options };
 		case "multi":
-			return { id: q.id, type: q.type, prompt: q.prompt, options: q.options };
+			return {
+				id: q.id,
+				type: q.type,
+				prompt: q.prompt,
+				options: q.options,
+				maxOptions: q.maxOptions,
+			};
 		case "order":
 			return { id: q.id, type: q.type, prompt: q.prompt };
 	}

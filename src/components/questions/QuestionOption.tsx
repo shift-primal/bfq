@@ -30,7 +30,7 @@ export const QuestionOption = ({
 				"group/option flex select-none items-center justify-between gap-2 rounded-2xl text-card-foreground border border-input bg-background px-3 py-2.5 transition-all duration-200 shadow-xs",
 				"outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/30",
 				!isResult &&
-					"cursor-pointer hover:bg-muted/50 active:scale-[0.98] data-[state=checked]:border-primary data-[state=checked]:bg-primary/5",
+					"cursor-pointer hover:bg-muted/50 active:scale-[0.98] data-[state=checked]:border-primary data-[state=checked]:bg-primary/5 data-[disabled]:pointer-events-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 data-[disabled]:hover:bg-background",
 				isCorrectAnswer && "border-success/40 bg-success/10",
 				pickWasCorrect && "ring-2 ring-success/40",
 				pickWasWrong &&

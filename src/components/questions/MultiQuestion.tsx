@@ -11,30 +11,45 @@ export const MultiQuestion = ({ question }: { question: MultiPublic }) => {
 		question.options,
 	);
 
-	const toggle = (option: string) => {
-		const current = Array.isArray(answer) ? answer : [];
+	const selected = Array.isArray(answer) ? answer : [];
+	const atMax =
+		question.maxOptions !== undefined && selected.length >= question.maxOptions;
 
-		const next = current.includes(option)
-			? current.filter((o) => o !== option)
-			: [...current, option];
+	const toggle = (option: string) => {
+		const isSelected = selected.includes(option);
+
+		if (!isSelected && atMax) return;
+
+		const next = isSelected
+			? selected.filter((o) => o !== option)
+			: [...selected, option];
 
 		setAnswer(question.id, next);
 	};
 
 	return (
-		<QuestionFieldSet prompt={question.prompt} questionType="multi">
+		<QuestionFieldSet
+			prompt={question.prompt}
+			questionType="multi"
+			maxOptions={question.maxOptions}
+		>
 			<QuestionList>
-				{options.map((o) => (
-					<div key={o} className="p-1.5">
-						<CheckboxPrimitive.Root
-							checked={Array.isArray(answer) && answer.includes(o)}
-							onCheckedChange={() => toggle(o)}
-							asChild
-						>
-							<QuestionOption variant="multi" label={o} />
-						</CheckboxPrimitive.Root>
-					</div>
-				))}
+				{options.map((o) => {
+					const isSelected = selected.includes(o);
+
+					return (
+						<div key={o} className="p-1.5">
+							<CheckboxPrimitive.Root
+								checked={isSelected}
+								onCheckedChange={() => toggle(o)}
+								disabled={atMax && !isSelected}
+								asChild
+							>
+								<QuestionOption variant="multi" label={o} />
+							</CheckboxPrimitive.Root>
+						</div>
+					);
+				})}
 			</QuestionList>
 		</QuestionFieldSet>
 	);
