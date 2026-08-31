@@ -3,9 +3,8 @@ import { QuestionFieldSet } from "#/components/questions/QuestionFieldSet";
 import { QuestionList } from "#/components/questions/QuestionList";
 import { QuestionListItem } from "#/components/questions/QuestionListItem";
 import { QuestionOption } from "#/components/questions/QuestionOption";
-import { useSound } from "#/hooks/use-sound";
+import { useAppSound } from "#/hooks/useAppSound";
 import { useQuestionAnswer } from "#/hooks/useQuestionAnswer";
-import { switch002Sound } from "#/lib/switch-002";
 import type { MultiPublic } from "#/types/quiz.types";
 
 export const MultiQuestion = ({ question }: { question: MultiPublic }) => {
@@ -14,11 +13,11 @@ export const MultiQuestion = ({ question }: { question: MultiPublic }) => {
 		question.options,
 	);
 
+	const { playSelect, playDeselect } = useAppSound();
+
 	const selected = Array.isArray(answer) ? answer : [];
 	const atMax =
 		question.maxOptions !== undefined && selected.length >= question.maxOptions;
-
-	const [play] = useSound(switch002Sound);
 
 	const toggle = (option: string) => {
 		const isSelected = selected.includes(option);
@@ -29,7 +28,8 @@ export const MultiQuestion = ({ question }: { question: MultiPublic }) => {
 			? selected.filter((o) => o !== option)
 			: [...selected, option];
 
-		play({ volume: 0.5 });
+		isSelected ? playDeselect() : playSelect();
+
 		setAnswer(question.id, next);
 	};
 

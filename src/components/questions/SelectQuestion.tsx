@@ -3,6 +3,7 @@ import { QuestionFieldSet } from "#/components/questions/QuestionFieldSet";
 import { QuestionList } from "#/components/questions/QuestionList";
 import { QuestionListItem } from "#/components/questions/QuestionListItem";
 import { QuestionOption } from "#/components/questions/QuestionOption";
+import { useAppSound } from "#/hooks/useAppSound";
 import { useQuestionAnswer } from "#/hooks/useQuestionAnswer";
 import type { SelectPublic } from "#/types/quiz.types";
 
@@ -12,11 +13,16 @@ export const SelectQuestion = ({ question }: { question: SelectPublic }) => {
 		question.options,
 	);
 
+	const { playSelect } = useAppSound();
+
 	return (
 		<QuestionFieldSet prompt={question.prompt} questionType="select">
 			<RadioGroupPrimitive.Root
 				value={typeof answer === "string" ? answer : ""}
-				onValueChange={(value) => setAnswer(question.id, value)}
+				onValueChange={(value) => {
+					playSelect();
+					setAnswer(question.id, value);
+				}}
 				className="flex w-full flex-col gap-y-3"
 			>
 				<QuestionList>

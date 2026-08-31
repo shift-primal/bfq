@@ -8,6 +8,7 @@
 - [x] A11Y
 - [ ] Support for bilder
 - [ ] SFX
+- [ ] Uncentered radio buttons (select) og artifacts på circle på zoom (multi)
 
 ## CHECK LATER
 

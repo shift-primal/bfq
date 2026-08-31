@@ -2,6 +2,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
+import { useAppSound } from "#/hooks/useAppSound";
 import { isAnswered } from "#/lib/questions.utils";
 import { submitQuiz } from "#/server/submission.rpc";
 import { useQuizStore } from "#/stores/quiz-store";
@@ -35,6 +36,8 @@ export function useReviewNavigation() {
 
 	const navigate = useNavigate();
 
+	const { playWarn } = useAppSound();
+
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [confirmSubmitOpen, setConfirmSubmitOpen] = useState(false);
 
@@ -46,6 +49,7 @@ export function useReviewNavigation() {
 
 	const handleNext = () => {
 		if (!isValidQuiz(name, answers, questions)) {
+			playWarn();
 			toast.error("Mangler svar på ett eller flere spørsmål", {
 				id: "app-toast",
 			});

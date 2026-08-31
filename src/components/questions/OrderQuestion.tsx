@@ -6,6 +6,7 @@ import { DotsSixVerticalIcon } from "@phosphor-icons/react";
 import { QuestionFieldSet } from "#/components/questions/QuestionFieldSet";
 import { QuestionList } from "#/components/questions/QuestionList";
 import { QuestionOption } from "#/components/questions/QuestionOption";
+import { useAppSound } from "#/hooks/useAppSound";
 import { useQuestionAnswer } from "#/hooks/useQuestionAnswer";
 import { cn } from "#/lib/utils";
 import { useDragStore } from "#/stores/drag-store";
@@ -42,6 +43,8 @@ export const OrderQuestion = ({ question }: { question: OrderPublic }) => {
 		options: shuffled,
 	} = useQuestionAnswer(question.id, EMPTY_OPTIONS);
 
+	const { playDragLift, playDragDrop } = useAppSound();
+
 	const order = Array.isArray(answer) ? answer : shuffled;
 
 	return (
@@ -62,8 +65,12 @@ export const OrderQuestion = ({ question }: { question: OrderPublic }) => {
 						},
 					}),
 				]}
-				onDragStart={() => useDragStore.getState().setDragging(true)}
+				onDragStart={() => {
+					playDragLift();
+					useDragStore.getState().setDragging(true);
+				}}
 				onDragEnd={(e) => {
+					playDragDrop();
 					useDragStore.getState().setDragging(false);
 					setAnswer(question.id, move(order, e));
 				}}
