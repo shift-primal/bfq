@@ -5,10 +5,10 @@ import {
 	Scripts,
 } from "@tanstack/react-router";
 import { ThemeProvider } from "next-themes";
-import { AppHeader } from "#/components/AppHeader";
-import { ErrorBoundary } from "#/components/ErrorBoundary";
-import { NotFound } from "#/components/NotFound";
-import { PageContainer } from "#/components/PageContainer";
+import { AppHeader } from "#/components/layout/AppHeader";
+import { ErrorBoundary } from "#/components/layout/ErrorBoundary";
+import { NotFound } from "#/components/layout/NotFound";
+import { PageContainer } from "#/components/layout/PageContainer";
 import { Toaster } from "#/components/shadcn/sonner";
 import appCss from "../styles.css?url";
 

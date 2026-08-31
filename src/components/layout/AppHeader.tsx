@@ -1,8 +1,8 @@
 import { HouseIcon, ListChecksIcon, TrophyIcon } from "@phosphor-icons/react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { ThemeToggle } from "#/components/layout/ThemeToggle";
 import { Button } from "#/components/shadcn/button";
-import { ThemeToggle } from "#/components/ThemeToggle";
 import { useQuizResumeTarget } from "#/hooks/useQuizResumeTarget";
 
 const HeaderNavButton = ({

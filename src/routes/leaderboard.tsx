@@ -1,9 +1,9 @@
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import z from "zod";
+import { PageShell } from "#/components/layout/PageShell";
+import { ScrollableContent } from "#/components/layout/ScrollableContent";
 import { LeaderboardEntry } from "#/components/leaderboard/LeaderboardEntry";
 import { LeaderboardPagination } from "#/components/leaderboard/LeaderboardPagination";
-import { PageShell } from "#/components/PageShell";
-import { ScrollableContent } from "#/components/ScrollableContent";
 import { Button } from "#/components/shadcn/button";
 import {
 	Table,

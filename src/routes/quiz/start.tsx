@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { NameForm } from "#/components/NameForm";
-import { PageShell } from "#/components/PageShell";
+import { PageShell } from "#/components/layout/PageShell";
+import { NameForm } from "#/components/quiz/NameForm";
 
 const QuizStart = () => {
 	return (

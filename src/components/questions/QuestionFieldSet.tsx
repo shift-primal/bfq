@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
+import { ScrollableContent } from "#/components/layout/ScrollableContent";
 import { QuestionPromptHeader } from "#/components/questions/QuestionPromptHeader";
-import { ScrollableContent } from "#/components/ScrollableContent";
 import { FieldDescription, FieldSet } from "#/components/shadcn/field";
 import type { PublicQuestion } from "#/types/quiz.types.ts";
 

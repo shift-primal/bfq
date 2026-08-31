@@ -1,7 +1,7 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { Navigation } from "#/components/Navigation";
 import { QuestionRenderer } from "#/components/questions/QuestionRenderer";
+import { Navigation } from "#/components/quiz/Navigation";
 import { useStepNavigation } from "#/hooks/useStepNavigation";
 import { getQuestion } from "#/server/questions.rpc";
 import { useQuizStore } from "#/stores/quiz-store";

@@ -1,10 +1,10 @@
 import { TrophyIcon } from "@phosphor-icons/react";
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import z from "zod";
-import { PageShell } from "#/components/PageShell";
-import { ResultRenderer } from "#/components/result/ResultRenderer";
-import { ScrollableContent } from "#/components/ScrollableContent";
+import { PageShell } from "#/components/layout/PageShell";
+import { ScrollableContent } from "#/components/layout/ScrollableContent";
 import { Button } from "#/components/shadcn/button";
+import { ResultRenderer } from "#/components/summary/ResultRenderer";
 import { getSubmissionResult } from "#/server/submission.rpc";
 
 const QuizResult = () => {

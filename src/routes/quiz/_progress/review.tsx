@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ConfirmDialog } from "#/components/ConfirmDialog";
-import { Navigation } from "#/components/Navigation";
-import { ReviewRenderer } from "#/components/review/ReviewRenderer";
-import { ScrollableContent } from "#/components/ScrollableContent";
+import { ScrollableContent } from "#/components/layout/ScrollableContent";
+import { ConfirmDialog } from "#/components/quiz/ConfirmDialog";
+import { Navigation } from "#/components/quiz/Navigation";
+import { ReviewRenderer } from "#/components/summary/ReviewRenderer";
 import { useReviewNavigation } from "#/hooks/useReviewNavigation";
 
 const QuizReview = () => {

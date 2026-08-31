@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
-import { PageShell } from "#/components/PageShell";
-import { QuizProgressBar } from "#/components/QuizProgressBar";
+import { PageShell } from "#/components/layout/PageShell";
+import { QuizProgressBar } from "#/components/quiz/QuizProgressBar";
 import { useQuizStep } from "#/hooks/useQuizStep";
 import { getQuestionCount } from "#/server/questions.rpc";
 

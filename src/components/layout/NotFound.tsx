@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ErrorPage } from "#/components/ErrorPage";
+import { ErrorPage } from "#/components/layout/ErrorPage";
 import { Button } from "#/components/shadcn/button";
 
 export const NotFound = () => {

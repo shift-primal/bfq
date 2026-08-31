@@ -1,7 +1,7 @@
 import { ArrowCounterClockwiseIcon } from "@phosphor-icons/react";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { ConfirmDialog } from "#/components/ConfirmDialog";
+import { ConfirmDialog } from "#/components/quiz/ConfirmDialog";
 import { Button } from "#/components/shadcn/button";
 import { useQuizStore } from "#/stores/quiz-store";
 

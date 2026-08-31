@@ -8,7 +8,6 @@
 - [ ] Support for bilder
 - [ ] SFX
 - [ ] A11Y
-- [ ] Clean up / reorganize components
 
 ## CHECK LATER
 

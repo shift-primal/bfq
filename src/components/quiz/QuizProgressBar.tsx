@@ -1,4 +1,4 @@
-import { ResetButton } from "#/components/ResetButton";
+import { ResetButton } from "#/components/quiz/ResetButton";
 import { Progress } from "#/components/shadcn/progress";
 import { cn } from "#/lib/utils";
 import { useQuizStore } from "#/stores/quiz-store";

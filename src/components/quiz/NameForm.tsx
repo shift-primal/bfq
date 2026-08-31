@@ -1,7 +1,7 @@
 import { UserIcon } from "@phosphor-icons/react";
 import { useShallow } from "zustand/react/shallow";
-import { Navigation } from "#/components/Navigation";
-import { ScrollableContent } from "#/components/ScrollableContent";
+import { ScrollableContent } from "#/components/layout/ScrollableContent";
+import { Navigation } from "#/components/quiz/Navigation";
 import {
 	Field,
 	FieldLabel,
