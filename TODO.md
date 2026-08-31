@@ -5,9 +5,9 @@
 - [x] Randomize quiz order
 - [x] Only show unanswered on review
 - [x] Consolidate components/styles and remove unneccesary wrappers (FooRenderer etc..)
+- [x] A11Y
 - [ ] Support for bilder
 - [ ] SFX
-- [ ] A11Y
 
 ## CHECK LATER
 
