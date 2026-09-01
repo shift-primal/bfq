@@ -3,8 +3,7 @@ import {
 	SpeakerSimpleSlashIcon,
 } from "@phosphor-icons/react";
 import { Button } from "#/components/shadcn/button";
-import { click002Sound } from "#/lib/click-002";
-import { click003Sound } from "#/lib/click-003";
+import { SOUNDS } from "#/hooks/useAppSound";
 import { playSound } from "#/lib/sound-engine";
 import { useSoundStore } from "#/stores/sound-store";
 
@@ -14,7 +13,9 @@ export const SoundToggle = () => {
 	const handleClick = () => {
 		const nextMuted = !muted;
 		setMuted(nextMuted);
-		playSound(nextMuted ? click002Sound.dataUri : click003Sound.dataUri);
+
+		// Need to use the raw engine to play sounds to ignore muted options on custom hook
+		playSound(nextMuted ? SOUNDS.select.dataUri : SOUNDS.deselect.dataUri);
 	};
 
 	return (

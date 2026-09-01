@@ -49,19 +49,26 @@ export const Navigation = ({
 					size="sm"
 					className="text-muted-foreground"
 				>
-					<Link
-						to="/quiz/review"
-						aria-label="Gå til oppsummering"
-						aria-disabled={!canJumpToReview}
-						onClick={(e) => {
-							!canJumpToReview && e.preventDefault();
-							playNext();
-						}}
-						className="flex items-center aria-disabled:pointer-events-none aria-disabled:opacity-50"
-					>
-						Hopp til oppsummering
-						<FastForwardIcon aria-hidden="true" />
-					</Link>
+					{canJumpToReview ? (
+						<Link
+							to="/quiz/review"
+							aria-label="Gå til oppsummering"
+							onClick={() => playNext()}
+							className="flex items-center"
+						>
+							Hopp til oppsummering
+							<FastForwardIcon aria-hidden="true" />
+						</Link>
+					) : (
+						<span
+							aria-disabled="true"
+							aria-label="Gå til oppsummering"
+							className="pointer-events-none flex items-center opacity-50"
+						>
+							Hopp til oppsummering
+							<FastForwardIcon aria-hidden="true" />
+						</span>
+					)}
 				</Button>
 			</div>
 		</div>

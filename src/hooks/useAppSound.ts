@@ -1,16 +1,16 @@
+import { back003Sound } from "#/assets/sfx/back-003";
+import { click002Sound } from "#/assets/sfx/click-002";
+import { click003Sound } from "#/assets/sfx/click-003";
+import { confirmation001Sound } from "#/assets/sfx/confirmation-001";
+import { drop002Sound } from "#/assets/sfx/drop-002";
+import { drop003Sound } from "#/assets/sfx/drop-003";
+import { error008Sound } from "#/assets/sfx/error-008";
+import { select001Sound } from "#/assets/sfx/select-001";
+import { successChimeSound } from "#/assets/sfx/success-chime";
 import { useSound } from "#/hooks/use-sound";
-import { back003Sound } from "#/lib/back-003";
-import { click002Sound } from "#/lib/click-002";
-import { click003Sound } from "#/lib/click-003";
-import { confirmation001Sound } from "#/lib/confirmation-001";
-import { drop002Sound } from "#/lib/drop-002";
-import { drop003Sound } from "#/lib/drop-003";
-import { error008Sound } from "#/lib/error-008";
-import { select001Sound } from "#/lib/select-001";
-import { successChimeSound } from "#/lib/success-chime";
 import { useSoundStore } from "#/stores/sound-store";
 
-const SOUNDS = {
+export const SOUNDS = {
 	select: click003Sound,
 	deselect: click002Sound,
 	next: confirmation001Sound,
