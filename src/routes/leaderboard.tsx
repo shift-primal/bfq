@@ -52,8 +52,8 @@ const Leaderboard = () => {
 						<p className="text-muted-foreground">
 							Vær den første til å havne på ledertavlen!
 						</p>
-						<Button className="mt-2" asChild>
-							<Link to="/quiz/start">Gå til quiz</Link>
+						<Button className="mt-2" render={<Link to="/quiz/start" />}>
+							Gå til quiz
 						</Button>
 					</div>
 				)}
@@ -62,8 +62,12 @@ const Leaderboard = () => {
 			<div className="flex shrink-0 flex-col items-center gap-y-4">
 				<LeaderboardPagination page={page} totalPages={totalPages} />
 
-				<Button asChild variant="outline" onClick={() => playPrev()}>
-					<Link to="/">Tilbake til forsiden</Link>
+				<Button
+					variant="outline"
+					onClick={() => playPrev()}
+					render={<Link to="/" />}
+				>
+					Tilbake til forsiden
 				</Button>
 			</div>
 		</PageShell>

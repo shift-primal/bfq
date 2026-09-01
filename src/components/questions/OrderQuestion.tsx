@@ -36,21 +36,26 @@ const getSensors: NonNullable<
 ];
 
 const SortableItem = ({ id, index }: { id: string; index: number }) => {
-	const { ref, isDragging } = useSortable({ id, index });
+	const { ref, handleRef, isDragging } = useSortable({ id, index });
 
 	return (
-		<div ref={ref} className="touch-none p-1.5">
+		<div ref={ref} className="p-1.5">
 			<div
 				className={cn(
 					"transition-all duration-300",
 					isDragging && "scale-110 drop-shadow-xl",
 				)}
 			>
-				<QuestionOption variant="order" label={id}>
-					<DotsSixVerticalIcon
-						aria-hidden="true"
-						className="size-4 shrink-0 text-muted-foreground"
-					/>
+				<QuestionOption label={id}>
+					{/* Only the handle captures the drag gesture (touch-action:
+					none), not the whole row — otherwise a touch anywhere on the
+					card starts a reorder instead of letting the page scroll. */}
+					<span
+						ref={handleRef}
+						className="-m-2 flex shrink-0 touch-none items-center justify-center p-2 text-muted-foreground active:cursor-grabbing"
+					>
+						<DotsSixVerticalIcon aria-hidden="true" className="size-4" />
+					</span>
 				</QuestionOption>
 			</div>
 		</div>

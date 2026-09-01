@@ -39,7 +39,6 @@ export const MultiQuestionSummary = (props: MultiQuestionSummaryProps) => {
 				{question.options.map((o) => (
 					<QuestionListItem key={o}>
 						<QuestionOption
-							variant="multi"
 							label={o}
 							isCorrectAnswer={
 								props.mode === "result"

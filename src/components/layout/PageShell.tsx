@@ -10,7 +10,7 @@ export const PageShell = ({
 }) => (
 	<div
 		className={cn(
-			"flex h-[calc(100dvh-var(--header-h))] flex-col gap-6 overflow-y-hidden py-6 px-4",
+			"flex h-[calc(100dvh-var(--header-h))] flex-col gap-6 overflow-y-hidden py-6",
 			className,
 		)}
 	>

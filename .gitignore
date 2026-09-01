@@ -13,3 +13,6 @@ __unconfig*
 todos.json
 PLAN.md
 src/config/questions.data.ts
+/.agents/skills
+/.migration
+/.claude/skills

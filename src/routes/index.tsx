@@ -30,14 +30,20 @@ const Home = () => {
 			</p>
 
 			<div className="mt-10 flex w-full max-w-xs flex-col gap-y-3">
-				<Button asChild size="lg" onClick={() => playNext()}>
-					<Link {...quizTarget}>Ta quizen</Link>
+				<Button
+					size="lg"
+					onClick={() => playNext()}
+					render={<Link {...quizTarget} />}
+				>
+					Ta quizen
 				</Button>
-				<Button asChild variant="outline" onClick={() => playSelect()}>
-					<Link to="/leaderboard">
-						<TrophyIcon aria-hidden="true" />
-						Se ledertavlen
-					</Link>
+				<Button
+					variant="outline"
+					onClick={() => playSelect()}
+					render={<Link to="/leaderboard" />}
+				>
+					<TrophyIcon aria-hidden="true" />
+					Se ledertavlen
 				</Button>
 			</div>
 		</div>

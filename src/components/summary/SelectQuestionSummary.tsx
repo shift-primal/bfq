@@ -39,7 +39,6 @@ export const SelectQuestionSummary = (props: SelectQuestionSummaryProps) => {
 				{question.options.map((o) => (
 					<QuestionListItem key={o}>
 						<QuestionOption
-							variant="select"
 							label={o}
 							isCorrectAnswer={
 								props.mode === "result"

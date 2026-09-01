@@ -1,5 +1,5 @@
 import { SpinnerIcon } from "@phosphor-icons/react";
-import type { ReactNode } from "react";
+import type * as React from "react";
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -21,7 +21,7 @@ type ConfirmDialogProps = {
 	cancelLabel?: string;
 	destructive?: boolean;
 	onConfirm: () => void;
-	trigger?: ReactNode;
+	trigger?: React.ReactElement;
 	pending?: boolean;
 };
 
@@ -39,7 +39,7 @@ export const ConfirmDialog = ({
 }: ConfirmDialogProps) => {
 	return (
 		<AlertDialog open={open} onOpenChange={onOpenChange}>
-			{trigger && <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>}
+			{trigger && <AlertDialogTrigger render={trigger} />}
 			<AlertDialogContent>
 				<AlertDialogHeader>
 					<AlertDialogTitle>{title}</AlertDialogTitle>

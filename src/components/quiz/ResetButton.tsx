@@ -22,7 +22,7 @@ export const ResetButton = () => {
 				setDialogOpen(v);
 			}}
 			trigger={
-				<Button variant="destructive" size="icon" aria-label="Start på nytt">
+				<Button variant="destructive" size="icon-sm" aria-label="Start på nytt">
 					<ArrowCounterClockwiseIcon aria-hidden="true" />
 				</Button>
 			}

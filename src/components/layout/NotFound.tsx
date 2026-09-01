@@ -7,11 +7,7 @@ export const NotFound = () => {
 		<ErrorPage
 			title="Fant ikke siden"
 			description="Denne siden finnes ikke."
-			actions={
-				<Button asChild>
-					<Link to="/">Tilbake til forsiden</Link>
-				</Button>
-			}
+			actions={<Button render={<Link to="/" />}>Tilbake til forsiden</Button>}
 		/>
 	);
 };

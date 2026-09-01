@@ -1,10 +1,9 @@
-import { CheckCircleIcon, CheckIcon, XCircleIcon } from "@phosphor-icons/react";
+import { CheckCircleIcon, XCircleIcon } from "@phosphor-icons/react";
 import { cva } from "class-variance-authority";
 import type { ComponentProps } from "react";
 import { cn } from "#/lib/utils";
 
 type QuestionOptionProps = ComponentProps<"div"> & {
-	variant: "select" | "multi" | "order";
 	label: string;
 	isCorrectAnswer?: boolean;
 	isUserPick?: boolean;
@@ -34,7 +33,7 @@ const optionVariants = cva(
 	{
 		variants: {
 			interactive: {
-				true: "cursor-pointer hover:bg-muted/50 active:brightness-95 data-[state=checked]:border-primary data-[state=checked]:bg-primary/5 data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-disabled:hover:bg-background",
+				true: "cursor-pointer hover:bg-muted/50 active:brightness-95 data-checked:border-primary data-checked:bg-primary/5 data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-disabled:hover:bg-background",
 				false: "",
 			},
 			result: {
@@ -50,29 +49,7 @@ const optionVariants = cva(
 	},
 );
 
-const RadioIndicator = () => (
-	<span
-		aria-hidden="true"
-		className="flex size-4 shrink-0 items-center justify-center rounded-full ring-1 ring-input ring-inset transition-colors duration-150 group-data-[state=checked]/option:ring-2 group-data-[state=checked]/option:ring-primary"
-	>
-		<span className="size-2 rounded-full bg-primary opacity-0 transition-opacity duration-150 group-data-[state=checked]/option:opacity-100" />
-	</span>
-);
-
-const CheckboxIndicator = () => (
-	<span
-		aria-hidden="true"
-		className="flex size-4 shrink-0 items-center justify-center rounded-md ring-1 ring-input ring-inset transition-colors duration-150 group-data-[state=checked]/option:bg-primary group-data-[state=checked]/option:ring-primary"
-	>
-		<CheckIcon
-			weight="bold"
-			className="size-3 text-primary-foreground opacity-0 transition-opacity duration-150 group-data-[state=checked]/option:opacity-100"
-		/>
-	</span>
-);
-
 export const QuestionOption = ({
-	variant,
 	label,
 	isCorrectAnswer,
 	isUserPick,
@@ -93,9 +70,6 @@ export const QuestionOption = ({
 			{...props}
 		>
 			<span className="flex min-w-0 items-center gap-2">
-				{!isResult && variant === "select" && <RadioIndicator />}
-				{!isResult && variant === "multi" && <CheckboxIndicator />}
-
 				<span className="truncate text-sm font-medium">{label}</span>
 			</span>
 

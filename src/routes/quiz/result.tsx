@@ -25,11 +25,12 @@ const QuizResult = () => {
 			</ScrollableContent>
 
 			<div className="flex shrink-0 justify-center">
-				<Button asChild variant="outline">
-					<Link to="/leaderboard" search={{ highlight }}>
-						<TrophyIcon aria-hidden="true" />
-						Se ledertavlen
-					</Link>
+				<Button
+					variant="outline"
+					render={<Link to="/leaderboard" search={{ highlight }} />}
+				>
+					<TrophyIcon aria-hidden="true" />
+					Se ledertavlen
 				</Button>
 			</div>
 		</PageShell>

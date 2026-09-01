@@ -12,9 +12,7 @@ export const ErrorBoundary = ({ reset }: ErrorComponentProps) => {
 					<Button variant="outline" onClick={reset}>
 						Prøv igjen
 					</Button>
-					<Button asChild>
-						<Link to="/">Tilbake til forsiden</Link>
-					</Button>
+					<Button render={<Link to="/" />}>Tilbake til forsiden</Button>
 				</>
 			}
 		/>

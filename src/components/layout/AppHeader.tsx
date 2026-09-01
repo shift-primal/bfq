@@ -43,12 +43,10 @@ const QuizNavButton = () => {
 			variant="ghost"
 			size="icon"
 			aria-label="Quiz"
-			asChild
 			onClick={() => playSelect()}
+			render={<Link {...target} />}
 		>
-			<Link {...target}>
-				<ListChecksIcon aria-hidden="true" />
-			</Link>
+			<ListChecksIcon aria-hidden="true" />
 		</Button>
 	);
 };

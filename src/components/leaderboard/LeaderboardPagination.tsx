@@ -26,14 +26,19 @@ const PagerButton = ({
 	}
 
 	return (
-		<Button asChild variant="outline" size="icon" onClick={() => playSelect()}>
-			<Link
-				to="/leaderboard"
-				search={(prev) => ({ ...prev, page })}
-				aria-label={label}
-			>
-				{children}
-			</Link>
+		<Button
+			variant="outline"
+			size="icon"
+			onClick={() => playSelect()}
+			render={
+				<Link
+					to="/leaderboard"
+					search={(prev) => ({ ...prev, page })}
+					aria-label={label}
+				/>
+			}
+		>
+			{children}
 		</Button>
 	);
 };

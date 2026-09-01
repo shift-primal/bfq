@@ -1,8 +1,13 @@
-import { Checkbox as CheckboxPrimitive } from "radix-ui";
 import { QuestionFieldSet } from "#/components/questions/QuestionFieldSet";
 import { QuestionList } from "#/components/questions/QuestionList";
 import { QuestionListItem } from "#/components/questions/QuestionListItem";
-import { QuestionOption } from "#/components/questions/QuestionOption";
+import { Checkbox } from "#/components/shadcn/checkbox";
+import {
+	Field,
+	FieldContent,
+	FieldLabel,
+	FieldTitle,
+} from "#/components/shadcn/field";
 import { useAppSound } from "#/hooks/useAppSound";
 import { useQuestionAnswer } from "#/hooks/useQuestionAnswer";
 import type { MultiPublic } from "#/types/quiz.types";
@@ -43,54 +48,46 @@ export const MultiQuestion = ({ question }: { question: MultiPublic }) => {
 				{options.map((o) => {
 					const isSelected = selected.includes(o);
 					const isDisabled = atMax && !isSelected;
+					const id = `${question.id}-${o}`;
 
 					return (
 						<QuestionListItem key={o}>
-							<CheckboxPrimitive.Root
-								checked={isSelected}
-								onCheckedChange={() => toggle(o)}
-								disabled={isDisabled}
-								asChild
-							>
-								{/* CheckboxPrimitive normally renders a native <button>,
-								which is tabbable and responds to Space with no extra
-								work. asChild swaps in this div, which loses both of
-								those native behaviors, so they have to be set explicitly
-								here. */}
-								<QuestionOption
-									variant="multi"
-									label={o}
-									tabIndex={isDisabled ? -1 : 0}
-									onKeyDown={(e) => {
-										if (e.key === " " && !isDisabled) {
-											e.preventDefault();
-											toggle(o);
-											return;
-										}
-										// Checkbox has no group concept in Radix, so unlike
-										// the radio group there's no roving focus to lean on
-										// here — arrow-key movement between checkboxes has
-										// to be done by hand.
-										if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-											e.preventDefault();
-											const list = e.currentTarget.closest(
-												'[data-slot="checkbox-group"]',
-											);
-											const items = list
-												? [
-														...list.querySelectorAll<HTMLElement>(
-															'[role="checkbox"]',
-														),
-													]
-												: [];
-											const currentIndex = items.indexOf(e.currentTarget);
-											const nextIndex =
-												currentIndex + (e.key === "ArrowDown" ? 1 : -1);
-											items[nextIndex]?.focus();
-										}
-									}}
-								/>
-							</CheckboxPrimitive.Root>
+							<FieldLabel htmlFor={id}>
+								<Field orientation="horizontal">
+									<FieldContent>
+										<FieldTitle>{o}</FieldTitle>
+									</FieldContent>
+									<Checkbox
+										id={id}
+										checked={isSelected}
+										onCheckedChange={() => toggle(o)}
+										disabled={isDisabled}
+										onKeyDown={(e) => {
+											// Checkbox has no group concept in Base UI, so
+											// unlike the radio group there's no roving focus
+											// to lean on here — arrow-key movement between
+											// checkboxes has to be done by hand.
+											if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+												e.preventDefault();
+												const list = e.currentTarget.closest(
+													'[data-slot="checkbox-group"]',
+												);
+												const items = list
+													? [
+															...list.querySelectorAll<HTMLElement>(
+																'[role="checkbox"]',
+															),
+														]
+													: [];
+												const currentIndex = items.indexOf(e.currentTarget);
+												const nextIndex =
+													currentIndex + (e.key === "ArrowDown" ? 1 : -1);
+												items[nextIndex]?.focus();
+											}
+										}}
+									/>
+								</Field>
+							</FieldLabel>
 						</QuestionListItem>
 					);
 				})}

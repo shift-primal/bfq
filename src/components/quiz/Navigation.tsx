@@ -44,30 +44,27 @@ export const Navigation = ({
 				</Button>
 
 				<Button
-					asChild
 					variant="ghost"
 					size="sm"
 					className="text-muted-foreground"
+					render={
+						canJumpToReview ? (
+							<Link
+								to="/quiz/review"
+								aria-label="Gå til oppsummering"
+								onClick={() => playNext()}
+								className="flex items-center"
+							/>
+						) : (
+							<span
+								aria-disabled="true"
+								className="pointer-events-none flex items-center opacity-50"
+							/>
+						)
+					}
 				>
-					{canJumpToReview ? (
-						<Link
-							to="/quiz/review"
-							aria-label="Gå til oppsummering"
-							onClick={() => playNext()}
-							className="flex items-center"
-						>
-							Hopp til oppsummering
-							<FastForwardIcon aria-hidden="true" />
-						</Link>
-					) : (
-						<span
-							aria-disabled="true"
-							className="pointer-events-none flex items-center opacity-50"
-						>
-							Hopp til oppsummering
-							<FastForwardIcon aria-hidden="true" />
-						</span>
-					)}
+					Hopp til oppsummering
+					<FastForwardIcon aria-hidden="true" />
 				</Button>
 			</div>
 		</div>

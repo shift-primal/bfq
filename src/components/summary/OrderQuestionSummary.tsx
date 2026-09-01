@@ -36,7 +36,6 @@ export const OrderQuestionSummary = (props: OrderQuestionSummaryProps) => {
 							{answer.map((id, i) => (
 								<QuestionListItem key={id}>
 									<QuestionOption
-										variant="order"
 										label={id}
 										isCorrectAnswer={correctOrder[i] === id}
 										isUserPick
@@ -54,7 +53,6 @@ export const OrderQuestionSummary = (props: OrderQuestionSummaryProps) => {
 							{correctOrder.map((id) => (
 								<QuestionListItem key={id}>
 									<QuestionOption
-										variant="order"
 										label={id}
 										isCorrectAnswer
 										isUserPick={false}
@@ -96,7 +94,7 @@ export const OrderQuestionSummary = (props: OrderQuestionSummaryProps) => {
 				<QuestionList slot="sortable-group">
 					{order.map((o) => (
 						<QuestionListItem key={o}>
-							<QuestionOption variant="order" label={o} isUserPick={false} />
+							<QuestionOption label={o} isUserPick={false} />
 						</QuestionListItem>
 					))}
 				</QuestionList>
