@@ -1,4 +1,2 @@
 allowBuilds:
   esbuild: true
-minimumReleaseAgeExclude:
-  - nitro-nightly@3.0.1-20260819-173121-46a6fcaf

@@ -10,6 +10,8 @@ FROM base AS build
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+ARG QUESTIONS_DATA_TS=""
+RUN if [ -n "$QUESTIONS_DATA_TS" ]; then printf '%s' "$QUESTIONS_DATA_TS" > src/config/questions.data.ts; fi
 RUN pnpm build
 
 FROM base AS runner
