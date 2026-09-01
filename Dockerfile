@@ -1,11 +1,8 @@
-FROM node:22-bookworm-slim AS base
+FROM node:22-slim AS base
 RUN corepack enable
 
 FROM base AS deps
 WORKDIR /app
-
-ENV npm_config_build_from_source=true
-
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile
 
@@ -13,22 +10,13 @@ FROM base AS build
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-
-ENV NODE_ENV=production
-ENV DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy"
-
+ARG QUESTIONS_DATA_TS=""
+RUN if [ -n "$QUESTIONS_DATA_TS" ]; then printf '%s' "$QUESTIONS_DATA_TS" > src/config/questions.data.ts; fi
 RUN pnpm build
 
 FROM base AS runner
 WORKDIR /app
-
 ENV NODE_ENV=production
-ENV PORT=3000
-
-COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/.output ./.output
-COPY --from=build /app/package.json ./package.json
-
 EXPOSE 3000
-
 CMD ["node", ".output/server/index.mjs"]
