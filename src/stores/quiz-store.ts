@@ -6,10 +6,14 @@ type QuizState = {
 	name: string;
 	answers: Record<string, Answer>;
 	questions: Record<string, ShuffledQuestion>;
+	order: string[];
 	currentStep: number;
 	setName: (name: string) => void;
 	setAnswer: (questionId: string, answer: Answer) => void;
-	setQuestions: (questions: Record<string, ShuffledQuestion>) => void;
+	setQuestions: (
+		questions: Record<string, ShuffledQuestion>,
+		order: string[],
+	) => void;
 	setStep: (step: number) => void;
 	reset: () => void;
 };
@@ -20,13 +24,14 @@ export const useQuizStore = create<QuizState>()(
 			name: "",
 			answers: {},
 			questions: {},
+			order: [],
 			currentStep: 1,
 			setName: (name) => set({ name }),
 			setAnswer: (questionId, answer) =>
 				set((state) => ({
 					answers: { ...state.answers, [questionId]: answer },
 				})),
-			setQuestions: (questions) =>
+			setQuestions: (questions, order) =>
 				set((state) => {
 					const seededAnswers = Object.fromEntries(
 						Object.entries(questions)
@@ -34,7 +39,11 @@ export const useQuizStore = create<QuizState>()(
 							.map(([id, q]) => [id, q.options]),
 					);
 
-					return { questions, answers: { ...state.answers, ...seededAnswers } };
+					return {
+						questions,
+						order,
+						answers: { ...state.answers, ...seededAnswers },
+					};
 				}),
 			setStep: (step) => set({ currentStep: step }),
 			reset: () =>

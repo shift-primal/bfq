@@ -31,13 +31,13 @@ export const getShuffledOrder = createServerFn().handler(() => {
 		maxAge: 60 * 60,
 	});
 
-	const result: Record<string, ShuffledQuestion> = {};
+	const questionsMap: Record<string, ShuffledQuestion> = {};
 
 	for (const id of order) {
 		const q = questions.find((q) => q.id === id);
 		if (!q) throw new Error("Not found");
 
-		result[q.id] = {
+		questionsMap[q.id] = {
 			type: q.type,
 			prompt: q.prompt,
 			options: shuffleArray(q.type === "order" ? q.correctOrder : q.options),
@@ -45,5 +45,5 @@ export const getShuffledOrder = createServerFn().handler(() => {
 		};
 	}
 
-	return result;
+	return { questions: questionsMap, order };
 });

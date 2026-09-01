@@ -33,8 +33,8 @@ export function useNameFormNavigation() {
 		}
 
 		if (Object.keys(useQuizStore.getState().questions).length === 0) {
-			const questions = await getShuffledOrder();
-			setQuestions(questions);
+			const { questions, order } = await getShuffledOrder();
+			setQuestions(questions, order);
 		}
 
 		playNext();

@@ -8,10 +8,11 @@ import { isAnswered, isOrderUntouched } from "#/lib/questions.utils";
 import { useQuizStore } from "#/stores/quiz-store";
 
 export const ReviewRenderer = () => {
-	const { questions, answers } = useQuizStore(
+	const { questions, order, answers } = useQuizStore(
 		useShallow((s) => ({
 			answers: s.answers,
 			questions: s.questions,
+			order: s.order,
 		})),
 	);
 
@@ -19,13 +20,20 @@ export const ReviewRenderer = () => {
 
 	const [showOnlyUnanswered, setShowOnlyUnanswered] = useState(false);
 
-	const filteredEntries = Object.entries(questions).filter(([id, q]) => {
-		if (!showOnlyUnanswered) return true;
+	const filteredEntries = order
+		.map((id, originalIndex) => ({
+			id,
+			question: questions[id],
+			answer: answers[id],
+			step: originalIndex + 1,
+		}))
+		.filter(({ question, answer }) => {
+			if (!showOnlyUnanswered || !question) return true;
 
-		return q.type === "order"
-			? isOrderUntouched(q.options, answers[id])
-			: !isAnswered(q.type, answers[id]);
-	});
+			return question.type === "order"
+				? isOrderUntouched(question.options, answer)
+				: !isAnswered(question.type, answer);
+		});
 
 	return (
 		<div className="flex flex-col gap-y-4 p-1.5">
@@ -42,15 +50,19 @@ export const ReviewRenderer = () => {
 				<FunnelIcon aria-hidden="true" data-icon="inline-start" />
 				Kun usvarte
 			</Toggle>
-			{filteredEntries.map(([id, q], index) => (
-				<QuestionSummary
-					key={id}
-					mode="review"
-					step={index + 1}
-					question={q}
-					answer={answers[id]}
-				/>
-			))}
+			{filteredEntries.map(({ id, question, answer, step }) => {
+				if (!question) return null;
+
+				return (
+					<QuestionSummary
+						key={id}
+						mode="review"
+						step={step}
+						question={question}
+						answer={answer}
+					/>
+				);
+			})}
 		</div>
 	);
 };
