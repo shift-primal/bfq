@@ -1,5 +1,4 @@
-FROM node:22-alpine AS base
-RUN apk add --no-cache libc6-compat gcompat
+FROM node:22-bookworm-slim AS base
 RUN corepack enable
 
 FROM base AS deps
@@ -18,6 +17,7 @@ ENV DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy"
 
 RUN pnpm build
 
+# Production runner
 FROM base AS runner
 WORKDIR /app
 
