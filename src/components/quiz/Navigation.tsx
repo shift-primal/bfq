@@ -25,7 +25,7 @@ export const Navigation = ({
 	const canJumpToReview = typeof currentStep === "number" && currentStep >= 1;
 
 	return (
-		<div className="flex flex-col gap-y-4 py-4">
+		<div className="flex flex-col gap-y-4 p-4">
 			<Button onClick={onNext} aria-label="Neste" size="lg">
 				Neste
 				<ArrowRightIcon aria-hidden="true" />
@@ -62,7 +62,6 @@ export const Navigation = ({
 					) : (
 						<span
 							aria-disabled="true"
-							aria-label="Gå til oppsummering"
 							className="pointer-events-none flex items-center opacity-50"
 						>
 							Hopp til oppsummering

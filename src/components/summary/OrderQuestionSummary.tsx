@@ -32,7 +32,7 @@ export const OrderQuestionSummary = (props: OrderQuestionSummaryProps) => {
 						<p className="px-1.5 text-xs font-medium text-muted-foreground">
 							Din rekkefølge
 						</p>
-						<QuestionList>
+						<QuestionList slot="sortable-group">
 							{answer.map((id, i) => (
 								<QuestionListItem key={id}>
 									<QuestionOption
@@ -50,7 +50,7 @@ export const OrderQuestionSummary = (props: OrderQuestionSummaryProps) => {
 						<p className="px-1.5 text-xs font-medium text-muted-foreground">
 							Riktig rekkefølge
 						</p>
-						<QuestionList>
+						<QuestionList slot="sortable-group">
 							{correctOrder.map((id) => (
 								<QuestionListItem key={id}>
 									<QuestionOption
@@ -93,7 +93,7 @@ export const OrderQuestionSummary = (props: OrderQuestionSummaryProps) => {
 					)
 				}
 			>
-				<QuestionList>
+				<QuestionList slot="sortable-group">
 					{order.map((o) => (
 						<QuestionListItem key={o}>
 							<QuestionOption variant="order" label={o} isUserPick={false} />

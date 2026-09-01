@@ -8,10 +8,10 @@
 - [x] SFX
 - [x] Dynamically disable "Hopp til oppsummering" på /review og /start
 - [x] Guard /review på name
-- [/] A11Y
+- [ ] A11Y
+- [x] Uncentered radio buttons (select) og artifacts på circle på zoom (multi)
 - [ ] Sant / usant spørsmål
 - [ ] Support for bilder
-- [ ] Uncentered radio buttons (select) og artifacts på circle på zoom (multi)
 
 ## CHECK LATER
 

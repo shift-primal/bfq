@@ -46,7 +46,7 @@ export const NameForm = () => {
 							>
 								Navn
 							</FieldLabel>
-							<div className="flex items-center gap-4 rounded-2xl border border-input bg-background px-3 py-2.5 shadow-xs transition-all duration-200 focus-within:border-ring focus-within:ring-1 focus-within:ring-ring/30">
+							<div className="flex items-center gap-4 rounded-2xl border border-input bg-background px-3 py-2.5 shadow-xs transition-all duration-200 focus-within:ring-2 focus-within:ring-primary/50">
 								<span
 									aria-hidden="true"
 									className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary"

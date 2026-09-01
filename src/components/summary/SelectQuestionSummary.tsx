@@ -35,7 +35,7 @@ export const SelectQuestionSummary = (props: SelectQuestionSummaryProps) => {
 				)
 			}
 		>
-			<QuestionList>
+			<QuestionList slot="radio-group">
 				{question.options.map((o) => (
 					<QuestionListItem key={o}>
 						<QuestionOption

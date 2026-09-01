@@ -35,7 +35,7 @@ export const MultiQuestionSummary = (props: MultiQuestionSummaryProps) => {
 				)
 			}
 		>
-			<QuestionList>
+			<QuestionList slot="checkbox-group">
 				{question.options.map((o) => (
 					<QuestionListItem key={o}>
 						<QuestionOption

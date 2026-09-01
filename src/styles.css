@@ -166,6 +166,7 @@ body {
   html {
     @apply font-sans;
   }
+
 }
 
 @utility animate-check-pop {
@@ -206,3 +207,6 @@ body {
     animation: none;
   }
 }
+
+
+

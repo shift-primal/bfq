@@ -1,4 +1,5 @@
 import { CheckCircleIcon, CheckIcon, XCircleIcon } from "@phosphor-icons/react";
+import { cva } from "class-variance-authority";
 import type { ComponentProps } from "react";
 import { cn } from "#/lib/utils";
 
@@ -8,6 +9,67 @@ type QuestionOptionProps = ComponentProps<"div"> & {
 	isCorrectAnswer?: boolean;
 	isUserPick?: boolean;
 };
+
+type ResultState =
+	| "none"
+	| "correct"
+	| "correct-pick"
+	| "wrong-pick"
+	| "neutral-pick";
+
+const getResultState = (
+	isCorrectAnswer: boolean | undefined,
+	isUserPick: boolean | undefined,
+): ResultState => {
+	if (isUserPick === true && isCorrectAnswer === true) return "correct-pick";
+	if (isUserPick === true && isCorrectAnswer === false) return "wrong-pick";
+	if (isUserPick === true && isCorrectAnswer === undefined)
+		return "neutral-pick";
+	if (isCorrectAnswer === true) return "correct";
+	return "none";
+};
+
+const optionVariants = cva(
+	"group/option flex select-none items-center justify-between gap-2 rounded-2xl border border-input bg-background px-3 py-2.5 text-card-foreground shadow-xs outline-none transition-all duration-150 focus-visible:ring-2 focus-visible:ring-primary/50",
+	{
+		variants: {
+			interactive: {
+				true: "cursor-pointer hover:bg-muted/50 active:brightness-95 data-[state=checked]:border-primary data-[state=checked]:bg-primary/5 data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:opacity-50 data-disabled:hover:bg-background",
+				false: "",
+			},
+			result: {
+				none: "",
+				correct: "border-success/40 bg-success/10",
+				"correct-pick":
+					"border-success/40 bg-success/10 ring-2 ring-success/40",
+				"wrong-pick":
+					"border-destructive/40 bg-destructive/10 ring-2 ring-destructive/30",
+				"neutral-pick": "border-primary/40 bg-primary/5 ring-2 ring-primary/20",
+			},
+		},
+	},
+);
+
+const RadioIndicator = () => (
+	<span
+		aria-hidden="true"
+		className="flex size-4 shrink-0 items-center justify-center rounded-full ring-1 ring-input ring-inset transition-colors duration-150 group-data-[state=checked]/option:ring-2 group-data-[state=checked]/option:ring-primary"
+	>
+		<span className="size-2 rounded-full bg-primary opacity-0 transition-opacity duration-150 group-data-[state=checked]/option:opacity-100" />
+	</span>
+);
+
+const CheckboxIndicator = () => (
+	<span
+		aria-hidden="true"
+		className="flex size-4 shrink-0 items-center justify-center rounded-md ring-1 ring-input ring-inset transition-colors duration-150 group-data-[state=checked]/option:bg-primary group-data-[state=checked]/option:ring-primary"
+	>
+		<CheckIcon
+			weight="bold"
+			className="size-3 text-primary-foreground opacity-0 transition-opacity duration-150 group-data-[state=checked]/option:opacity-100"
+		/>
+	</span>
+);
 
 export const QuestionOption = ({
 	variant,
@@ -19,67 +81,40 @@ export const QuestionOption = ({
 	...props
 }: QuestionOptionProps) => {
 	const isResult = isCorrectAnswer !== undefined || isUserPick !== undefined;
-	const pickWasCorrect = isUserPick === true && isCorrectAnswer === true;
-	const pickWasWrong = isUserPick === true && isCorrectAnswer === false;
-	const pickIsNeutral = isUserPick === true && isCorrectAnswer === undefined;
+	const result = getResultState(isCorrectAnswer, isUserPick);
 
 	return (
 		<div
 			data-slot="question-option"
 			className={cn(
-				"group/option flex select-none items-center justify-between gap-2 rounded-2xl text-card-foreground border border-input bg-background px-3 py-2.5 transition-all duration-200 shadow-xs",
-				"outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/30",
-				!isResult &&
-					"cursor-pointer hover:bg-muted/50 active:scale-[0.98] data-[state=checked]:border-primary data-[state=checked]:bg-primary/5 data-[disabled]:pointer-events-none data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 data-[disabled]:hover:bg-background",
-				isCorrectAnswer && "border-success/40 bg-success/10",
-				pickWasCorrect && "ring-2 ring-success/40",
-				pickWasWrong &&
-					"border-destructive/40 bg-destructive/10 ring-2 ring-destructive/30",
-				pickIsNeutral &&
-					"border-primary/40 bg-primary/5 ring-2 ring-primary/20",
+				optionVariants({ interactive: !isResult, result }),
 				className,
 			)}
 			{...props}
 		>
 			<span className="flex min-w-0 items-center gap-2">
-				{!isResult && variant === "select" && (
-					<span
-						aria-hidden="true"
-						className="flex size-4 shrink-0 items-center justify-center rounded-full border-2 border-input transition-all duration-200 group-data-[state=checked]/option:border-primary group-data-[state=checked]/option:ring-4 group-data-[state=checked]/option:ring-primary/15"
-					>
-						<span className="size-2 scale-0 rounded-full bg-primary opacity-0 transition-all duration-150 group-data-[state=checked]/option:scale-100 group-data-[state=checked]/option:opacity-100 group-data-[state=checked]/option:animate-radio-pop" />
-					</span>
-				)}
-
-				{!isResult && variant === "multi" && (
-					<span
-						aria-hidden="true"
-						className="flex size-4 shrink-0 items-center justify-center rounded-lg border-2 border-input transition-all duration-200 group-data-[state=checked]/option:border-primary group-data-[state=checked]/option:bg-primary group-data-[state=checked]/option:animate-check-pop"
-					>
-						<CheckIcon
-							weight="bold"
-							className="size-3 text-primary-foreground opacity-0 transition-opacity delay-100 duration-150 group-data-[state=checked]/option:opacity-100"
-						/>
-					</span>
-				)}
+				{!isResult && variant === "select" && <RadioIndicator />}
+				{!isResult && variant === "multi" && <CheckboxIndicator />}
 
 				<span className="truncate text-sm font-medium">{label}</span>
 			</span>
 
-			{isCorrectAnswer && <span className="sr-only">Riktig svar.</span>}
-			{pickWasWrong && (
+			{(result === "correct" || result === "correct-pick") && (
+				<span className="sr-only">Riktig svar.</span>
+			)}
+			{result === "wrong-pick" && (
 				<span className="sr-only">Feil svar, du valgte dette.</span>
 			)}
-			{pickIsNeutral && <span className="sr-only">Ditt svar.</span>}
+			{result === "neutral-pick" && <span className="sr-only">Ditt svar.</span>}
 
-			{pickWasCorrect && (
+			{result === "correct-pick" && (
 				<CheckCircleIcon
 					aria-hidden="true"
 					weight="fill"
 					className="size-4 shrink-0 text-success"
 				/>
 			)}
-			{pickWasWrong && (
+			{result === "wrong-pick" && (
 				<XCircleIcon
 					aria-hidden="true"
 					weight="fill"

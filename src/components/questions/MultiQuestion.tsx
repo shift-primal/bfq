@@ -39,19 +39,57 @@ export const MultiQuestion = ({ question }: { question: MultiPublic }) => {
 			questionType="multi"
 			maxOptions={question.maxOptions}
 		>
-			<QuestionList>
+			<QuestionList slot="checkbox-group">
 				{options.map((o) => {
 					const isSelected = selected.includes(o);
+					const isDisabled = atMax && !isSelected;
 
 					return (
 						<QuestionListItem key={o}>
 							<CheckboxPrimitive.Root
 								checked={isSelected}
 								onCheckedChange={() => toggle(o)}
-								disabled={atMax && !isSelected}
+								disabled={isDisabled}
 								asChild
 							>
-								<QuestionOption variant="multi" label={o} />
+								{/* CheckboxPrimitive normally renders a native <button>,
+								which is tabbable and responds to Space with no extra
+								work. asChild swaps in this div, which loses both of
+								those native behaviors, so they have to be set explicitly
+								here. */}
+								<QuestionOption
+									variant="multi"
+									label={o}
+									tabIndex={isDisabled ? -1 : 0}
+									onKeyDown={(e) => {
+										if (e.key === " " && !isDisabled) {
+											e.preventDefault();
+											toggle(o);
+											return;
+										}
+										// Checkbox has no group concept in Radix, so unlike
+										// the radio group there's no roving focus to lean on
+										// here — arrow-key movement between checkboxes has
+										// to be done by hand.
+										if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+											e.preventDefault();
+											const list = e.currentTarget.closest(
+												'[data-slot="checkbox-group"]',
+											);
+											const items = list
+												? [
+														...list.querySelectorAll<HTMLElement>(
+															'[role="checkbox"]',
+														),
+													]
+												: [];
+											const currentIndex = items.indexOf(e.currentTarget);
+											const nextIndex =
+												currentIndex + (e.key === "ArrowDown" ? 1 : -1);
+											items[nextIndex]?.focus();
+										}
+									}}
+								/>
 							</CheckboxPrimitive.Root>
 						</QuestionListItem>
 					);
