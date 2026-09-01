@@ -26,7 +26,7 @@ const Leaderboard = () => {
 			<h1 className="shrink-0 text-center text-2xl font-medium">Ledertavle</h1>
 
 			<ScrollableContent>
-				{entries.length > 1 ? (
+				{entries.length > 0 ? (
 					<Table>
 						<TableCaption>Poengsummene til alle deltakerne</TableCaption>
 						<TableHeader>
