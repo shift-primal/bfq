@@ -36,7 +36,7 @@ export function useReviewNavigation() {
 
 	const navigate = useNavigate();
 
-	const { playWarn } = useAppSound();
+	const { playPrev, playError, playWarn, playSuccess } = useAppSound();
 
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [confirmSubmitOpen, setConfirmSubmitOpen] = useState(false);
@@ -44,18 +44,20 @@ export function useReviewNavigation() {
 	const total = Object.keys(questions).length;
 
 	const handleBack = () => {
+		playPrev();
 		navigate({ to: "/quiz/$step", params: { step: String(total) } });
 	};
 
 	const handleNext = () => {
 		if (!isValidQuiz(name, answers, questions)) {
-			playWarn();
+			playError();
 			toast.error("Mangler svar på ett eller flere spørsmål", {
 				id: "app-toast",
 			});
 			return;
 		}
 
+		playWarn();
 		setConfirmSubmitOpen(true);
 	};
 
@@ -65,11 +67,13 @@ export function useReviewNavigation() {
 
 		try {
 			const id = await submitQuiz({ data: { name, answers } });
+			playSuccess();
 			reset();
 			navigate({ to: "/quiz/result", search: { highlight: id } });
 		} catch {
 			setIsSubmitting(false);
 			setConfirmSubmitOpen(false);
+			playError();
 			toast.error("Noe gikk galt, prøv igjen", { id: "app-toast" });
 		}
 	};

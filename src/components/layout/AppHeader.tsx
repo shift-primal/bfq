@@ -1,8 +1,10 @@
 import { HouseIcon, ListChecksIcon, TrophyIcon } from "@phosphor-icons/react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { SoundToggle } from "#/components/layout/SoundToggle";
 import { ThemeToggle } from "#/components/layout/ThemeToggle";
 import { Button } from "#/components/shadcn/button";
+import { useAppSound } from "#/hooks/useAppSound";
 import { useQuizResumeTarget } from "#/hooks/useQuizResumeTarget";
 
 const HeaderNavButton = ({
@@ -15,13 +17,17 @@ const HeaderNavButton = ({
 	icon: ReactNode;
 }) => {
 	const navigate = useNavigate();
+	const { playSelect } = useAppSound();
 
 	return (
 		<Button
 			variant="ghost"
 			size="icon"
 			aria-label={label}
-			onClick={() => navigate({ to })}
+			onClick={() => {
+				playSelect();
+				navigate({ to });
+			}}
 		>
 			{icon}
 		</Button>
@@ -30,9 +36,16 @@ const HeaderNavButton = ({
 
 const QuizNavButton = () => {
 	const target = useQuizResumeTarget();
+	const { playSelect } = useAppSound();
 
 	return (
-		<Button variant="ghost" size="icon" aria-label="Quiz" asChild>
+		<Button
+			variant="ghost"
+			size="icon"
+			aria-label="Quiz"
+			asChild
+			onClick={() => playSelect()}
+		>
 			<Link {...target}>
 				<ListChecksIcon aria-hidden="true" />
 			</Link>
@@ -41,7 +54,7 @@ const QuizNavButton = () => {
 };
 
 export const AppHeader = () => (
-	<header className="fixed inset-x-0 top-0 z-50 flex h-[var(--header-h)] justify-center border-b bg-background/80 backdrop-blur-sm">
+	<header className="fixed inset-x-0 top-0 z-50 flex h-(--header-h) justify-center border-b bg-background/80 backdrop-blur-sm">
 		<div className="flex w-full max-w-2xl items-center justify-between px-4 sm:px-6 lg:px-8">
 			<div className="flex items-center gap-x-1">
 				<HeaderNavButton
@@ -56,7 +69,10 @@ export const AppHeader = () => (
 					icon={<TrophyIcon aria-hidden="true" />}
 				/>
 			</div>
-			<ThemeToggle />
+			<div>
+				<SoundToggle />
+				<ThemeToggle />
+			</div>
 		</div>
 	</header>
 );

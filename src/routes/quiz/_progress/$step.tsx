@@ -1,8 +1,9 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { QuestionRenderer } from "#/components/questions/QuestionRenderer";
 import { Navigation } from "#/components/quiz/Navigation";
 import { useStepNavigation } from "#/hooks/useStepNavigation";
+import { requireName } from "#/lib/require-name.guard";
 import { getQuestion } from "#/server/questions.rpc";
 import { useQuizStore } from "#/stores/quiz-store";
 
@@ -18,29 +19,17 @@ const QuestionStep = () => {
 	return (
 		<>
 			<QuestionRenderer question={data.question} />
-			<Navigation onBack={handleBack} onNext={handleNext} />
+			<Navigation
+				onBack={handleBack}
+				onNext={handleNext}
+				currentStep={data.step}
+			/>
 		</>
 	);
 };
 
 export const Route = createFileRoute("/quiz/_progress/$step")({
-	beforeLoad: async () => {
-		if (typeof window === "undefined") return;
-
-		let unsub: (() => void) | undefined;
-
-		const hydrated = new Promise<void>((resolve) => {
-			if (useQuizStore.persist.hasHydrated()) return resolve();
-			unsub = useQuizStore.persist.onFinishHydration(() => resolve());
-		});
-
-		const timeout = new Promise<void>((resolve) => setTimeout(resolve, 3000));
-
-		await Promise.race([hydrated, timeout]);
-		unsub?.();
-
-		if (!useQuizStore.getState().name) throw redirect({ to: "/quiz/start" });
-	},
+	beforeLoad: requireName,
 	loader: ({ params }) => getQuestion({ data: Number(params.step) }),
 	component: QuestionStep,
 });

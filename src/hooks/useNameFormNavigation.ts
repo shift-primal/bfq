@@ -1,6 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
+import { useAppSound } from "#/hooks/useAppSound";
 import { nameSchema } from "#/lib/name.schema";
 import { getShuffledOrder } from "#/server/questions.rpc";
 import { useQuizStore } from "#/stores/quiz-store";
@@ -12,9 +13,13 @@ export function useNameFormNavigation() {
 			setQuestions: s.setQuestions,
 		})),
 	);
+
+	const { playNext, playPrev, playError } = useAppSound();
+
 	const navigate = useNavigate();
 
 	const handleBack = () => {
+		playPrev();
 		navigate({ to: "/" });
 	};
 
@@ -23,6 +28,7 @@ export function useNameFormNavigation() {
 
 		if (!result.success) {
 			toast.error(result.error.issues[0].message, { id: "app-toast" });
+			playError();
 			return;
 		}
 
@@ -31,6 +37,7 @@ export function useNameFormNavigation() {
 			setQuestions(questions);
 		}
 
+		playNext();
 		navigate({ to: "/quiz/$step", params: { step: "1" } });
 	};
 

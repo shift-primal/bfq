@@ -1,12 +1,14 @@
 import { TrophyIcon } from "@phosphor-icons/react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "#/components/shadcn/button";
+import { useAppSound } from "#/hooks/useAppSound";
 import { useQuizResumeTarget } from "#/hooks/useQuizResumeTarget";
 import { getQuestionCount } from "#/server/questions.rpc";
 
 const Home = () => {
 	const quizTarget = useQuizResumeTarget();
 	const questionCount = Route.useLoaderData();
+	const { playNext, playSelect } = useAppSound();
 
 	return (
 		<div className="relative flex min-h-[calc(100dvh-var(--header-h))] flex-col items-center justify-center overflow-hidden text-center">
@@ -28,10 +30,10 @@ const Home = () => {
 			</p>
 
 			<div className="mt-10 flex w-full max-w-xs flex-col gap-y-3">
-				<Button asChild size="lg">
+				<Button asChild size="lg" onClick={() => playNext()}>
 					<Link {...quizTarget}>Ta quizen</Link>
 				</Button>
-				<Button asChild variant="outline">
+				<Button asChild variant="outline" onClick={() => playSelect()}>
 					<Link to="/leaderboard">
 						<TrophyIcon aria-hidden="true" />
 						Se ledertavlen

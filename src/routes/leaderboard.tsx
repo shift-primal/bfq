@@ -13,11 +13,13 @@ import {
 	TableHeader,
 	TableRow,
 } from "#/components/shadcn/table";
+import { useAppSound } from "#/hooks/useAppSound";
 import { getLeaderboard } from "#/server/leaderboard.rpc";
 
 const Leaderboard = () => {
 	const { entries, totalPages, page } = Route.useLoaderData();
 	const { highlight } = Route.useSearch();
+	const { playPrev } = useAppSound();
 
 	return (
 		<PageShell>
@@ -60,7 +62,7 @@ const Leaderboard = () => {
 			<div className="flex shrink-0 flex-col items-center gap-y-4">
 				<LeaderboardPagination page={page} totalPages={totalPages} />
 
-				<Button asChild variant="outline">
+				<Button asChild variant="outline" onClick={() => playPrev()}>
 					<Link to="/">Tilbake til forsiden</Link>
 				</Button>
 			</div>

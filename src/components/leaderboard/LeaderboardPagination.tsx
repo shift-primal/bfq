@@ -2,6 +2,7 @@ import { CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { Button } from "#/components/shadcn/button";
+import { useAppSound } from "#/hooks/useAppSound";
 
 const PagerButton = ({
 	disabled,
@@ -14,6 +15,8 @@ const PagerButton = ({
 	label: string;
 	children: ReactNode;
 }) => {
+	const { playSelect } = useAppSound();
+
 	if (disabled) {
 		return (
 			<Button variant="outline" size="icon" disabled aria-label={label}>
@@ -23,7 +26,7 @@ const PagerButton = ({
 	}
 
 	return (
-		<Button asChild variant="outline" size="icon">
+		<Button asChild variant="outline" size="icon" onClick={() => playSelect()}>
 			<Link
 				to="/leaderboard"
 				search={(prev) => ({ ...prev, page })}

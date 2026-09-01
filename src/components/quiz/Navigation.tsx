@@ -5,17 +5,24 @@ import {
 } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { Button } from "#/components/shadcn/button";
+import { useAppSound } from "#/hooks/useAppSound";
 import { useNavigationHotkey } from "#/hooks/useNavigationHotkey";
 
 export const Navigation = ({
 	onBack,
 	onNext,
+	currentStep,
 }: {
 	onBack: () => void;
 	onNext: () => void;
+	currentStep: number | "review";
 }) => {
 	useNavigationHotkey("ArrowLeft", onBack);
 	useNavigationHotkey("ArrowRight", onNext);
+
+	const { playNext } = useAppSound();
+
+	const canJumpToReview = typeof currentStep === "number" && currentStep >= 1;
 
 	return (
 		<div className="flex flex-col gap-y-4 py-4">
@@ -45,7 +52,12 @@ export const Navigation = ({
 					<Link
 						to="/quiz/review"
 						aria-label="Gå til oppsummering"
-						className="flex items-center"
+						aria-disabled={!canJumpToReview}
+						onClick={(e) => {
+							!canJumpToReview && e.preventDefault();
+							playNext();
+						}}
+						className="flex items-center aria-disabled:pointer-events-none aria-disabled:opacity-50"
 					>
 						Hopp til oppsummering
 						<FastForwardIcon aria-hidden="true" />

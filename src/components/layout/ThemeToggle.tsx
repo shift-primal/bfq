@@ -5,7 +5,7 @@ import { useAppSound } from "#/hooks/useAppSound";
 
 export const ThemeToggle = () => {
 	const { setTheme, resolvedTheme } = useTheme();
-	const { playSelect } = useAppSound();
+	const { playSelect, playDeselect } = useAppSound();
 
 	return (
 		<Button
@@ -13,8 +13,7 @@ export const ThemeToggle = () => {
 			size="icon"
 			aria-label="Bytt tema"
 			onClick={() => {
-				playSelect();
-				// Add a toggle thingy here for the sound (playSelect and playDeselect)
+				resolvedTheme === "dark" ? playSelect() : playDeselect();
 				setTheme(resolvedTheme === "dark" ? "light" : "dark");
 			}}
 		>

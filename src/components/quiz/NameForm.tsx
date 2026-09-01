@@ -68,7 +68,7 @@ export const NameForm = () => {
 				</ScrollableContent>
 			</FieldSet>
 
-			<Navigation onBack={handleBack} onNext={handleNext} />
+			<Navigation onBack={handleBack} onNext={handleNext} currentStep={0} />
 		</>
 	);
 };

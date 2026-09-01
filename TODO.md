@@ -5,9 +5,12 @@
 - [x] Randomize quiz order
 - [x] Only show unanswered on review
 - [x] Consolidate components/styles and remove unneccesary wrappers (FooRenderer etc..)
-- [x] A11Y
+- [x] SFX
+- [/] A11Y
+- [/] Guard /review på name
+- [/] Dynamically disable "Hopp til oppsummering" på /review og /start
+- [ ] Sant / usant spørsmål
 - [ ] Support for bilder
-- [ ] SFX
 - [ ] Uncentered radio buttons (select) og artifacts på circle på zoom (multi)
 
 ## CHECK LATER
